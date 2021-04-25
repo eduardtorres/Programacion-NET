@@ -8,6 +8,6 @@ namespace ProductosCore.Interfaces
 {
     public interface IFabricantesServices
     {
-        Task<ListarFabricantesResponse> ListarFabricantes(ListarFabricantesRequest request);
+        Task<IList<FabricanteDTO>> ListarFabricantes();
     }
 }

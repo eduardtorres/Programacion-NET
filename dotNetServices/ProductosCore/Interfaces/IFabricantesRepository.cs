@@ -9,6 +9,7 @@ namespace ProductosCore.Interfaces
 {
     public interface IFabricantesRepository
     {
-        Task<IReadOnlyList<FabricanteEntity>> ListarFabricantes(ListarFabricantesRequest request);
+        Task<IList<FabricanteEntity>> ListarFabricantes();
+        Task<IList<Producto>> ListarProductosFabricantes(long IdFabricante);
     }
 }

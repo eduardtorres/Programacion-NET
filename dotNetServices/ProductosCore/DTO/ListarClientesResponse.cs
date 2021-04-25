@@ -8,5 +8,6 @@ namespace ProductosCore.DTO
     {
         public ListarClientesResponse() { }
         public List<ClienteDTO> clientes { get; set; }
+        public ClienteDTO cliente { get; set; }
     }
 }

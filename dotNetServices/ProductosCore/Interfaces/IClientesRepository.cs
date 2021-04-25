@@ -9,6 +9,8 @@ namespace ProductosCore.Interfaces
 {
     public interface IClientesRepository
     {
-        Task<IReadOnlyList<ClienteEntity>> ListarClientes(ListarClientesRequest request);
+        Task<IList<ClienteEntity>> ListarClientes();
+        Task<ClienteEntity> AuthenticarCliente(string UserName, string Password);
+        Task<ClienteEntity> RegistrarCliente(ClienteEntity clienteEntity);
     }
 }

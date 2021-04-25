@@ -8,6 +8,8 @@ namespace ProductosCore.Interfaces
 {
     public interface IClientesServices
     {
-        Task<ListarClientesResponse> ListarClientes(ListarClientesRequest request);
+        Task<IList<ClienteDTO>> ListarClientes();
+        Task<ClienteDTO> AuthenticarCliente(string UserName, string Password);
+        Task<ClienteDTO> RegistrarCliente(ClienteDTO cliente);
     }
 }

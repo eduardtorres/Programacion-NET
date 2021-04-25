@@ -1,6 +1,6 @@
 ﻿using ProductosCore.DTO;
-using ProductosCore.Entities;
 using ProductosCore.Interfaces;
+using ProductosCore.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +16,26 @@ namespace ProductosCore.Services
         {
             iClientesRepository = _iClientesRepository;
         }
-        public async Task<ListarClientesResponse> ListarClientes(ListarClientesRequest request)
+
+        public async Task<IList<ClienteDTO>> ListarClientes()
+        {            
+            ClientesAssembler assembler = new ClientesAssembler();
+            IList<ClienteDTO> listaClientes = assembler.assemblyDTOs(await iClientesRepository.ListarClientes());    
+            return listaClientes;
+        }
+
+        public async Task<ClienteDTO> AuthenticarCliente(string UserName, string Password)
         {
-            IReadOnlyList<ClienteEntity> lista = await iClientesRepository.ListarClientes(request);
-            ListarClientesResponse response = new ListarClientesResponse();
+            ClientesAssembler assembler = new ClientesAssembler();
+            ClienteDTO cliente = assembler.assemblyDTO(await iClientesRepository.AuthenticarCliente(UserName, Password));
+            return cliente;
+        }       
 
-            var clientes = lista.Select(x => new ClienteDTO()
-            {
-                IdCliente = x.IdCliente,
-                Nombre = x.Nombre,
-                Direccion = x.Direccion,
-                Nit = x.Nit,
-                Telefono = x.Telefono
-            });
-
-            response.clientes = clientes.ToList();
-            return response;
+        public async Task<ClienteDTO> RegistrarCliente(ClienteDTO cliente)
+        {
+            ClientesAssembler assembler = new ClientesAssembler();            
+            ClienteDTO clienteResult = assembler.assemblyDTO(await iClientesRepository.RegistrarCliente(assembler.assemblyEntity(cliente)));
+            return clienteResult;
         }
     }
 }
