@@ -25,6 +25,13 @@ namespace ProductosApi.Controllers
         public async Task<ActionResult<ListarProductosResponse>> ListarProductos(ListarProductosRequest request)
         {
             return Ok( await iProductosService.ListarProductos( request ) );
+        }    
+        
+        [HttpGet("listado/obtener")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ListarProductosResponse>> ListarProductos1(ListarProductosRequest request)
+        {
+            return Ok( await iProductosService.ListarProductos( request ) );
         }
 
     }

@@ -16,7 +16,7 @@ namespace ProductosInfraestructure.Repositories
 
         public async Task<IReadOnlyList<Producto> > ListarProductos(ListarProductosRequest request)
         {
-            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=123qwe");
             connection.Open();
             SqlCommand command = new SqlCommand("select Id, Nombre from productos", connection);
             SqlDataReader reader = command.ExecuteReader();
