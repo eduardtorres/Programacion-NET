@@ -55,5 +55,27 @@ namespace ProductosInfraestructure.Repositories
             connection.Close();
             return lista;
         }
+
+        public async Task<IList<InventarioEntity>> ConsultarInventario(Producto producto)
+        {
+            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            connection.Open();
+            SqlCommand command = new SqlCommand("SPGetInventario", connection);
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@IdProducto", SqlDbType.BigInt)).Value = producto.Id;
+            SqlDataReader reader = command.ExecuteReader();
+            IList<InventarioEntity> lista = new List<InventarioEntity>();
+            while (await reader.ReadAsync())
+            {
+                InventarioEntity inventario = new InventarioEntity();
+                inventario.IdInventario = Convert.ToInt64(reader["IdInventario"]);
+                inventario.IdProducto = Convert.ToInt64(reader["IdProducto"]);
+                inventario.IdFabricante = Convert.ToInt64(reader["IdFabricante"]);
+                inventario.Cantidad = Convert.ToInt32(reader["Cantidad"]);
+                lista.Add(inventario);
+            }
+            connection.Close();
+            return lista;
+        }
     }
 }

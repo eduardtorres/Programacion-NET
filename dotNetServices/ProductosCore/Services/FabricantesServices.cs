@@ -23,5 +23,12 @@ namespace ProductosCore.Services
             IList<FabricanteDTO> listaFabricantes = assembler.assemblyDTOs(await iFabricantesRepository.ListarFabricantes());
             return listaFabricantes;
         }
+
+        public async Task<IList<ProductoDto>> ListarProductosFabricantes(long IdFabricante)
+        {
+            ProdcutosAssembler assembler = new ProdcutosAssembler();
+            IList<ProductoDto> listaFabricantes = assembler.assemblyDTOs(await iFabricantesRepository.ListarProductosFabricantes(IdFabricante));
+            return listaFabricantes;
+        }
     }
 }

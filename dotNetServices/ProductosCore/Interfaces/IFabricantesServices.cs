@@ -9,5 +9,6 @@ namespace ProductosCore.Interfaces
     public interface IFabricantesServices
     {
         Task<IList<FabricanteDTO>> ListarFabricantes();
+        Task<IList<ProductoDto>> ListarProductosFabricantes(long IdFabricante);
     }
 }
