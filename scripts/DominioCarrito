@@ -1,0 +1,26 @@
+USE [PICA];
+
+GO
+
+create SCHEMA carrito;
+
+GO
+
+create table carrito.carrito
+(
+    carrito_id int,
+    fecha datetime,
+    usuario nvarchar(100)
+)
+
+GO
+
+create table carrito.carrito_producto
+(
+    carrito_id int,
+    producto_id int,
+    producto_codigo nvarchar(100),
+    producto_fabricante nvarchar(100),
+    cantidad int,
+    precio float
+)
