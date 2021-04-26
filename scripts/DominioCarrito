@@ -6,16 +6,20 @@ create SCHEMA carrito;
 
 GO
 
+--drop table carrito.carrito;
+
+--drop table carrito
+
 create table carrito.carrito
 (
-    carrito_id int,
-    fecha datetime,
+    id int,
+    fecha nvarchar(100),
     usuario nvarchar(100)
 )
 
 GO
 
-create table carrito.carrito_producto
+create table carrito_producto
 (
     carrito_id int,
     producto_id int,
@@ -24,3 +28,10 @@ create table carrito.carrito_producto
     cantidad int,
     precio float
 )
+
+
+
+insert into carrito.carrito values (1,getdate(),'carlosarangob@hotmail.com');
+
+
+select * from carrito.carrito;
