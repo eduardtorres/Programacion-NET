@@ -28,8 +28,15 @@ namespace ProductosCore.Services
                 x => new ProductoDto()
                 {
                     Id = x.Id,
+                    Codigo = x.Codigo,
+                    Fabricante = x.Fabricante,
+                    TipoProveedor = x.TipoProveedor,
+                    CodigoProveedor = x.CodigoProveedor,
                     Nombre = x.Nombre,
-                    Precio = x.Precio
+                    Descripcion = x.Descripcion,
+                    Categoria = x.Categoria,
+                    Precio = x.Precio,
+                    Inventario = x.Inventario
                 }
                 );
 
