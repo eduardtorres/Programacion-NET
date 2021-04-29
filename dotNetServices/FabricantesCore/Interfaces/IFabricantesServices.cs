@@ -10,6 +10,6 @@ namespace FabricantesCore.Interfaces
     {
         Task<IList<FabricanteDTO>> ListarFabricantes();
         Task<IList<ProductoDTO>> ListarProductosFabricantes(long IdFabricante);
-        Task<IList<InventarioDTO>> ConsultarInventario(IList<ProductoDTO> productos);
+        Task<IList<InventarioDTO>> ConsultarInventario(IList<ProductoDTO> productos);        
     }
 }
