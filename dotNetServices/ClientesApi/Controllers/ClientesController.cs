@@ -1,5 +1,6 @@
 ﻿using ClientesCore.DTO;
 using ClientesCore.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,25 @@ namespace ClientesApi.Controllers
             iClientesServices = _iClientesServices;
         }
 
-        [HttpPost]        
+        [HttpPost("registrar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ClienteDTO>> RegistrarCliente(ClienteDTO cliente)
         {
             return Ok(await iClientesServices.RegistrarCliente(cliente));
         }
 
-        [HttpGet]
+        [HttpGet("listar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ClienteDTO>> ListarClientes()
         {
             return Ok(await iClientesServices.ListarClientes());
+        }
+
+        [HttpGet("autenticar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ClienteDTO>> AuthenticarCliente(string UserName, string Password)
+        {
+            return Ok(await iClientesServices.AuthenticarCliente(UserName, Password));
         }
     }
 }

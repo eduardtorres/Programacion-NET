@@ -1,5 +1,6 @@
 ﻿using FabricantesCore.Entities;
 using FabricantesCore.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,10 +12,14 @@ namespace FabricantesInfraestructure.Repositories
 {
     public class FabricantesRepository : IFabricantesRepository
     {
-        public FabricantesRepository() { }
+        IConfiguration iConfiguration;
+        public FabricantesRepository(IConfiguration _iConfiguration)
+        {
+            iConfiguration = _iConfiguration;
+        }
         public async Task<IList<FabricanteEntity>> ListarFabricantes()
         {
-            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
             connection.Open();
             SqlCommand command = new SqlCommand("SPGetAllFabricantes", connection);
             command.CommandType = CommandType.StoredProcedure;
@@ -36,7 +41,7 @@ namespace FabricantesInfraestructure.Repositories
 
         public async Task<IList<ProductoEntity>> ListarProductosFabricantes(long IdFabricante)
         {
-            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
             connection.Open();
             SqlCommand command = new SqlCommand("SPGetProductosFabricante", connection);
             command.CommandType = CommandType.StoredProcedure;
@@ -57,7 +62,7 @@ namespace FabricantesInfraestructure.Repositories
 
         public async Task<IList<InventarioEntity>> ConsultarInventario(IList<ProductoEntity> productos)
         {
-            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
             connection.Open();
 
             IList<InventarioEntity> lista = new List<InventarioEntity>();

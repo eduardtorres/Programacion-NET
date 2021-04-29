@@ -1,5 +1,6 @@
 ﻿using ClientesCore.Entities;
 using ClientesCore.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,10 +11,14 @@ namespace ClientesInfraestructure.Repositories
 {
     public class ClientesRepository : IClientesRepository
     {
-        public ClientesRepository() { }
+        IConfiguration iConfiguration;
+        public ClientesRepository(IConfiguration _iConfiguration)
+        {
+            iConfiguration = _iConfiguration;
+        }
         public async Task<IList<ClienteEntity>> ListarClientes()
         {
-            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
             connection.Open();
             SqlCommand command = new SqlCommand("SPGetAllClientes", connection);
             command.CommandType = CommandType.StoredProcedure;
@@ -35,7 +40,7 @@ namespace ClientesInfraestructure.Repositories
 
         public async Task<ClienteEntity> AuthenticarCliente(string UserName, string Password)
         {
-            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
             connection.Open();
             SqlCommand command = new SqlCommand("SPGetClienteByUserPass", connection);
             command.CommandType = CommandType.StoredProcedure;
@@ -61,7 +66,7 @@ namespace ClientesInfraestructure.Repositories
         
         public async Task<ClienteEntity> RegistrarCliente(ClienteEntity clienteEntity)
         {
-            SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=PICA;Persist Security Info=True;User ID=sa;Password=Pass@word");
+            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
             connection.Open();
             SqlCommand command = new SqlCommand("SPRegistrarCliente", connection);
             command.CommandType = CommandType.StoredProcedure;
