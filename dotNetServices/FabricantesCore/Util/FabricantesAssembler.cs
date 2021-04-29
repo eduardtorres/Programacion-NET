@@ -9,7 +9,7 @@ namespace FabricantesCore.Util
         public override FabricanteDTO assemblyDTO(FabricanteEntity entity)
         {
             FabricanteDTO dto = new FabricanteDTO();
-            dto.IdCliente = entity.IdCliente;
+            dto.IdFabricante = entity.IdFabricante;
             dto.Nombre = entity.Nombre;
             dto.Direccion = entity.Direccion;
             dto.Nit = entity.Nit;
@@ -21,7 +21,7 @@ namespace FabricantesCore.Util
         public override FabricanteEntity assemblyEntity(FabricanteDTO dto)
         {
             FabricanteEntity entity = new FabricanteEntity();
-            entity.IdCliente = dto.IdCliente;
+            entity.IdFabricante = dto.IdFabricante;
             entity.Nombre = dto.Nombre;
             entity.Direccion = dto.Direccion;
             entity.Nit = dto.Nit;

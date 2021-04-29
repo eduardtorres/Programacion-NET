@@ -9,7 +9,7 @@ namespace FabricantesCore.DTO
     public class FabricanteDTO
     {
         [Key]
-        public long IdCliente { get; set; }
+        public long IdFabricante { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
         public string Nit { get; set; }

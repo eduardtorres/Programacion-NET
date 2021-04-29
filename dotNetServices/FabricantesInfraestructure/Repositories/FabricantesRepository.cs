@@ -28,7 +28,7 @@ namespace FabricantesInfraestructure.Repositories
             while (await reader.ReadAsync())
             {
                 FabricanteEntity fabricante = new FabricanteEntity();
-                fabricante.IdCliente = Convert.ToInt64(reader["IdCliente"]);
+                fabricante.IdFabricante = Convert.ToInt64(reader["IdFabricante"]);
                 fabricante.Nombre = reader["Nombre"].ToString();
                 fabricante.Direccion = reader["Direccion"].ToString();
                 fabricante.Nit = reader["Nit"].ToString();
