@@ -1,23 +1,39 @@
-CREATE DATABASE PICA;
+CREATE DATABASE [Productos];
 
 GO
 
-USE [PICA];
+USE [Productos]
 
 GO
 
-create table productos
+drop table Productos
+create table Productos
 (
     Id int,
-    Nombre nvarchar(100)
+    Codigo nvarchar(100),
+    Fabricante nvarchar(100),
+    TipoProveedor nvarchar(100),
+    CodigoProveedor nvarchar(100),
+    Nombre nvarchar(100),
+    Descripcion nvarchar(100),
+    Categoria nvarchar(100),
+    Precio float,
+    Inventario int
 );
 
 GO
 
-
-insert into productos values(1,'Nintendo Switch');
-insert into productos values(2,'Play station 5');
-insert into productos values(3,'Xbox One');
+insert into productos values
+    (   1,
+        'NS',
+        'NINTENDO',
+        'Local',
+        'Local',
+        'Nintendo Switch',
+        'Portable',
+        'Consolas',
+        900000,
+        0);
 
 GO
 
