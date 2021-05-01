@@ -1,15 +1,18 @@
-package carrito.pica;
+package carrito.pica.repositorios;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "carrito" , schema = "carrito" )
+@Table(name = "carrito")
 @NamedQueries({
         @NamedQuery(name = "Carrito.findAll", query = "SELECT c FROM Carrito c"),
-        @NamedQuery(name = "Carrito.findById", query = "SELECT c FROM Carrito c WHERE c.id = :id")
+        @NamedQuery(name = "Carrito.obtenerPorUsuarioPais", query = "SELECT c FROM Carrito c WHERE c.Usuario = :Usuario and c.Pais = :Pais order by Id desc")
 })
 public class Carrito {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     private int Id;
 
@@ -19,15 +22,22 @@ public class Carrito {
     @Column(name = "usuario")
     private String Usuario;
 
+    @Column(name = "pais")
+    private String Pais;
+
+    @Transient
+    public List< Producto > productos;
+
     public Carrito()
     {
 
     }
 
-    public Carrito(int _id, String _fecha, String _usuario) {
+    public Carrito(int _id, String _fecha, String _usuario, String _pais) {
         Id = _id;
         Fecha = _fecha;
         Usuario = _usuario;
+        Pais = _pais;
     }
 
     public int getId()
@@ -44,4 +54,10 @@ public class Carrito {
     {
         return Usuario;
     }
+
+    public String getPais()
+    {
+        return Pais;
+    }
+
 }
