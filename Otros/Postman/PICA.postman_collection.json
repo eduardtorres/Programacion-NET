@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "f4c90171-6e1d-47ef-9140-a23820584095",
+		"name": "PICA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Inventary",
+			"item": [
+				{
+					"name": "Select",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/api/v1/inventary",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"v1",
+								"inventary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insertar Inventary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n             \"nombre\": \"Nintendo Switch\",\r\n            \"descripcion\": \"Consola portatil\",\r\n            \"urlimagen\": \"https://www.alkosto.com/\",\r\n            \"nombreimagen\": \"Ninntendo.jpg\",\r\n            \"categoria\": \"Videojuegos\",\r\n            \"precio\": 654.44,\r\n            \"cantidad\": 452\r\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/api/v1/inventary",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"v1",
+								"inventary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Inventary",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 11,\r\n    \"nombre\": \"Nintendo Modificado!!!!!!!\",\r\n    \"descripcion\": \"Consola portatil\",\r\n    \"precio\": 4544.44,\r\n    \"cantidad\": 452,\r\n    \"urlimagen\": \"https://www.alkosto.com/\",\r\n    \"nombreimagen\": \"Nintendo.jpg\",\r\n    \"categoria\": \"Videojuegos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/api/v1/inventary/11",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"v1",
+								"inventary",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Inventary",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 11,\r\n    \"nombre\": \"Nintendo Switch\",\r\n    \"descripcion\": \"Consola portatil\",\r\n    \"precio\": 654.44,\r\n    \"cantidad\": 452,\r\n    \"urlimagen\": \"https://www.alkosto.com/\",\r\n    \"nombreimagen\": \"Ninntendo.jpg\",\r\n    \"categoria\": \"Videojuegos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/api/v1/inventary/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"api",
+								"v1",
+								"inventary",
+								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

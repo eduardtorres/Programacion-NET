@@ -1,0 +1,57 @@
+// request
+
+[
+{
+"Id" : 1,
+"Codigo" : "X001",
+"Fabricante" : "Microsoft",
+"TipoProveedor" : "Externo",
+"CodigoProveedor" : "ProveedorA",
+"Nombre" : "Xbox One",
+"Descripcion" : "Toda la informacion",
+"Categoria" : "Consolas",
+"Precio" : 10000,
+"Inventario" : 0
+},
+{
+"Id" : 2,
+"Codigo" : "X002",
+"Fabricante" : "Microsoft",
+"TipoProveedor" : "Local",
+"CodigoProveedor" : "Local",
+"Nombre" : "Xbox X",
+"Descripcion" : "Toda la informacion",
+"Categoria" : "Consolas",
+"Precio" : 10000,
+"Inventario" : 0
+}
+]
+
+//response
+
+[
+{
+"Id" : 1,
+"Codigo" : "X001",
+"Fabricante" : "Microsoft",
+"TipoProveedor" : "Externo",
+"CodigoProveedor" : "ProveedorA",
+"Nombre" : "Xbox One",
+"Descripcion" : "Toda la informacion",
+"Categoria" : "Consolas",
+"Precio" : 10000,
+"Inventario" : 500
+},
+{
+"Id" : 2,
+"Codigo" : "X002",
+"Fabricante" : "Microsoft",
+"TipoProveedor" : "Local",
+"CodigoProveedor" : "Local",
+"Nombre" : "Xbox X",
+"Descripcion" : "Toda la informacion",
+"Categoria" : "Consolas",
+"Precio" : 10000,
+"Inventario" : 500
+}
+]
