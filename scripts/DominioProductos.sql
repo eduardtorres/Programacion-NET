@@ -37,4 +37,17 @@ insert into productos values
 
 GO
 
+insert into productos values
+    (   2,
+        'XBO',
+        'Microsoft',
+        'Local',
+        'Local',
+        'Xbox one',
+        'Consla de Mesa',
+        'Consolas',
+        1100000,
+        0);
+
+GO
 select * from productos;
