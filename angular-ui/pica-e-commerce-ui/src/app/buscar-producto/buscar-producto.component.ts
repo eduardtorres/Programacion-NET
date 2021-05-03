@@ -4,6 +4,9 @@ import { ProductService } from '../services/product.services';
 
 import { IBuscarProductosResponse , IProducto } from '../interfaces/productos.buscar.response'
 
+import { FormBuilder } from '@angular/forms';
+import { stringify } from '@angular/compiler/src/util';
+
 @Component({
   selector: 'app-buscar-producto',
   templateUrl: './buscar-producto.component.html',
@@ -14,7 +17,13 @@ export class BuscarProductoComponent {
   shippingCosts = this.productService.getShippingPrices();
   productos : IProducto[] = [];
   
-  constructor(private productService : ProductService ) { 
+  checkoutForm = this.formBuilder.group({
+    name: ''
+  });
+
+  constructor(
+    private productService : ProductService,
+    private formBuilder: FormBuilder ) { 
 
   }
 
@@ -23,10 +32,17 @@ export class BuscarProductoComponent {
   }
 
   showData() {
-    this.productService.getProducts().subscribe( data => {
+  }
+
+  onSubmit(): void {
+    // Process checkout data here
+    console.warn('Your order has been submitted', this.checkoutForm.value);    
+    const busqueda = this.checkoutForm.get('name')?.value;
+    this.productService.getProducts(busqueda).subscribe( data => {
       this.productos = data.productos
     } );
-  }
+
+  }  
 
 }
 

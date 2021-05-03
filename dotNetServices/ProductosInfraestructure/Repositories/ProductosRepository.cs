@@ -34,7 +34,13 @@ namespace ProductosInfraestructure.Repositories
                     Categoria,
                     Precio,
                     Inventario
-                    from productos", connection);
+                    from productos
+                where Nombre like '%' + @nombre + '%'
+
+", connection);
+
+            command.Parameters.Add(new SqlParameter("@nombre", request.Nombre));
+
             SqlDataReader reader = command.ExecuteReader();
             List<Producto> lista = new List<Producto>();
             while ( await reader.ReadAsync())

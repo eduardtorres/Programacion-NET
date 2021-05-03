@@ -10,8 +10,6 @@ import { IBuscarProductosResponse } from '../interfaces/productos.buscar.respons
 
 export class ProductService {
 
-
-  
     constructor(
         private http: HttpClient
       ) {}    
@@ -20,13 +18,13 @@ export class ProductService {
       return this.http.get<{type: string, price: number}[]>('/assets/shipping.json');
     }    
 
-    getProducts() {
+    getProducts(busqueda:String) {
       
       const httpOptions = {
         headers: new HttpHeaders({'Content-Type': 'application/json'})
       }
 
-      return this.http.post<IBuscarProductosResponse>('http://localhost:5000/producto/listado/obtener','{}', httpOptions);
+      return this.http.get<IBuscarProductosResponse>('http://localhost:5000/producto/listado/obtener/' + busqueda , httpOptions);
       
     }    
 
