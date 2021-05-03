@@ -5,11 +5,11 @@ import { ProductService } from '../services/product.services';
 import { IBuscarProductosResponse , IProducto } from '../interfaces/productos.buscar.response'
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-buscar-producto',
+  templateUrl: './buscar-producto.component.html',
+  styleUrls: ['./buscar-producto.component.css']
 })
-export class ProductListComponent {
+export class BuscarProductoComponent {
 
   shippingCosts = this.productService.getShippingPrices();
   productos : IProducto[] = [];

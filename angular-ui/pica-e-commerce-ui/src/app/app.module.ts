@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { ProductListComponent } from './product-list/product-list.component';
+import { BuscarProductoComponent } from './buscar-producto/buscar-producto.component';
 
 @NgModule({
   imports: [
@@ -15,13 +15,13 @@ import { ProductListComponent } from './product-list/product-list.component';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: ProductListComponent }
+      { path: '', component: BuscarProductoComponent }
     ])
   ],
   declarations: [
     AppComponent,
     TopBarComponent,
-    ProductListComponent
+    BuscarProductoComponent
   ],
   bootstrap: [
     AppComponent
