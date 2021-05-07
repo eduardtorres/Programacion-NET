@@ -7,8 +7,13 @@ namespace TraslatorXSLT.XSLT
 {    
     public class XslTransformClass
     {
-        private const string filename = "mydata.xml";
-        private const string stylesheet = "myStyleSheet.xsl";
+        private const string filename = "XSLT/Productos.xml";
+        private const string stylesheet = "XSLT/Productos.xslt";
+
+        static void Main()
+        {
+            Transformar();
+        }
 
         public static void Transformar()
         {
