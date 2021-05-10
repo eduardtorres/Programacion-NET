@@ -16,7 +16,7 @@ Id INT IDENTITY,
 CodCarrito INT,
 Valor DECIMAL (12,2),
 FechaPago DATETIME,
-IndEstadoPago DECIMAL (1)
+IndEstadoPago BIT
 );
 
 GO
