@@ -1,0 +1,129 @@
+﻿{
+  "data": {
+    "id": 118,
+    "date_modified": "string",
+    "date_shipped": "string",
+    "cart_id": "a8458391-ef68-4fe5-9ec1-442e6a767364",
+    "status": "Awaiting Fulfillment",
+    "subtotal_tax": "0.0000",
+    "shipping_cost_tax": "0.0000",
+    "shipping_cost_tax_class_id": 2,
+    "handling_cost_tax": "0.0000",
+    "handling_cost_tax_class_id": 2,
+    "wrapping_cost_tax": "0.0000",
+    "wrapping_cost_tax_class_id": 3,
+    "payment_status": "authorized",
+    "store_credit_amount": "0.0000",
+    "gift_certificate_amount": "0.0000",
+    "currency_id": 1,
+    "currency_code": "USD",
+    "currency_exchange_rate": "1.0000000000",
+    "default_currency_id": 1,
+    "coupon_discount": "5.0000",
+    "shipping_address_count": 0,
+    "is_email_opt_in": false,
+    "order_source": "www",
+    "products": [
+      {
+        "name": "Fog Linen Chambray Towel - Beige Stripe",
+        "name_customer": "Fog Linen Chambray Towel - Beige Stripe",
+        "name_merchant": "Towel Type 1",
+        "quantity": 0,
+        "price_inc_tax": 0,
+        "price_ex_tax": 0,
+        "upc": "string",
+        "sku": "string"
+      },
+      {
+        "product_id": 0,
+        "name": "Fog Linen Chambray Towel - Beige Stripe",
+        "name_customer": "Fog Linen Chambray Towel - Beige Stripe",
+        "name_merchant": "Towel Type 1",
+        "product_options": [
+          {
+            "id": 0,
+            "value": "string",
+            "display_name": "couleur",
+            "display_name_customer": "couleur",
+            "display_name_merchant": "color",
+            "display_value": "bleu",
+            "display_value_merchant": "blue",
+            "display_value_customer": "bleu"
+          }
+        ],
+        "quantity": 0,
+        "price_inc_tax": 0,
+        "price_ex_tax": 0,
+        "upc": "string",
+        "variant_id": 0,
+        "wrapping_name": "string",
+        "wrapping_message": "string",
+        "wrapping_cost_ex_tax": 0,
+        "wrapping_cost_inc_tax": 0
+      }
+    ],
+    "shipping_addresses": {
+      "url": "https://api.bigcommerce.com/stores/store_hash/v2/orders/129/shippingaddresses",
+      "resource": "/orders/129/shippingaddresses"
+    },
+    "coupons": {
+      "url": "https://api.bigcommerce.com/stores/store_hash/v2/orders/129/coupons",
+      "resource": "/orders/129/coupons"
+    },
+    "status_id": 7,
+    "base_handling_cost": "0.0000",
+    "base_shipping_cost": "0.0000",
+    "base_wrapping_cost": 0,
+    "billing_address": {
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "company": "string",
+      "street_1": "123 Main Street",
+      "street_2": "string",
+      "city": "Austin",
+      "state": "TX",
+      "zip": 12345,
+      "country": "United States",
+      "country_iso2": "US",
+      "phone": 0,
+      "email": "janedoe@example.com",
+      "form_fields": [
+        {
+          "name": "License Id",
+          "value": "123BAF"
+        }
+      ]
+    },
+    "channel_id": 1,
+    "customer_id": 0,
+    "customer_message": "Thank you",
+    "date_created": "string",
+    "default_currency_code": "string",
+    "discount_amount": "0.0000",
+    "ebay_order_id": "0",
+    "external_id": null,
+    "external_source": "null",
+    "geoip_country": "United States",
+    "geoip_country_iso2": "US",
+    "handling_cost_ex_tax": "0.0000",
+    "handling_cost_inc_tax": "0.0000",
+    "ip_address": "12.345.678.910",
+    "is_deleted": false,
+    "items_shipped": 0,
+    "items_total": 1,
+    "order_is_digital": false,
+    "payment_method": "Credit Card",
+    "payment_provider_id": "",
+    "refunded_amount": "0.0000",
+    "shipping_cost_ex_tax": "0.0000",
+    "shipping_cost_inc_tax": "0.0000",
+    "staff_notes": "Send Saturday",
+    "subtotal_ex_tax": "225.0000",
+    "subtotal_inc_tax": "225.0000",
+    "tax_provider_id": "BasicTaxProvider",
+    "total_ex_tax": "225.0000",
+    "total_inc_tax": "225.0000",
+    "wrapping_cost_ex_tax": "0.0000",
+    "wrapping_cost_inc_tax": "0.0000"
+  }
+}
