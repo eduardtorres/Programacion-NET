@@ -33,6 +33,13 @@ namespace FabricantesApi.Controllers
             return Ok(await iFabricantesServices.ListarProductosFabricantes(IdFabricante));
         }
 
+        [HttpGet("productos/buscar/{filtro}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> BuscarProductosFabricantes([FromRoute]string filtro)
+        {
+            return Ok(await iFabricantesServices.BuscarProductosFabricantes(filtro));
+        }
+
         [HttpGet("inventario/consultar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<FabricanteDTO>> ConsultarInventario(IList<ProductoDTO> productos)

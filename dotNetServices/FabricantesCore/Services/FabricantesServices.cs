@@ -12,10 +12,15 @@ namespace FabricantesCore.Services
     public class FabricantesServices : IFabricantesServices
     {
         IFabricantesRepository iFabricantesRepository;
-        public FabricantesServices(IFabricantesRepository _iFabricantesRepository)
+        IFabricantesApiRepository iFabricantesApiRepository;
+
+        public FabricantesServices(IFabricantesRepository _iFabricantesRepository,
+            IFabricantesApiRepository _iFabricantesApiRepository)
         {
             iFabricantesRepository = _iFabricantesRepository;
+            iFabricantesApiRepository = _iFabricantesApiRepository;
         }
+
         public async Task<IList<FabricanteDTO>> ListarFabricantes()
         {
             FabricantesAssembler assembler = new FabricantesAssembler();
@@ -28,6 +33,23 @@ namespace FabricantesCore.Services
             ProductosAssembler assembler = new ProductosAssembler();
             IList<ProductoDTO> listaFabricantes = assembler.assemblyDTOs(await iFabricantesRepository.ListarProductosFabricantes(IdFabricante));
             return listaFabricantes;
+        }
+
+        public async Task<IList<ProductoDTO>> BuscarProductosFabricantes(string filtro)
+        {
+
+            //foreach( var fabricante in await ListarFabricantes())
+            //{
+
+            return await iFabricantesApiRepository.BuscarProductos(
+                "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/catalog/products",
+                filtro,
+                string.Empty,
+                string.Empty
+                );
+
+            //}
+
         }
 
         public async Task<IList<InventarioDTO>> ConsultarInventario(IList<ProductoDTO> productos)
