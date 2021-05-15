@@ -17,12 +17,10 @@ namespace ProductosCore.Services
             iProductosRepository = _iProductosRepository;
         }
 
-        public async Task<ListarProductosResponse> ListarProductos( ListarProductosRequest request )
+        public async Task<IList<ProductoDto>> ListarProductos(string moneda, string filtro )
         {
-            IReadOnlyList<Producto> lista = await iProductosRepository.ListarProductos(request);
-
-            ListarProductosResponse response = new ListarProductosResponse();
-
+            IList<Producto> lista = await iProductosRepository.ListarProductos(filtro);
+            
             var productos = lista.
                 Select(
                 x => new ProductoDto()
@@ -35,14 +33,15 @@ namespace ProductosCore.Services
                     Nombre = x.Nombre,
                     Descripcion = x.Descripcion,
                     Categoria = x.Categoria,
+                    UrlImagen = x.UrlImagen,
                     Precio = x.Precio,
-                    Inventario = x.Inventario
+                    Moneda = x.Moneda,
+                    Inventario = x.Inventario,
+                    Disponibilidad = ( x.Inventario > 0 ? "DISPONIBLE" : "NODISPONIBLE" )
                 }
                 );
 
-            response.productos = productos.ToList();
-
-            return response;
+            return productos.ToList();
         }
     }
 }

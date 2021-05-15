@@ -6,7 +6,7 @@ USE [Productos]
 
 GO
 
-drop table Productos
+--drop table Productos
 create table Productos
 (
     Id int,
@@ -15,10 +15,12 @@ create table Productos
     TipoProveedor nvarchar(100),
     CodigoProveedor nvarchar(100),
     Nombre nvarchar(100),
-    Descripcion nvarchar(100),
+    Descripcion nvarchar(max),
     Categoria nvarchar(100),
+    UrlImagen nvarchar(100),
     Precio float,
-    Inventario int
+    Moneda nvarchar(3),
+    Inventario int    
 );
 
 GO
@@ -32,7 +34,9 @@ insert into productos values
         'Nintendo Switch',
         'Portable',
         'Consolas',
+        '1.png',
         900000,
+        'COP',
         0);
 
 GO
@@ -46,8 +50,27 @@ insert into productos values
         'Xbox one',
         'Consla de Mesa',
         'Consolas',
+        '2.png',
         1100000,
+        'COP',
         0);
 
 GO
+
+insert into productos values
+    (   3,
+        'PS5',
+        'Sony',
+        'Local',
+        'Local',
+        'Play Station 5',
+        'Consla de Mesa',
+        'Consolas',
+        '3.png',
+        1100000,
+        'COP',
+        0);
+
+GO
+
 select * from productos;

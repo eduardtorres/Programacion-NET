@@ -18,7 +18,7 @@ namespace ProductosInfraestructure.Repositories
             iConfiguration = _iConfiguration;
         }
 
-        public async Task<IReadOnlyList<Producto> > ListarProductos(ListarProductosRequest request)
+        public async Task<IList<Producto>> ListarProductos(string filtro)
         {
             SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
             connection.Open();
@@ -32,14 +32,16 @@ namespace ProductosInfraestructure.Repositories
                     Nombre,
                     Descripcion,
                     Categoria,
+                    UrlImagen,
                     Precio,
+                    Moneda,
                     Inventario
                     from productos
                 where Nombre like '%' + @nombre + '%'
 
 ", connection);
 
-            command.Parameters.Add(new SqlParameter("@nombre", request.Nombre));
+            command.Parameters.Add(new SqlParameter("@nombre", filtro));
 
             SqlDataReader reader = command.ExecuteReader();
             List<Producto> lista = new List<Producto>();
@@ -54,8 +56,10 @@ namespace ProductosInfraestructure.Repositories
                 producto.Nombre = reader.GetString(5);
                 producto.Descripcion = reader.GetString(6);
                 producto.Categoria = reader.GetString(7);
-                producto.Precio = reader.GetDouble(8);
-                producto.Inventario = reader.GetInt32(9);
+                producto.UrlImagen = reader.GetString(8);
+                producto.Precio = reader.GetDouble(9);
+                producto.Moneda = reader.GetString(10);
+                producto.Inventario = reader.GetInt32(11);
                 lista.Add(producto);
             }
             connection.Close();
