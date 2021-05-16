@@ -17,6 +17,8 @@ namespace ProductosCore.DTO
         public string UrlImagen { get; set; }
         public double Precio { get; set; }
         public string Moneda { get; set; }
+        public double PrecioLocal { get; set; }
+        public string MonedaLocal { get; set; }
         public int Inventario { get; set; }
         public string Disponibilidad { get; set; }
     }

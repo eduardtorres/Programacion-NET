@@ -30,18 +30,19 @@ GO
 
 create table carrito_producto
 (
-    id int identity(1,1),
+    unique_key int identity(1,1),
     carrito_id int,
-    producto_id int,
+    id int,
     producto_fabricante nvarchar(100),
     producto_codigo nvarchar(100),
     producto_tipo_proveedor nvarchar(100),
     producto_codigo_proveedor nvarchar(100),
     producto_nombre nvarchar(100),
-    producto_descripcion nvarchar(100),
+    producto_descripcion nvarchar(max),
     producto_categoria nvarchar(100),
     cantidad int,
-    precio float
+    precio float,
+    moneda nvarchar(3)
 );
 
 --insert into carrito values (getdate(),'carlosarangob@hotmail.com');

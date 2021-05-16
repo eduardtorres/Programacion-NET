@@ -14,6 +14,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.transaction.Transactional;
 
+import com.amazonaws.services.lambda.runtime.events.CloudFrontEvent.Request;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -49,13 +51,26 @@ public class CarritoService
                 .orElse(null);
     }
 
-    public List<Producto> ObtenerProductosPorCarrito(int id)
+    public List<Producto> ObtenerProductos(int id)
     {
         return entityManager
                 .createNamedQuery("Producto.ObtenerPorCarrito", Producto.class)
                 .setParameter("CarritoId", id)
                 .getResultList();     
     }
+
+    public Producto ProductoExisteEnCarrito(ProductoDto productoDto)
+    {
+        return entityManager
+                .createNamedQuery("Producto.ObtenerPorProducto", Producto.class)
+                .setParameter("CarritoId", productoDto.CarritoId)
+                .setParameter("Codigo", productoDto.Codigo)
+                .setParameter("CodigoProveedor", productoDto.CodigoProveedor)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);  
+    }
+
 
     @Transactional
     public Carrito Obtener(String usuario , String pais) {
@@ -70,57 +85,80 @@ public class CarritoService
         }
         else
         {
-            carritoEncontrado.productos = ObtenerProductosPorCarrito( carritoEncontrado.getId() );
+            carritoEncontrado.productos = ObtenerProductos( carritoEncontrado.getId() );
         }
         return carritoEncontrado;
     }
 
     @Transactional
-    public int AgregarProducto(ProductoDto productoDto)
+    public RespuestaBaseDto AgregarProducto(ProductoDto productoDto)
     {
 
-        Producto producto = new Producto();
-        producto.Cantidad = productoDto.Cantidad;
-        producto.CarritoId = productoDto.CarritoId;
-        producto.Categoria = productoDto.Categoria;
-        producto.Codigo = productoDto.Codigo;
-        producto.CodigoProveedor = productoDto.CodigoProveedor;
-        producto.Descripcion = productoDto.Descripcion;
-        producto.Fabricante = productoDto.Fabricante;
-        producto.Id = productoDto.Id;
-        producto.Nombre = productoDto.Nombre;
-        producto.Precio = productoDto.Precio;
-        producto.TipoProveedor = productoDto.TipoProveedor;
-
-        entityManager.persist(producto);
-        return producto.UniqueKey;
-
+        Producto productoEncontrado = ProductoExisteEnCarrito(productoDto);
+        RespuestaBaseDto respuesta;
+        if( productoEncontrado != null )
+        {
+            respuesta = new RespuestaBaseDto();
+            respuesta.codigo = 0;
+            respuesta.mensaje = "El producto ya existe en el carrito";
+        }
+        else
+        {
+            Producto producto = new Producto();
+            producto.Cantidad = productoDto.Cantidad;
+            producto.CarritoId = productoDto.CarritoId;
+            producto.Categoria = productoDto.Categoria;
+            producto.Codigo = productoDto.Codigo;
+            producto.CodigoProveedor = productoDto.CodigoProveedor;
+            producto.Descripcion = productoDto.Descripcion;
+            producto.Fabricante = productoDto.Fabricante;
+            producto.Id = productoDto.Id;
+            producto.Nombre = productoDto.Nombre;
+            producto.Precio = productoDto.Precio;
+            producto.Moneda = productoDto.Moneda;
+            producto.TipoProveedor = productoDto.TipoProveedor;    
+            entityManager.persist(producto);
+            respuesta = new RespuestaBaseDto();
+            respuesta.codigo = 100;
+            respuesta.mensaje = "Producto agregado satisfactoriamente";
+        }
+        return respuesta;
     }
 
     @Transactional
-    public int QuitarProducto( int UniqueKey )
-    {        
-        Producto producto = entityManager.find( Producto.class , UniqueKey);
-        if( producto != null )
+    public RespuestaBaseDto QuitarProducto( ProductoDto request ) {        
+
+        int retorno = entityManager.createQuery("delete from Producto where CarritoId = :CarritoId and Codigo = :Codigo and CodigoProveedor = :CodigoProveedor")
+            .setParameter("CarritoId", request.CarritoId)
+            .setParameter("Codigo", request.Codigo)
+            .setParameter("CodigoProveedor", request.CodigoProveedor)
+            .executeUpdate();
+
+            RespuestaBaseDto respuesta;
+
+        if( retorno >= 1 )
         {
-            entityManager.remove(producto);
-            entityManager.flush();
-            entityManager.clear();
-            return 1;
-        } 
+            respuesta = new RespuestaBaseDto();
+            respuesta.codigo = 100;
+            respuesta.mensaje = "Producto quitado satisfactoriamente";    
+        }
         else
         {
-            return 0;
+            respuesta = new RespuestaBaseDto();
+            respuesta.codigo = 0;
+            respuesta.mensaje = "Producto no existe:" + request.Codigo ;    
         }
+
+        return respuesta;
     }
 
     @Transactional
     public int LimpiarCarrito(int id) {
-        entityManager.createQuery("delete from Producto where CarritoId = :id")
-            .setParameter("id", id)
+        entityManager.createQuery("delete from Producto where CarritoId = :CarritoId")
+            .setParameter("CarritoId", id)
             .executeUpdate();
-        int retorno = entityManager.createQuery("delete from Carrito where Id = :id")
-            .setParameter("id", id)
+        int retorno = entityManager.createQuery("delete from Carrito where Id = :Id")
+            .setParameter("Id", id)
             .executeUpdate();
         return retorno;
     }

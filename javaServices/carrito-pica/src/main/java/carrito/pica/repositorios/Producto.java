@@ -5,16 +5,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "carrito_producto")
 @NamedQueries({
-        @NamedQuery(name = "Producto.ObtenerPorCarrito", query = "SELECT p FROM Producto p WHERE p.CarritoId = :CarritoId order by UniqueKey")
+        @NamedQuery(name = "Producto.ObtenerPorCarrito", query = "SELECT p FROM Producto p WHERE p.CarritoId = :CarritoId order by UniqueKey"),
+        @NamedQuery(name = "Producto.ObtenerPorProducto", query = "SELECT p FROM Producto p WHERE p.CarritoId=:CarritoId and p.Codigo=:Codigo and p.CodigoProveedor=:CodigoProveedor")
 })
 public class Producto {   
 
         @Id
         @GeneratedValue(strategy= GenerationType.IDENTITY)
-        @Column(name = "id")
+        @Column(name = "unique_key")
         public int UniqueKey;
 
-        @Column(name = "producto_id")
+        @Column(name = "id")
         public int Id;
 
         @Column(name = "producto_codigo")
@@ -40,7 +41,10 @@ public class Producto {
         
         @Column(name = "precio")
         public double Precio;
-        
+
+        @Column(name = "moneda")
+        public String Moneda;                
+
         @Column(name = "cantidad")
         public int Cantidad; 
 

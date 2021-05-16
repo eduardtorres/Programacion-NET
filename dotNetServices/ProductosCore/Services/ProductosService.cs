@@ -37,6 +37,8 @@ namespace ProductosCore.Services
                     Precio = x.Precio,
                     Moneda = x.Moneda,
                     Inventario = x.Inventario,
+                    PrecioLocal = 500000,
+                    MonedaLocal = "COP",
                     Disponibilidad = ( x.Inventario > 0 ? "DISPONIBLE" : "NODISPONIBLE" )
                 }
                 );

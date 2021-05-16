@@ -11,6 +11,7 @@ public class ProductoDto {
     public String Nombre;
     public String Descripcion;        
     public String Categoria;        
+    public String Moneda;
     public double Precio;
     public int Cantidad; 
     public int CarritoId;

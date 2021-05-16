@@ -45,7 +45,7 @@ public class CarritoQueriesResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Producto> ConsultarProductos( @PathParam("id") int id) {
-        return carritoService.ObtenerProductosPorCarrito(id);
+        return carritoService.ObtenerProductos(id);
     }
 
 }
