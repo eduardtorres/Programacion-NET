@@ -13,4 +13,8 @@
     <ProjectReference Include="..\ClientesCore\ClientesCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Modelo\" />
+  </ItemGroup>
+
 </Project>

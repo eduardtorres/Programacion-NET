@@ -10,16 +10,16 @@ namespace ProductosCore.Services
 {
     public class ProductosService : IProductosService
     {
-        IProductosRepository iProductosRepository;
+        private IProductosRepository _productosRepository;        
 
-        public ProductosService(IProductosRepository _iProductosRepository)
+        public ProductosService(IProductosRepository productosRepository)
         {
-            iProductosRepository = _iProductosRepository;
+            _productosRepository = productosRepository;            
         }
 
         public async Task<ListarProductosResponse> ListarProductos( ListarProductosRequest request )
         {
-            IReadOnlyList<Producto> lista = await iProductosRepository.ListarProductos(request);
+            IReadOnlyList<Producto> lista = await _productosRepository.ListarProductos(request);
 
             ListarProductosResponse response = new ListarProductosResponse();
 

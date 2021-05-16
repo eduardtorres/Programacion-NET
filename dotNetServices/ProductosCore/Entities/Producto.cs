@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace ProductosCore.Entities
 {
     public class Producto
@@ -6,8 +8,8 @@ namespace ProductosCore.Entities
         public Producto()
         {
         }
-
-	    public int Id { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string Codigo { get; set; }
         public string Fabricante { get; set; }
         public string TipoProveedor { get; set; }

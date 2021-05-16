@@ -13,7 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProductosCore.Interfaces;
 using ProductosCore.Services;
+using ProductosInfraestructure.Data;
 using ProductosInfraestructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProductosApi
 {
@@ -41,8 +43,10 @@ namespace ProductosApi
 
             services.AddControllers();
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IProductosRepository, ProductosRepository>();
-            services.AddScoped<IProductosService, ProductosService>();
+            services.AddScoped<IProductosService, ProductosService>();            
+            services.AddDbContext<ProductContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddSwaggerGen(c =>
             {
