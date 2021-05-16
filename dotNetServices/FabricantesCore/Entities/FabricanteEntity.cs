@@ -20,5 +20,9 @@ namespace FabricantesCore.Entities
         public string Nit { get; set; }
         public string Telefono { get; set; }
         public string UrlServicio { get; internal set; }
+        public string TipoApi { get; set; }
+        public string MetodoApi { get; set; }
+        public string TransformacionProductos { get; set; }
+        public string TransformacionOrdenes { get; set; }
     }
 }

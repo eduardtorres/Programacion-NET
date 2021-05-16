@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FabricantesCore.DTO;
+using FabricantesCore.Entities;
 using FabricantesCore.Interfaces;
 using Newtonsoft.Json;
 using RESTConector.Util;
@@ -15,25 +16,29 @@ namespace FabricantesInfraestructure.Repositories
 
         }
 
-        public async Task<IList<ProductoDTO>> BuscarProductos(string url, string filtro, string jsltRequest, string jslResponse)
+        public async Task<IList<ProductoDTO>> BuscarProductos(string filtro,FabricanteEntity fabricanteEntity)
         {
 
-            RestClient restClient = new RestClient();
 
-            string body = string.Empty; // armar body con filtro
+            if (fabricanteEntity.TipoApi == "REST")
+            {
 
-            string respuestaJSON = await restClient.MakeRequest
-                (requestUrlApi: url,
-                JSONRequest: body,
-                JSONmethod: "GET",
-                JSONContentType: "application/json",
-                msTimeOut: -1);
+                RestClient restClient = new RestClient();
+
+                string body = string.Empty; // armar body con filtro
+
+                string respuestaJSON = await restClient.MakeRequest
+                    (requestUrlApi: fabricanteEntity.UrlServicio,
+                    JSONRequest: body,
+                    JSONmethod: fabricanteEntity.MetodoApi, // GET
+                    JSONContentType: "application/json",
+                    msTimeOut: -1);
+
+                // Invokar translator JSLT
+                // translate respuestaJSON A formatoEsperadoJSON
 
 
-            // translate respuestaJSON A formatoEsperadoJSON
-
-
-            string formatoEsperadoJSON = @"
+                string formatoEsperadoJSON = @"
 [
     {
         ""id"": 100,
@@ -67,10 +72,18 @@ namespace FabricantesInfraestructure.Repositories
     }
 ]";
 
-            List<ProductoDTO> objetoLocal = JsonConvert.DeserializeObject<List<ProductoDTO>>(formatoEsperadoJSON);
+                List<ProductoDTO> objetoLocal = JsonConvert.DeserializeObject<List<ProductoDTO>>(formatoEsperadoJSON);
 
-            return objetoLocal;
+                return objetoLocal;
 
+            } 
+            else if (fabricanteEntity.TipoApi =="SOAP")
+            {
+
+                return null;
+            }
+
+            return null;
         }
 
     }
