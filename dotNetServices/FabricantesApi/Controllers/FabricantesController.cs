@@ -26,7 +26,7 @@ namespace FabricantesApi.Controllers
             return Ok(await iFabricantesServices.ListarFabricantes());
         }
 
-        [HttpGet("productos/obtener")]
+        [HttpGet("productos/obtener/{filtro}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> BuscarProductosFabricantes([FromRoute] string filtro)
         {
