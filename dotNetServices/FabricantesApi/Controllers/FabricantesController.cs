@@ -26,16 +26,9 @@ namespace FabricantesApi.Controllers
             return Ok(await iFabricantesServices.ListarFabricantes());
         }
 
-        [HttpGet("productos/obtener")]
+        [HttpGet("productos/obtener/{filtro}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<FabricanteDTO>> ListarProductosFabricantes(long IdFabricante)
-        {
-            return Ok(await iFabricantesServices.ListarProductosFabricantes(IdFabricante));
-        }
-
-        [HttpGet("productos/buscar/{filtro}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> BuscarProductosFabricantes([FromRoute]string filtro)
+        public async Task<ActionResult> BuscarProductosFabricantes([FromRoute] string filtro)
         {
             return Ok(await iFabricantesServices.BuscarProductosFabricantes(filtro));
         }

@@ -5,6 +5,7 @@ import carrito.pica.repositorios.*;
 import carrito.pica.dominio.*;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
@@ -12,6 +13,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.nimbusds.oauth2.sdk.RequestObjectPOSTRequest;
+
+import org.jboss.resteasy.annotations.Body;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,5 +51,14 @@ public class CarritoQueriesResource {
     public List<Producto> ConsultarProductos( @PathParam("id") int id) {
         return carritoService.ObtenerProductos(id);
     }
+
+    @Path("/orden/cotizar")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public CotizacionDto CotizarOrden( CotizacionRequest request ) {
+        return carritoService.CotizarOrden(request);
+    }
+
 
 }

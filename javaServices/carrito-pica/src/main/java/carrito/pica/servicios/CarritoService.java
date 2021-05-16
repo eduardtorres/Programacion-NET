@@ -163,4 +163,20 @@ public class CarritoService
         return retorno;
     }
 
+    public CotizacionDto CotizarOrden(CotizacionRequest request)
+    {
+        List<Producto> productos = ObtenerProductos( request.CarritoId );
+        double suma = 0;
+        for( Producto item : productos )
+        {
+            suma = suma + item.Precio;
+        }
+        CotizacionDto response = new CotizacionDto();
+        response.Neto = suma;
+        response.Transporte = 0;
+        response.Impuestos = 0;
+        response.Total = ( response.Neto + response.Transporte + response.Impuestos );
+        return response;
+    }
+
 }
