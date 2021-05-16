@@ -19,9 +19,7 @@ namespace ProductosCore.Services
 
         public async Task<IList<ProductoDto>> ListarProductos(string moneda, string filtro )
         {
-            IReadOnlyList<Producto> lista = await iProductosRepository.ListarProductos(request);
-
-            ListarProductosResponse response = new ListarProductosResponse();
+            var lista = await _productosRepository.ListarProductos(filtro);            
 
             var productos = lista.
                 Select(

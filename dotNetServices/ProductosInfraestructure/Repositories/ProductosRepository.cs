@@ -14,11 +14,12 @@ namespace ProductosInfraestructure.Repositories
         public ProductosRepository(ProductContext context)
         {            
             _productContext = context;
-        }
-        public async Task<IReadOnlyList<Producto>> ListarProductos(ListarProductosRequest request)
-        {
-            var lista = _productContext.Producto.ToList();            
-            return await Task.FromResult(lista);
         }        
+
+        public async Task<IList<Producto>> ListarProductos(string filtro)
+        {
+            var lista = _productContext.Producto.ToList();
+            return await Task.FromResult(lista);
+        }
     }
 }
