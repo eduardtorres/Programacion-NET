@@ -20,11 +20,11 @@ namespace ProductosApi.Controllers
             iProductosService = _iProductosService;
         }
 
-        [HttpGet("listado/obtener/{busqueda}")]
+        [HttpGet("listado/obtener/{moneda}/{filtro}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ListarProductosResponse>> ListarProductos(string busqueda)
+        public async Task<ActionResult> ListarProductos(string moneda,string filtro)
         {
-            return Ok( await iProductosService.ListarProductos( new ListarProductosRequest() { Nombre = busqueda } ) );
+            return Ok( await iProductosService.ListarProductos(moneda,filtro) );
         }    
         
     }

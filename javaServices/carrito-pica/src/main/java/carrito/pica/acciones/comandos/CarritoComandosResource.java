@@ -32,15 +32,16 @@ public class CarritoComandosResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public int AgregarProucto( ProductoDto request) {
+    public RespuestaBaseDto AgregarProucto(ProductoDto request) {
         return carritoService.AgregarProducto(request);
     }
 
-    @Path("/producto/quitar/{UniqueKey}")
+    @Path("/producto/quitar")
     @DELETE
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public int QuitarProducto( @PathParam("UniqueKey") int UniqueKey) {
-        return carritoService.QuitarProducto(UniqueKey);
+    public RespuestaBaseDto QuitarProducto(ProductoDto request) {
+        return carritoService.QuitarProducto(request);
     }
 
     @Path("/limpiar/{id}")

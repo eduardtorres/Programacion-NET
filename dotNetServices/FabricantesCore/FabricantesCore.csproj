@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FabricantesCommon\FabricantesCommon.csproj" />
+    <ProjectReference Include="..\RESTConector\RESTConector.csproj" />
   </ItemGroup>
 
 </Project>

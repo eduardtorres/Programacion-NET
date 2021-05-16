@@ -6,6 +6,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FabricantesCore\FabricantesCore.csproj" />
+    <ProjectReference Include="..\FabricantesInfraestructure\FabricantesInfraestructure.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
