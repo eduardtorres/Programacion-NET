@@ -1,4 +1,5 @@
 ﻿using FabricantesCore.DTO;
+using FabricantesCore.Entities;
 using FabricantesCore.Interfaces;
 using FabricantesCore.Util;
 using System;
@@ -41,11 +42,13 @@ namespace FabricantesCore.Services
             //foreach( var fabricante in await ListarFabricantes())
             //{
 
+            FabricanteEntity fabricanteEntity = new FabricanteEntity();
+
+            fabricanteEntity.UrlServicio = "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/catalog/products";
+
             return await iFabricantesApiRepository.BuscarProductos(
-                "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/catalog/products",
                 filtro,
-                string.Empty,
-                string.Empty
+                fabricanteEntity
                 );
 
             //}
