@@ -25,10 +25,10 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/images"
             ],
             "styles": [              
-              "src/styles.css",
               "src/css/style.css",
               "src/css/bootstrap.css",
               "src/css/responsive.css"
