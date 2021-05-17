@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProductosCore.Entities
 {
-    public class Productos
+    public class Producto
     {
-        public Productos()
+        public Producto()
         {
         }
         [Key]

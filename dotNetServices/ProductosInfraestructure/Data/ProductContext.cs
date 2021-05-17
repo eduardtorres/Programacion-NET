@@ -12,7 +12,7 @@ namespace ProductosInfraestructure.Data
         public ProductContext(DbContextOptions<ProductContext> options) : base(options)
         {
         }
-        public DbSet<Productos> Productos { get; set; }        
+        public DbSet<Producto> Producto { get; set; }        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
