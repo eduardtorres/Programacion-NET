@@ -6,6 +6,7 @@ using ProveedoresCore.Entities;
 using ProveedoresCore.Interfaces;
 using Newtonsoft.Json;
 using RESTConector.Util;
+using SOAPConector.Util;
 
 namespace ProveedoresInfraestructure.Repositories
 {
@@ -21,8 +22,7 @@ namespace ProveedoresInfraestructure.Repositories
 
 
             if (fabricanteEntity.TipoApi == "REST")
-            {
-
+            {                
                 RestClient restClient = new RestClient();
 
                 string body = string.Empty; // armar body con filtro
@@ -79,7 +79,8 @@ namespace ProveedoresInfraestructure.Repositories
             }
             else if (fabricanteEntity.TipoApi == "SOAP")
             {
-                //SoapClient 
+                SoapClient soapClient = new SoapClient(fabricanteEntity.UrlServicio, string.Empty);
+                await soapClient.PostAsync("POST");
                 return null;
             }
 
