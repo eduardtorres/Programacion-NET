@@ -1,14 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace ProductosCore.Entities
+namespace ProveedoresCore.DTO
 {
-    public class Productos
+    public class ProductoDTO
     {
-        public Productos()
+        public ProductoDTO()
         {
         }
-        [Key]
         public int Id { get; set; }
         public string Codigo { get; set; }
         public string Fabricante { get; set; }
@@ -21,5 +18,6 @@ namespace ProductosCore.Entities
         public double Precio { get; set; }
         public string Moneda { get; set; }
         public int Inventario { get; set; }
+        public string Disponibilidad { get; set; }
     }
 }

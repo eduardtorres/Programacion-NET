@@ -11,17 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductosCore", "ProductosC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductosInfraestructure", "ProductosInfraestructure\ProductosInfraestructure.csproj", "{6C0A554F-503F-4E4B-ADC0-8B6D491FA8F1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Fabricantes", "Fabricantes", "{326C2E52-4EDD-486F-921C-327B3C8CF48A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proveedores", "Proveedores", "{326C2E52-4EDD-486F-921C-327B3C8CF48A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clientes", "Clientes", "{5C50B11D-BD90-49D1-B8E1-EAB9D9332ECF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricantesInfraestructure", "FabricantesInfraestructure\FabricantesInfraestructure.csproj", "{FF24A134-7468-4414-AE47-E76B263914CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProveedoresInfraestructure", "ProveedoresInfraestructure\ProveedoresInfraestructure.csproj", "{FF24A134-7468-4414-AE47-E76B263914CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricantesCore", "FabricantesCore\FabricantesCore.csproj", "{1181F8E8-6A7E-406F-A939-5FDD63B16D30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProveedoresCore", "ProveedoresCore\ProveedoresCore.csproj", "{1181F8E8-6A7E-406F-A939-5FDD63B16D30}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricantesCommon", "FabricantesCommon\FabricantesCommon.csproj", "{CA862899-E97B-4B83-8AFD-C9A20E4D49EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProveedoresCommon", "ProveedoresCommon\ProveedoresCommon.csproj", "{CA862899-E97B-4B83-8AFD-C9A20E4D49EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FabricantesApi", "FabricantesApi\FabricantesApi.csproj", "{DE6F08AB-5A45-4329-9FF0-0B01317A9966}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProveedoresApi", "ProveedoresApi\ProveedoresApi.csproj", "{DE6F08AB-5A45-4329-9FF0-0B01317A9966}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientesInfraestructure", "ClientesInfraestructure\ClientesInfraestructure.csproj", "{35773936-0506-4F84-9FDE-E69BBBD0BC47}"
 EndProject

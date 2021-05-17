@@ -1,22 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProductosCore.Entities;
+﻿using ProveedoresCore.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace ProductosInfraestructure.Data
+namespace ProveedoresInfraestructure.Data
 {
-    public class ProductContext : DbContext
+    public class ProvidersContext : DbContext
     {
-        public ProductContext(DbContextOptions<ProductContext> options) : base(options)
+        public ProvidersContext(DbContextOptions<ProvidersContext> options) : base(options)
         {
         }
-        public DbSet<Productos> Productos { get; set; }        
+        public DbSet<ProveedorEntity> Proveedores { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }        
+        }
     }
 }
