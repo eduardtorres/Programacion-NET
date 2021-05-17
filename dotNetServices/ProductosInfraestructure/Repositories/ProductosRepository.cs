@@ -16,9 +16,9 @@ namespace ProductosInfraestructure.Repositories
             _productContext = context;
         }        
 
-        public async Task<IList<Producto>> ListarProductos(string filtro)
+        public async Task<IList<Productos>> ListarProductos(string filtro)
         {
-            var lista = _productContext.Producto.ToList();
+            var lista = _productContext.Productos.ToList();
             return await Task.FromResult(lista);
         }
     }

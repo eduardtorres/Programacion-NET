@@ -8,6 +8,6 @@ namespace ProductosCore.Interfaces
 {
     public interface IProductosRepository
     {
-        Task<IList<Producto>> ListarProductos(string filtro);
+        Task<IList<Productos>> ListarProductos(string filtro);
     }
 }

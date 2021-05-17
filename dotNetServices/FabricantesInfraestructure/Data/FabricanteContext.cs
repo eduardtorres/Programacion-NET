@@ -1,22 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProductosCore.Entities;
+﻿using FabricantesCore.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace ProductosInfraestructure.Data
+namespace FabricantesInfraestructure.Data
 {
-    public class ProductContext : DbContext
+    public class FabricanteContext : DbContext
     {
-        public ProductContext(DbContextOptions<ProductContext> options) : base(options)
+        public FabricanteContext(DbContextOptions<FabricanteContext> options) : base(options)
         {
         }
-        public DbSet<Productos> Productos { get; set; }        
+        public DbSet<FabricanteEntity> Fabricantes { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        }        
+        }
     }
 }
