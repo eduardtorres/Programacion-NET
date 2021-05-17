@@ -59,6 +59,12 @@ public class CarritoService
                 .getResultList();     
     }
 
+    public List<ProductoDto> ObtenerProductosDto(int id)
+    {        
+        return Producto.ToListDto( ObtenerProductos(id) );
+    }
+
+
     public Producto ProductoExisteEnCarrito(ProductoDto productoDto)
     {
         return entityManager
@@ -85,7 +91,7 @@ public class CarritoService
         }
         else
         {
-            carritoEncontrado.productos = ObtenerProductos( carritoEncontrado.getId() );
+            carritoEncontrado.productos = ObtenerProductosDto( carritoEncontrado.getId() ) ;
         }
         return carritoEncontrado;
     }
@@ -105,18 +111,7 @@ public class CarritoService
         else
         {
             Producto producto = new Producto();
-            producto.Cantidad = productoDto.Cantidad;
-            producto.CarritoId = productoDto.CarritoId;
-            producto.Categoria = productoDto.Categoria;
-            producto.Codigo = productoDto.Codigo;
-            producto.CodigoProveedor = productoDto.CodigoProveedor;
-            producto.Descripcion = productoDto.Descripcion;
-            producto.Fabricante = productoDto.Fabricante;
-            producto.Id = productoDto.Id;
-            producto.Nombre = productoDto.Nombre;
-            producto.Precio = productoDto.Precio;
-            producto.Moneda = productoDto.Moneda;
-            producto.TipoProveedor = productoDto.TipoProveedor;    
+            producto.LoadFromDto(productoDto);            
             entityManager.persist(producto);
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 100;
@@ -177,6 +172,16 @@ public class CarritoService
         response.Impuestos = 0;
         response.Total = ( response.Neto + response.Transporte + response.Impuestos );
         return response;
+    }
+
+    public List<ProductoDto> Disponibilidad(int id)
+    {
+        List<ProductoDto> productos = ObtenerProductosDto( id );
+        for( ProductoDto item : productos )
+        {
+            item.Disponibilidad = "DISPONIBLE";
+        }
+        return productos;
     }
 
 }

@@ -1,6 +1,11 @@
 package carrito.pica.repositorios;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
+
+import carrito.pica.dominio.ProductoDto;
 
 @Entity
 @Table(name = "carrito_producto")
@@ -8,6 +13,7 @@ import javax.persistence.*;
         @NamedQuery(name = "Producto.ObtenerPorCarrito", query = "SELECT p FROM Producto p WHERE p.CarritoId = :CarritoId order by UniqueKey"),
         @NamedQuery(name = "Producto.ObtenerPorProducto", query = "SELECT p FROM Producto p WHERE p.CarritoId=:CarritoId and p.Codigo=:Codigo and p.CodigoProveedor=:CodigoProveedor")
 })
+
 public class Producto {   
 
         @Id
@@ -55,5 +61,50 @@ public class Producto {
         {
 
         }
+
+        public ProductoDto ToDto()
+        {
+            ProductoDto response = new ProductoDto();
+            response.Cantidad = Cantidad;
+            response.CarritoId = CarritoId;
+            response.Categoria = Categoria;
+            response.Codigo = Codigo;
+            response.CodigoProveedor = CodigoProveedor;
+            response.Descripcion = Descripcion;
+            response.Fabricante = Fabricante;
+            response.Id = Id;
+            response.Moneda = Moneda;
+            response.Nombre = Nombre;
+            response.Precio = Precio;
+            response.TipoProveedor = TipoProveedor;
+            response.UniqueKey = UniqueKey;
+
+            return response;
+        }        
+
+        public void LoadFromDto(ProductoDto productoDto)
+        {
+                Cantidad = productoDto.Cantidad;
+                CarritoId = productoDto.CarritoId;
+                Categoria = productoDto.Categoria;
+                Codigo = productoDto.Codigo;
+                CodigoProveedor = productoDto.CodigoProveedor;
+                Descripcion = productoDto.Descripcion;
+                Fabricante = productoDto.Fabricante;
+                Id = productoDto.Id;
+                Nombre = productoDto.Nombre;
+                Precio = productoDto.Precio;
+                Moneda = productoDto.Moneda;
+                TipoProveedor = productoDto.TipoProveedor;  
+        }
         
+        public static List<ProductoDto> ToListDto( List<Producto> originalList )
+        {
+                List<ProductoDto> newList = new ArrayList<ProductoDto>();
+                for( Producto item : originalList )
+                {
+                        newList.add(item.ToDto());
+                }
+                return newList;
+        }
 }

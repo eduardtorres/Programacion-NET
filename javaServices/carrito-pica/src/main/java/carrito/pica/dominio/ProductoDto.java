@@ -15,4 +15,5 @@ public class ProductoDto {
     public double Precio;
     public int Cantidad; 
     public int CarritoId;
+    public String Disponibilidad;
 }

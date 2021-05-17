@@ -13,8 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.nimbusds.oauth2.sdk.RequestObjectPOSTRequest;
-
 import org.jboss.resteasy.annotations.Body;
 
 import java.util.Collections;
@@ -48,8 +46,8 @@ public class CarritoQueriesResource {
     @Path("/productos/consultar/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Producto> ConsultarProductos( @PathParam("id") int id) {
-        return carritoService.ObtenerProductos(id);
+    public List<ProductoDto> ConsultarProductos( @PathParam("id") int id) {
+        return carritoService.ObtenerProductosDto(id);
     }
 
     @Path("/orden/cotizar")
@@ -60,5 +58,11 @@ public class CarritoQueriesResource {
         return carritoService.CotizarOrden(request);
     }
 
+    @Path("/productos/disponibilidad/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ProductoDto> Disponibilidad(@PathParam("id") int id) {
+        return carritoService.Disponibilidad(id);
+    }
 
 }

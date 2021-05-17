@@ -3,6 +3,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import carrito.pica.dominio.ProductoDto;
+
 @Entity
 @Table(name = "carrito")
 @NamedQueries({
@@ -26,7 +28,7 @@ public class Carrito {
     private String Pais;
 
     @Transient
-    public List< Producto > productos;
+    public List< ProductoDto > productos;
 
     public Carrito()
     {
