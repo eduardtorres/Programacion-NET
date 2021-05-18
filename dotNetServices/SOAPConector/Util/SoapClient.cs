@@ -231,9 +231,10 @@ namespace SOAPConector.Util
         /// <param name="data">
         /// Parameters to send in the request message.
         /// </param>
-        public async Task PostAsync(string method, object data = null)
+        public async Task<object> PostAsync(string method, object data = null)
         {
-            await PostAsync<object>(method, data);
+            var result = await PostAsync<object>(method, data);
+            return Task.FromResult(result);
         }
 
         /// <summary>

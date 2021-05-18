@@ -1,24 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <?xml-stylesheet type="text/xsl" href="Productos.xslt"?>
 <productos>
-	<producto Codigo="001">
-		<Fabricante>Sony</Fabricante>
-		<TipoProveedor>Externo</TipoProveedor>
-		<CodigoProveedor>1005</CodigoProveedor>
-		<Nombre>Diademas</Nombre>
-		<Descripcion>Diademas ultra</Descripcion>
-		<Categoria>Audio</Categoria>
-		<Precio>200000</Precio>
-		<Inventario>300</Inventario>
-	</producto>
-	<producto Codigo="002">
-		<Fabricante>Sony</Fabricante>
-		<TipoProveedor>Externo</TipoProveedor>
-		<CodigoProveedor>1005</CodigoProveedor>
-		<Nombre>Pilas</Nombre>
-		<Descripcion>Pilas 2016</Descripcion>
-		<Categoria>Baterias</Categoria>
-		<Precio>8000</Precio>
-		<Inventario>2500</Inventario>
-	</producto>
+	<producto id="@id">
+		<codigo>@codigo</codigo>
+		<proveedor>@proveedor</proveedor>
+		<tipoProveedor>@tipoProveedor</tipoProveedor>
+		<codigoProveedor>@codigoProveedor</codigoProveedor>
+		<nombre>@nombre</nombre>
+		<descripcion>@descripcion</descripcion>
+		<categoria>@categoria</categoria>
+		<urlImagen>@urlImagen</urlImagen>
+		<precio>@precio</precio>
+		<moneda>@moneda</moneda>
+		<inventario>@inventario</inventario>
+	</producto>	
 </productos>
