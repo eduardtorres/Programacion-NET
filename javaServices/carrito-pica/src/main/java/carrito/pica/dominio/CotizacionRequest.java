@@ -1,8 +1,8 @@
 package carrito.pica.dominio;
 
 public class CotizacionRequest {
-    public int CarritoId;
-    public String CodigoTransportador;
-    public String Pais;
-    public String Moneda;
+    public int carritoId;
+    public String codigoTransportador;
+    public String pais;
+    public String moneda;
 }

@@ -1,5 +1,59 @@
-<p>detalle-producto works!</p>
-
 <div *ngIf="producto">
-    <h3>{{ producto.nombre }}</h3>  
+
+    
+    <div class="box">
+
+      <h5>
+        <a >{{ producto.nombre }}</a>
+      </h5>
+
+        <div class="img-box">
+          
+            <img src="images/p1.png" alt="">
+          
+        </div>
+        <div class="detail-box">
+          <h5>
+            <a >{{ producto.descripcion }}</a>
+          </h5>
+          <div class="product_info">
+            <h5>
+              <span> {{ producto.moneda }} </span> {{ producto.precio }}
+            </h5>
+            <div class="star_container">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+              </div>
+          </div>
+        </div>
+      </div>    
+
+  <section class="info_section ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="info_form ">
+                  <h5>
+                    Agregar al carrito
+                </h5>
+                    <form [formGroup]="agregarForm" (ngSubmit)="onAgregarSubmit()" >
+                      <label for="cantidad">
+                        Unidades
+                      </label>
+                        <input type="text" formControlName="cantidad" placeholder="Unidades">
+                        <button type="submit" >
+                            Agregar
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+
 </div>
+

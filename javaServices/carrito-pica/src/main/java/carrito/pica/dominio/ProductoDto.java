@@ -2,18 +2,18 @@ package carrito.pica.dominio;
 
 public class ProductoDto {
     
-    public int Id;
-    public int UniqueKey;
-    public String Codigo;
-    public String Fabricante;        
-    public String TipoProveedor;
-    public String CodigoProveedor;
-    public String Nombre;
-    public String Descripcion;        
-    public String Categoria;        
-    public String Moneda;
-    public double Precio;
-    public int Cantidad; 
-    public int CarritoId;
-    public String Disponibilidad;
+    public int id;
+    public int uniqueKey;
+    public String codigo;
+    public String fabricante;        
+    public String tipoProveedor;
+    public String codigoProveedor;
+    public String nombre;
+    public String descripcion;        
+    public String categoria;        
+    public String moneda;
+    public double precio;
+    public int cantidad; 
+    public int carritoId;
+    public String disponibilidad;
 }

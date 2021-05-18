@@ -779,4 +779,14 @@ a:focus {
 .footer_section p a {
   color: inherit;
 }
+
+.generic_button {
+  padding: 8px 35px;
+  outline: none;
+  border: none;
+  color: #ffffff;
+  background: #f3c93e;
+  margin-top: 15px;
+}
+
 /*# sourceMappingURL=style.css.map */

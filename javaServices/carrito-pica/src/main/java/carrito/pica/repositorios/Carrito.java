@@ -27,9 +27,6 @@ public class Carrito {
     @Column(name = "pais")
     private String Pais;
 
-    @Transient
-    public List< ProductoDto > productos;
-
     public Carrito()
     {
 

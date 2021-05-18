@@ -1,7 +1,5 @@
 package carrito.pica.servicios;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import carrito.pica.repositorios.*;
 import carrito.pica.dominio.*;
 
@@ -13,8 +11,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.transaction.Transactional;
-
-import com.amazonaws.services.lambda.runtime.events.CloudFrontEvent.Request;
 
 import java.util.Collections;
 import java.util.Date;
@@ -65,13 +61,13 @@ public class CarritoService
     }
 
 
-    public Producto ProductoExisteEnCarrito(ProductoDto productoDto)
+    public Producto ProductoExiste(ProductoDto productoDto)
     {
         return entityManager
                 .createNamedQuery("Producto.ObtenerPorProducto", Producto.class)
-                .setParameter("CarritoId", productoDto.CarritoId)
-                .setParameter("Codigo", productoDto.Codigo)
-                .setParameter("CodigoProveedor", productoDto.CodigoProveedor)
+                .setParameter("CarritoId", productoDto.carritoId)
+                .setParameter("Codigo", productoDto.codigo)
+                .setParameter("CodigoProveedor", productoDto.codigoProveedor)
                 .getResultStream()
                 .findFirst()
                 .orElse(null);  
@@ -89,10 +85,6 @@ public class CarritoService
             carritoEncontrado = new Carrito(0,strDate,usuario,pais);
             entityManager.persist(carritoEncontrado);
         }
-        else
-        {
-            carritoEncontrado.productos = ObtenerProductosDto( carritoEncontrado.getId() ) ;
-        }
         return carritoEncontrado;
     }
 
@@ -100,7 +92,7 @@ public class CarritoService
     public RespuestaBaseDto AgregarProducto(ProductoDto productoDto)
     {
 
-        Producto productoEncontrado = ProductoExisteEnCarrito(productoDto);
+        Producto productoEncontrado = ProductoExiste(productoDto);
         RespuestaBaseDto respuesta;
         if( productoEncontrado != null )
         {
@@ -124,9 +116,9 @@ public class CarritoService
     public RespuestaBaseDto QuitarProducto( ProductoDto request ) {        
 
         int retorno = entityManager.createQuery("delete from Producto where CarritoId = :CarritoId and Codigo = :Codigo and CodigoProveedor = :CodigoProveedor")
-            .setParameter("CarritoId", request.CarritoId)
-            .setParameter("Codigo", request.Codigo)
-            .setParameter("CodigoProveedor", request.CodigoProveedor)
+            .setParameter("CarritoId", request.carritoId)
+            .setParameter("Codigo", request.codigo)
+            .setParameter("CodigoProveedor", request.codigoProveedor)
             .executeUpdate();
 
             RespuestaBaseDto respuesta;
@@ -141,14 +133,14 @@ public class CarritoService
         {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 0;
-            respuesta.mensaje = "Producto no existe:" + request.Codigo ;    
+            respuesta.mensaje = "Producto no existe:" + request.codigo ;    
         }
 
         return respuesta;
     }
 
     @Transactional
-    public int LimpiarCarrito(int id) {
+    public int Limpiar(int id) {
         entityManager.createQuery("delete from Producto where CarritoId = :CarritoId")
             .setParameter("CarritoId", id)
             .executeUpdate();
@@ -160,7 +152,7 @@ public class CarritoService
 
     public CotizacionDto CotizarOrden(CotizacionRequest request)
     {
-        List<Producto> productos = ObtenerProductos( request.CarritoId );
+        List<Producto> productos = ObtenerProductos( request.carritoId );
         double suma = 0;
         for( Producto item : productos )
         {
@@ -179,7 +171,10 @@ public class CarritoService
         List<ProductoDto> productos = ObtenerProductosDto( id );
         for( ProductoDto item : productos )
         {
-            item.Disponibilidad = "DISPONIBLE";
+            if( item.id == 10 )
+                item.disponibilidad = "NODISPONIBLE";
+            else
+                item.disponibilidad = "DISPONIBLE";
         }
         return productos;
     }

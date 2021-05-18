@@ -8,9 +8,9 @@
         <div class="top_nav_container">
 
 
-          <form class="search_form" [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" >
+          <form class="search_form" [formGroup]="busquedaForm" (ngSubmit)="onSubmit()" >
 
-              <input placeholder="Search here..." class="form-control" id="name" type="text" formControlName="name">
+              <input placeholder="Search here..." class="form-control" id="filtro" type="text" formControlName="filtro">
 
               <button class="" type="submit">
                 <i class="fa fa-search" aria-hidden="true"></i>
@@ -32,7 +32,7 @@
   <div class="container">
     <div class="heading_container heading_center">
       <h2>
-        Our Products
+        Nuestros Productos
       </h2>
     </div>
     <div class="row" *ngIf="productos">
@@ -42,25 +42,20 @@
             <img src="images/p1.png" alt="">
             <a [routerLink]="['/productos', item.id]" class="add_cart_btn">
               <span>
-                Add To Cart
+                Ver Detalles
               </span>
             </a>
           </div>
           <div class="detail-box">
             <h5>
+              [ <span> {{ item.categoria }} </span> ]
               <a >{{ item.nombre }}</a>
             </h5>
             <div class="product_info">
               <h5>
-                <span>$</span> {{ item.precio }}
+                <span>{{ item.moneda }}</span> {{ item.precio }}
               </h5>
-              <div class="star_container">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-              </div>
+
             </div>
           </div>
         </div>

@@ -65,37 +65,37 @@ public class Producto {
         public ProductoDto ToDto()
         {
             ProductoDto response = new ProductoDto();
-            response.Cantidad = Cantidad;
-            response.CarritoId = CarritoId;
-            response.Categoria = Categoria;
-            response.Codigo = Codigo;
-            response.CodigoProveedor = CodigoProveedor;
-            response.Descripcion = Descripcion;
-            response.Fabricante = Fabricante;
-            response.Id = Id;
-            response.Moneda = Moneda;
-            response.Nombre = Nombre;
-            response.Precio = Precio;
-            response.TipoProveedor = TipoProveedor;
-            response.UniqueKey = UniqueKey;
+            response.cantidad = Cantidad;
+            response.carritoId = CarritoId;
+            response.categoria = Categoria;
+            response.codigo = Codigo;
+            response.codigoProveedor = CodigoProveedor;
+            response.descripcion = Descripcion;
+            response.fabricante = Fabricante;
+            response.id = Id;
+            response.moneda = Moneda;
+            response.nombre = Nombre;
+            response.precio = Precio;
+            response.tipoProveedor = TipoProveedor;
+            response.uniqueKey = UniqueKey;
 
             return response;
         }        
 
         public void LoadFromDto(ProductoDto productoDto)
         {
-                Cantidad = productoDto.Cantidad;
-                CarritoId = productoDto.CarritoId;
-                Categoria = productoDto.Categoria;
-                Codigo = productoDto.Codigo;
-                CodigoProveedor = productoDto.CodigoProveedor;
-                Descripcion = productoDto.Descripcion;
-                Fabricante = productoDto.Fabricante;
-                Id = productoDto.Id;
-                Nombre = productoDto.Nombre;
-                Precio = productoDto.Precio;
-                Moneda = productoDto.Moneda;
-                TipoProveedor = productoDto.TipoProveedor;  
+                Cantidad = productoDto.cantidad;
+                CarritoId = productoDto.carritoId;
+                Categoria = productoDto.categoria;
+                Codigo = productoDto.codigo;
+                CodigoProveedor = productoDto.codigoProveedor;
+                Descripcion = productoDto.descripcion;
+                Fabricante = productoDto.fabricante;
+                Id = productoDto.id;
+                Nombre = productoDto.nombre;
+                Precio = productoDto.precio;
+                Moneda = productoDto.moneda;
+                TipoProveedor = productoDto.tipoProveedor;  
         }
         
         public static List<ProductoDto> ToListDto( List<Producto> originalList )

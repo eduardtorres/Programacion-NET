@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { IBuscarProductosResponse } from '../interfaces/productos.buscar.response'
-
-import { IProducto } from '../interfaces/productos.buscar.response'
+import { IProducto } from '../interfaces/carrito.response'
 
 import { configuracion } from './configuracion';
 

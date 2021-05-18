@@ -10,6 +10,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { BuscarProductoComponent } from './buscar-producto/buscar-producto.component';
 import { DetalleProductoComponent } from './detalle-producto/detalle-producto.component';
 import { LoginClienteComponent } from './login-cliente/login-cliente.component';
+import { DetalleCarritoComponent } from './detalle-carrito/detalle-carrito.component';
+import { PagarOrdenComponent } from './pagar-orden/pagar-orden.component';
 
 @NgModule({
   imports: [
@@ -19,7 +21,9 @@ import { LoginClienteComponent } from './login-cliente/login-cliente.component';
     RouterModule.forRoot([
       { path: '', component: BuscarProductoComponent },
       { path: 'productos/:id', component: DetalleProductoComponent },
-      { path: 'login', component: LoginClienteComponent }
+      { path: 'login', component: LoginClienteComponent },
+      { path: 'carrito', component: DetalleCarritoComponent },
+      { path: 'pagar', component: PagarOrdenComponent }
     ])
   ],
   declarations: [
@@ -27,7 +31,9 @@ import { LoginClienteComponent } from './login-cliente/login-cliente.component';
     TopBarComponent,
     BuscarProductoComponent,
     DetalleProductoComponent,
-    LoginClienteComponent
+    LoginClienteComponent,
+    DetalleCarritoComponent,
+    PagarOrdenComponent
   ],
   bootstrap: [
     AppComponent

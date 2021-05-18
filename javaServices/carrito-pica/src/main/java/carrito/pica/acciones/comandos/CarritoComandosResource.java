@@ -37,7 +37,7 @@ public class CarritoComandosResource {
     }
 
     @Path("/producto/quitar")
-    @DELETE
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public RespuestaBaseDto QuitarProducto(ProductoDto request) {
@@ -48,7 +48,7 @@ public class CarritoComandosResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public int LimpiarCarrito( @PathParam("id") int id) {
-        return carritoService.LimpiarCarrito(id);
+        return carritoService.Limpiar(id);
     }
 
 
