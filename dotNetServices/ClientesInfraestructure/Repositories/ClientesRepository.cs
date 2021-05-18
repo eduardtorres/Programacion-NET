@@ -1,87 +1,41 @@
 ﻿using ClientesCore.Entities;
 using ClientesCore.Interfaces;
+using ClientesInfraestructure.Data;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ClientesInfraestructure.Repositories
 {
     public class ClientesRepository : IClientesRepository
     {
-        IConfiguration iConfiguration;
-        public ClientesRepository(IConfiguration _iConfiguration)
+        CustomersContext _customersContext;
+        public ClientesRepository(CustomersContext customersContext)
         {
-            iConfiguration = _iConfiguration;
+            _customersContext = customersContext;
         }
         public async Task<IList<ClienteEntity>> ListarClientes()
         {
-            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
-            connection.Open();
-            SqlCommand command = new SqlCommand("SPGetAllClientes", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            SqlDataReader reader = command.ExecuteReader();
-            IList<ClienteEntity> lista = new List<ClienteEntity>();
-            while (await reader.ReadAsync())
-            {
-                ClienteEntity cliente = new ClienteEntity();
-                cliente.IdCliente = Convert.ToInt64(reader["IdCliente"]);
-                cliente.Nombre = reader["Nombre"].ToString();
-                cliente.Direccion = reader["Direccion"].ToString();
-                cliente.Nit = reader["Nit"].ToString();
-                cliente.Telefono = reader["Telefono"].ToString();
-                lista.Add(cliente);
-            }
-            connection.Close();
-            return lista;
-        }        
+            var lista = _customersContext.Clientes.ToList();
+            return await Task.FromResult(lista);
+        }
 
         public async Task<ClienteEntity> AuthenticarCliente(string UserName, string Password)
         {
-            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
-            connection.Open();
-            SqlCommand command = new SqlCommand("SPGetClienteByUserPass", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@UserName", SqlDbType.VarChar, 50)).Value = UserName;
-            command.Parameters.Add(new SqlParameter("@Password", SqlDbType.VarChar, 50)).Value = Password;
-            SqlDataReader reader = command.ExecuteReader();
-            List<ClienteEntity> lista = new List<ClienteEntity>();
-            while (await reader.ReadAsync())
-            {
-                ClienteEntity cliente = new ClienteEntity();
-                cliente.IdCliente = Convert.ToInt64(reader["IdCliente"]);
-                cliente.Nombre = reader["Nombre"].ToString();
-                cliente.Direccion = reader["Direccion"].ToString();
-                cliente.Nit = reader["Nit"].ToString();
-                cliente.Telefono = reader["Telefono"].ToString();
-                cliente.UserName = reader["UserName"].ToString();
-                cliente.Password = reader["Password"].ToString();
-                lista.Add(cliente);
-            }
-            connection.Close();
-            return lista[0];
+            var lista = (from c in _customersContext.Clientes
+                         where c.UserName == UserName && c.Password == Password
+                         select c).FirstOrDefault();
+            return await Task.FromResult(lista);
         }
         
         public async Task<ClienteEntity> RegistrarCliente(ClienteEntity clienteEntity)
         {
-            SqlConnection connection = new SqlConnection(iConfiguration.GetConnectionString("DefaultConnection"));
-            connection.Open();
-            SqlCommand command = new SqlCommand("SPRegistrarCliente", connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@Nombre", SqlDbType.VarChar)).Value = clienteEntity.Nombre;
-            command.Parameters.Add(new SqlParameter("@Direccion", SqlDbType.VarChar)).Value = clienteEntity.Direccion;
-            command.Parameters.Add(new SqlParameter("@Nit", SqlDbType.VarChar)).Value = clienteEntity.Nit;
-            command.Parameters.Add(new SqlParameter("@Telefono", SqlDbType.VarChar)).Value = clienteEntity.Telefono;
-            command.Parameters.Add(new SqlParameter("@UserName", SqlDbType.VarChar)).Value = clienteEntity.UserName;
-            command.Parameters.Add(new SqlParameter("@Password", SqlDbType.VarChar)).Value = clienteEntity.Password;
-            SqlParameter ParamId = command.Parameters.Add("@IdCliente", SqlDbType.BigInt);
-            ParamId.Direction = ParameterDirection.InputOutput;
-            command.Parameters.Add(ParamId);
-            await command.ExecuteNonQueryAsync();
-            clienteEntity.IdCliente = Convert.ToInt64(ParamId.Value);
-            connection.Close();
+            await _customersContext.Clientes.AddAsync(clienteEntity);
+            await _customersContext.SaveChangesAsync(true);
             return clienteEntity;
         }
     }
