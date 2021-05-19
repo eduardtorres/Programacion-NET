@@ -1,13 +1,11 @@
 package co.com.aespica.repositorio;
 
-import org.hibernate.type.BooleanType;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "MediosPago")
 @NamedQueries({
-        @NamedQuery(name = "MediosPago.findAll", query = "SELECT i FROM MediosPago i"),
+        @NamedQuery(name = "MediosPago.obtenerListaPago", query = "SELECT i FROM MediosPago i"),
         @NamedQuery(name = "MediosPago.obtenerMedioPago", query = "SELECT i FROM MediosPago i WHERE i.Id = :Id")
 })
 public class MediosPago {
@@ -20,17 +18,17 @@ public class MediosPago {
     private String DesMedioPago;
 
     @Column(name = "IndEstadoMedioPago")
-    private bool IndEstadoMedioPago;
+    private boolean IndEstadoMedioPago;
 
     public MediosPago()
     {
 
     }
 
-    public MediosPago(int _id, String _DesMedioPago, String _IndEstadoMedioPago) {
+    public MediosPago(int _id, String _DesMedioPago, boolean _IndEstadoMedioPago) {
         Id = _id;
-        DesImpuesto = _DesMedioPago;
-        CodPais = _IndEstadoMedioPago;
+        DesMedioPago = _DesMedioPago;
+        IndEstadoMedioPago = _IndEstadoMedioPago;
     }
 
     public int getId()
@@ -41,6 +39,6 @@ public class MediosPago {
     {
         return DesMedioPago;
     }
-    public bool getIndEstadoMedioPago() { return IndEstadoMedioPago; }
+    public boolean getIndEstadoMedioPago() { return IndEstadoMedioPago; }
 
 }

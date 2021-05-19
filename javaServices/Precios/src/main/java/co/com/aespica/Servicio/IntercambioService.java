@@ -8,8 +8,8 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 
-import co.com.aespica.repositorio.Pago;
-import co.com.aespica.repositorio.MediosPago;
+import co.com.aespica.repositorio.Intercambio;
+import co.com.aespica.repositorio.Impuesto;
 
 
 @Dependent
@@ -19,37 +19,37 @@ public class IntercambioService {
     @Inject
     EntityManager entityManager;
 
-    public List<Pago> fetchAll() {
+    public List<Intercambio> fetchAll() {
         return entityManager
-                .createNamedQuery("Intercambio.findAll", Pago.class)
+                .createNamedQuery("Intercambio.findAll", Intercambio.class)
                 .getResultList();
     }
 
-    public Pago getById(String CodMoneda) {
+    public Intercambio getById(String CodMoneda) {
         return entityManager
-                .createNamedQuery("Intercambio.obtenerTasaIntercambio", Pago.class)
+                .createNamedQuery("Intercambio.obtenerTasaIntercambio",Intercambio.class)
                 .setParameter("CodMoneda", CodMoneda)
                 .getSingleResult();
     }
 
-    public List<MediosPago> getByIdImpuesto(String CodPais) {
+    public List<Impuesto> getByIdImpuesto(String CodPais) {
         return entityManager
-                .createNamedQuery("Impuesto.obtenerImpuesto", MediosPago.class)
+                .createNamedQuery("Impuesto.obtenerImpuesto",Impuesto.class)
                 .setParameter("CodPais", CodPais)
                 .getResultList();
     }
 
     public double getByIdImpuestoTotal(String CodPais) {
         
-        List<MediosPago> Impuestos= entityManager
-        .createNamedQuery("Impuesto.obtenerImpuesto", MediosPago.class)
+        List<Impuesto> Impuestos= entityManager
+        .createNamedQuery("Impuesto.obtenerImpuesto",Impuesto.class)
         .setParameter("CodPais", CodPais)
         .getResultList();
 
         int sumaTotal=0;
         for (int i=0; i <=Impuestos.size()-1;i++){
-            MediosPago mediosPagoTemp = Impuestos.get(i);
-            sumaTotal+= mediosPagoTemp.getValor();
+            Impuesto impuestoTemp= Impuestos.get(i);
+            sumaTotal+= impuestoTemp.getValor();
         }
         return sumaTotal;
     }
