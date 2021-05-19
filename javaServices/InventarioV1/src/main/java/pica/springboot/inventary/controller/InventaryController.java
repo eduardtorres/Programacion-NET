@@ -17,7 +17,7 @@ import pica.springboot.inventary.model.Inventary;
 import pica.springboot.inventary.repository.InventaryRepository;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/Inventario")
 public class InventaryController {
 	private ArrayList<Inventary> listaOrden = null;
 	@Autowired
@@ -31,12 +31,12 @@ public class InventaryController {
 		//return new ResponseEntity<List<Inventary>>(resultado, HttpStatus.OK);
 		return ResponseEntity.ok().body(resultado);
 	}*/
-@GetMapping("/inventary")
+@GetMapping("/inventario")
 public List<Inventary> getAllInventaries() {
 	return inventaryRepository.findAll();
 }
 
-	@GetMapping("/inventary/{id}")
+	@GetMapping("/inventario/{id}")
 	public ResponseEntity<Inventary> getProductoById(@PathVariable(value = "id") Long productiID)
 			throws ResourceNotFoundException {
 		Inventary inventary = inventaryRepository.findById(productiID)
@@ -44,7 +44,7 @@ public List<Inventary> getAllInventaries() {
 		return ResponseEntity.ok().body(inventary);
 	}
 
-	@GetMapping("/inventary/")
+	@GetMapping("/inventario/")
 	public ResponseEntity<Inventary> getProductoBycodigo(@RequestParam(value = "codigo") Long productcodigo)
 			throws ResourceNotFoundException {
 
@@ -53,7 +53,7 @@ public List<Inventary> getAllInventaries() {
 		return ResponseEntity.ok().body(inventary);
 	}
 
-	@PostMapping("/inventary")
+	@PostMapping("/producto")
 	public Inventary createInventary(@Valid @RequestBody Inventary inventary) {
 		System.out.println(" Insertar " + inventary.getId());
 		System.out.println(" Insertar " + inventary.getNombre());
@@ -61,7 +61,7 @@ public List<Inventary> getAllInventaries() {
 		return inventaryRepository.save(inventary);
 			}
 
-	@PutMapping("/inventary/{id}")
+	@PutMapping("/descargar/{id}")
 	public ResponseEntity<Inventary> updateInventary(@PathVariable(value = "id") Long productiID,
 													@Valid @RequestBody Inventary inventaryDetails) throws ResourceNotFoundException {
 		Inventary inventary = inventaryRepository.findById(productiID)
@@ -85,7 +85,7 @@ public List<Inventary> getAllInventaries() {
 		return ResponseEntity.ok(updatedInventary);
 	}
 
-	@DeleteMapping("/inventary/{id}")
+	@DeleteMapping("/descargar/{id}")
 	public Map<String, Boolean> deleteInventary(@PathVariable(value = "Id") Long productiID)
 			throws ResourceNotFoundException {
 		Inventary inventary = inventaryRepository.findById(productiID)
