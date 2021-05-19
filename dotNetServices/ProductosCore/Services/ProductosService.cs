@@ -45,5 +45,11 @@ namespace ProductosCore.Services
 
             return productos.ToList();
         }
+
+        public async Task<int> UpdateProducto(ProductoDto newProducto)
+        {
+            return await _productosRepository.UpdateProducto(newProducto);
+        }
+
     }
 }
