@@ -1,26 +1,21 @@
 package carrito.pica.servicios;
 
 import carrito.pica.repositorios.*;
+import carrito.pica.api.ImpuestosApiClient;
 import carrito.pica.dominio.*;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.transaction.Transactional;
 
-import java.util.Collections;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 @Dependent
@@ -31,10 +26,23 @@ public class CarritoService
     @Inject
     EntityManager entityManager;
 
+    @Inject
+    @RestClient
+    ImpuestosApiClient impuestosApiClient;
+
     public List<Carrito> fetchAll() {
         return entityManager
                 .createNamedQuery("Carrito.findAll", Carrito.class)
                 .getResultList();
+    }
+
+    public Carrito ObtenerPorId( int id ) {
+        return entityManager
+                .createNamedQuery("Carrito.obtenerPorId", Carrito.class)
+                .setParameter("Id", id)
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
     }
 
     public Carrito ObtenerPorUsuarioPais( String usuario , String pais ) {
@@ -152,17 +160,22 @@ public class CarritoService
 
     public CotizacionDto CotizarOrden(CotizacionRequest request)
     {
+        Carrito carrito = ObtenerPorId(request.carritoId);
         List<Producto> productos = ObtenerProductos( request.carritoId );
         double suma = 0;
         for( Producto item : productos )
         {
-            suma = suma + item.Precio;
+            suma = suma + ( item.Cantidad * item.Precio );
         }
+
+        double impuestosPorc = impuestosApiClient.ObtenerImpuesto(carrito.getPais());
+
         CotizacionDto response = new CotizacionDto();
         response.Neto = suma;
         response.Transporte = 0;
-        response.Impuestos = 0;
+        response.Impuestos =  suma * impuestosPorc / 100 ;
         response.Total = ( response.Neto + response.Transporte + response.Impuestos );
+
         return response;
     }
 
