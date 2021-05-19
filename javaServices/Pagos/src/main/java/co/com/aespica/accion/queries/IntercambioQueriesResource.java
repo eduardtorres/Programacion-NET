@@ -13,26 +13,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.PathParam;
 
 
-@Path("/pagos")
+@Path("/pago")
 public class IntercambioQueriesResource {
     @Inject
     PagoService pagoService;
 
-    @Path("/mediospago/")
+    @Path("/medios/obtener")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<MediosPago> obtenerMediosPago() {
         return pagoService.ObtenerListaMediosPago();
     }
 
-    @Path("/mediospago/{id}")
+    @Path("/medios/consultar/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public MediosPago obtenerMediosPagoByID(@PathParam("id") int id) {
         return pagoService.ObtenerMedioPago(id);
     }
 
-    @Path("/obtenerPagoXIdPago/{id}")
+    @Path("/obtener/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Pago ObtenerPagoXIdPago(@PathParam("id") int Id) {

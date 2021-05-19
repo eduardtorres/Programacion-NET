@@ -10,12 +10,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 
-@Path("/pagos")
+@Path("/pago")
 public class IntercambioComandoResource {
     @Inject
     PagoService pagoService;
 
-    @Path("/realizarPago")
+    @Path("/orden/authorizar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
