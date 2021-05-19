@@ -18,7 +18,7 @@ public class IntercambioComandoResource {
 
     @Path("/obtener/tasasIntercambioXXX")
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)//No se usa
     public List<Intercambio> getAll() {
         return intercambioService.fetchAll();
     }

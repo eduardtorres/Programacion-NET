@@ -18,28 +18,28 @@ public class IntercambioQueriesResource {
     @Inject
     IntercambioService intercambioService;
 
-    @Path("/tasasIntercambio")
+    @Path("/tasa/obtener")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Intercambio> getAll() {
         return intercambioService.fetchAll();
     }
 
-    @Path("/tasasIntercambio/{CodMoneda}")
+    @Path("/tasa/obtener/{CodMoneda}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Intercambio getById(@PathParam("CodMoneda") String CodMoneda) {
         return intercambioService.getById(CodMoneda);
     }
 
-    @Path("/impuesto/{CodPais}")
+    @Path("/impuesto/obtener/{CodPais}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Impuesto> getByIdImpuesto(@PathParam("CodPais") String CodPais) {
         return intercambioService.getByIdImpuesto(CodPais);
     }
 
-    @Path("/impuesto/total/{CodPais}")
+    @Path("/impuesto/total/obtener/{CodPais}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public double getByIdImpuestoTotal(@PathParam("CodPais") String CodPais) {
