@@ -24,10 +24,10 @@ namespace ProductosInfraestructure.Repositories
 
         public async Task<int> UpdateProducto(ProductoDto newProducto)
         {
-            var producto = _productContext.Productos.Where(x => x.Id == newProducto.Id).FirstOrDefault();
+            var producto = _productContext.Productos.Where(x => x.Id == newProducto.id).FirstOrDefault();
             if( producto != null )
             {
-                producto.Inventario = newProducto.Inventario;
+                producto.Inventario = newProducto.inventario;
                 return await _productContext.SaveChangesAsync();
             }
             else
