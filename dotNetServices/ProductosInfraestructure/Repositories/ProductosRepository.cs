@@ -21,5 +21,19 @@ namespace ProductosInfraestructure.Repositories
             var lista = _productContext.Productos.ToList();
             return await Task.FromResult(lista);
         }
+
+        public async Task<int> UpdateProducto(ProductoDto newProducto)
+        {
+            var producto = _productContext.Productos.Where(x => x.Id == newProducto.id).FirstOrDefault();
+            if( producto != null )
+            {
+                producto.Inventario = newProducto.inventario;
+                return await _productContext.SaveChangesAsync();
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

@@ -25,7 +25,13 @@ namespace ProductosApi.Controllers
         public async Task<ActionResult> ListarProductos(string moneda,string filtro)
         {
             return Ok( await iProductosService.ListarProductos(moneda,filtro) );
-        }    
-        
+        }
+
+        [HttpPost("inventario/actualizar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ListarProductos(ProductoDto newProducto)
+        {
+            return Ok(await iProductosService.UpdateProducto(newProducto));
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace ProductosCore.Interfaces
     public interface IProductosRepository
     {
         Task<IList<Productos>> ListarProductos(string filtro);
+        Task<int> UpdateProducto(ProductoDto newProducto);
     }
 }

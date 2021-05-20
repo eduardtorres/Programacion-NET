@@ -9,7 +9,8 @@ import carrito.pica.dominio.ProductoDto;
 @Table(name = "carrito")
 @NamedQueries({
         @NamedQuery(name = "Carrito.findAll", query = "SELECT c FROM Carrito c"),
-        @NamedQuery(name = "Carrito.obtenerPorUsuarioPais", query = "SELECT c FROM Carrito c WHERE c.Usuario = :Usuario and c.Pais = :Pais order by Id desc")
+        @NamedQuery(name = "Carrito.obtenerPorUsuarioPais", query = "SELECT c FROM Carrito c WHERE c.Usuario = :Usuario and c.Pais = :Pais order by Id desc"),
+        @NamedQuery(name = "Carrito.obtenerPorId", query = "SELECT c FROM Carrito c WHERE c.Id = :Id")
 })
 public class Carrito {
 
