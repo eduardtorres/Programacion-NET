@@ -11,7 +11,7 @@ using OrdenesCore.DTO;
 
 namespace OrdenesApi.Controllers
 {
-    [Route("Prod/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class OrdenController : ControllerBase
     {

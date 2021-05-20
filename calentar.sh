@@ -13,3 +13,7 @@ echo "Productos"
 curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/producto/listado/obtener/CLP/o
 echo "Carrito"
 curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/carrito/get/all
+echo "Clientes"
+curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/cliente/listar
+echo "Ordenes"
+curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/orden
