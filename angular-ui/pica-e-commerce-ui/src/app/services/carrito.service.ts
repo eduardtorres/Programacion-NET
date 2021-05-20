@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { IRespuesta, ICarrito, IProducto } from '../interfaces/carrito.response'
+import { IRespuesta, ICarrito, IProducto, ICotizar } from '../interfaces/carrito.response'
 
 import { configuracion } from './configuracion';
 
@@ -89,6 +89,15 @@ export class CarritoService {
       let serviceUrl : string = configuracion.urlServicio;
       let url = serviceUrl + '/carrito/productos/consultar/' + this.CarritoExiste().toString() ;      
       return this.http.get<IProducto[]> ( url , this.httpOptions);            
+    }
+
+    cotizar() {
+      let request = {
+        carritoId : this.CarritoExiste()
+      };
+      let serviceUrl : string = configuracion.urlServicio;
+      let url = serviceUrl + '/carrito/orden/cotizar' ;      
+      return this.http.post<ICotizar> ( url , request , this.httpOptions);            
     }
 
 }

@@ -1,1 +1,92 @@
-<p>pagar-orden works!</p>
+<section class="product_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <div class="box">
+
+                    <form [formGroup]="informacionForm">
+                        <div>
+                            Nombre
+                        <input type="text" placeholder="Nombre" formControlName="nombre" >
+                        </div>
+                        <div>
+                            Direccion
+                        <input type="text" placeholder="Direccion" formControlName="direccion" >
+                        </div>
+                        <div>
+                            Telefono
+                        <input type="text" placeholder="Telefono" formControlName="telefono" >
+                        </div>
+                        <div>    
+                            Tipo de Pago
+                        <select formControlName="medios" id="medios" #mySelect (change)="onMediosChange(mySelect.value)">
+                            <option *ngFor="let medio of medios" [value]="medio.id">
+                                {{medio.desMedioPago}}
+                            </option>
+                        </select>                      
+                        </div>
+                        <div *ngIf="mostrarCC" >
+                        <div>
+                            Numero
+                        <input type="text" placeholder="NUMERO" formControlName="numero" >
+                    </div>
+                    <div>
+                            Expiracion
+                        <input type="text" placeholder="MM/YY" formControlName="vencimiento" >
+                    </div>
+                        <div>
+                            CCV
+                        <input type="text" placeholder="CCV" formControlName="ccv" >
+                        </div>
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="box">
+                    <div *ngIf="cotizar">
+                        <h5>
+                            Unidades
+                        </h5>
+                        <p>
+                            {{ cotizar.unidades }}    
+                        </p>    
+                        <h5>
+                            Neto
+                        </h5>
+                        <p>
+                            {{ cotizar.neto }}    
+                        </p>    
+                        <h5>
+                            Impuestos
+                        </h5>
+                        <p>
+                            {{ cotizar.impuesto }}    
+                        </p>    
+                        <h5>
+                            Transporte
+                        </h5>
+                        <p>
+                            {{ cotizar.transporte }}    
+                        </p>    
+                        <h5>
+                            Total
+                        </h5>
+                        <p>
+                            {{ cotizar.total }}    
+                        </p>     
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="box">
+                    <button class="generic_button">
+                        Pagar
+                    </button>
+                </div>
+            </div>            
+        </div>
+    </div>
+</section>
+

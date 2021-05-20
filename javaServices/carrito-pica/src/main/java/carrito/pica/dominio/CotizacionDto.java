@@ -2,9 +2,10 @@ package carrito.pica.dominio;
 
 public class CotizacionDto {    
     
-    public String Moneda;
-    public double Neto;
-    public double Impuestos;
-    public double Transporte;
-    public double Total;
+    public String moneda;
+    public double neto;
+    public double impuesto;
+    public double transporte;
+    public double total;
+    public int unidades;
 }

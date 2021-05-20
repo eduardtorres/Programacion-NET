@@ -27,3 +27,12 @@ export interface IRespuesta {
     codigo : number;
     mensaje : string;
 }
+
+export interface ICotizar {
+    unidades : number;
+    neto : number;
+    impuesto : number;
+    transporte : number;
+    total : number;
+    moneda : string;
+}

@@ -163,18 +163,22 @@ public class CarritoService
         Carrito carrito = ObtenerPorId(request.carritoId);
         List<Producto> productos = ObtenerProductos( request.carritoId );
         double suma = 0;
+        String moneda = "";
         for( Producto item : productos )
         {
             suma = suma + ( item.Cantidad * item.Precio );
+            moneda = item.Moneda;
         }
 
         double impuestosPorc = impuestosApiClient.ObtenerImpuesto(carrito.getPais());
 
         CotizacionDto response = new CotizacionDto();
-        response.Neto = suma;
-        response.Transporte = 0;
-        response.Impuestos =  suma * impuestosPorc / 100 ;
-        response.Total = ( response.Neto + response.Transporte + response.Impuestos );
+        response.unidades = productos.size();
+        response.moneda = moneda;
+        response.neto = suma;
+        response.transporte = 0;
+        response.impuesto =  suma * impuestosPorc / 100 ;
+        response.total = ( response.neto + response.transporte + response.impuesto );
 
         return response;
     }
