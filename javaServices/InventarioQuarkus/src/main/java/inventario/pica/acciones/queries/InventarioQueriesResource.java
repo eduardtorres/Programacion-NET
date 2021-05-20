@@ -22,7 +22,7 @@ public class InventarioQueriesResource {
     @Inject
     InventarioService InventarioService;
 
-    @Path("/get/all")
+    @Path("/producto/consultar")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Inventario> getAll() {
@@ -35,7 +35,7 @@ public class InventarioQueriesResource {
     public Inventario Obtener( @PathParam("codigo") String codigo , @PathParam("tipoproveedor") String tipoproveedor ) {
         return InventarioService.ObtenerPorCodigoTipoPro(codigo,tipoproveedor);
     }
-
+/*
     @Path("/productos/consultar/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -57,5 +57,5 @@ public class InventarioQueriesResource {
     public List<InventarioDto> Disponibilidad(@PathParam("id") int id) {
         return inventarioService.id;
     }
-
+*/
 }

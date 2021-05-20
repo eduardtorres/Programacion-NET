@@ -6,6 +6,7 @@ import inventario.pica.dominio.*;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
@@ -32,16 +33,24 @@ public class InventarioComandosResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public RespuestaBaseDto AgregarProucto(ProductoDto request) {
-        return inventarioService.AgregarProducto(request);
+    public RespuestaBaseDto AgregarInventario(InventarioDto request) {
+        return inventarioService.AgregarInventario(request);
     }
 
     @Path("/producto/quitar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public RespuestaBaseDto QuitarProducto(ProductoDto request) {
-        return inventarioService.QuitarProducto(request);
+    public RespuestaBaseDto QuitarProducto(InventarioDto request) {
+        return inventarioService.QuitarInventario(request);
+    }
+	
+	@Path("/descargar/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public RespuestaBaseDto DescargarProducto(InventarioDto request) {
+        return inventarioService.DescargarInventario(request);
     }
 
     @Path("/limpiar/{id}")
