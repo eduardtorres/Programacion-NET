@@ -33,11 +33,11 @@ namespace ClientesApi.Controllers
             return Ok(await iClientesServices.ListarClientes());
         }
 
-        [HttpGet("autenticar")]
+        [HttpPost("autenticar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ClienteDTO>> AuthenticarCliente(string UserName, string Password)
+        public async Task<ActionResult<AutenticarDTO>> AuthenticarCliente(ClienteDTO cliente)
         {
-            return Ok(await iClientesServices.AuthenticarCliente(UserName, Password));
+            return Ok(await iClientesServices.AuthenticarCliente(cliente.UserName,cliente.Password));
         }
     }
 }

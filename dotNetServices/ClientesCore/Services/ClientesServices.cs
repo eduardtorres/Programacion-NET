@@ -1,4 +1,5 @@
 ﻿using ClientesCore.DTO;
+using ClientesCore.Entities;
 using ClientesCore.Interfaces;
 using ClientesCore.Util;
 using System;
@@ -24,11 +25,23 @@ namespace ClientesCore.Services
             return listaClientes;
         }
 
-        public async Task<ClienteDTO> AuthenticarCliente(string UserName, string Password)
+        public async Task<AutenticarDTO> AuthenticarCliente(string UserName, string Password)
         {
-            ClientesAssembler assembler = new ClientesAssembler();
-            ClienteDTO cliente = assembler.assemblyDTO(await iClientesRepository.AuthenticarCliente(UserName, Password));
-            return cliente;
+            ClienteEntity cliente = await iClientesRepository.AuthenticarCliente(UserName, Password);
+            AutenticarDTO autenticarDTO = new AutenticarDTO();
+            if ( cliente != null )
+            {
+                ClientesAssembler assembler = new ClientesAssembler();
+                autenticarDTO.cliente = assembler.AssembleDTO(cliente);
+                autenticarDTO.code = 1;
+                autenticarDTO.token = Seguridad.CrearJwt(cliente);
+            }
+            else
+            {
+                autenticarDTO.code = 0;
+            }
+
+            return autenticarDTO;
         }       
 
         public async Task<ClienteDTO> RegistrarCliente(ClienteDTO cliente)

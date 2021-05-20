@@ -5,10 +5,8 @@ using System.Text;
 
 namespace ClientesCore.DTO
 {
-    [Serializable]
     public class ClienteDTO
     {
-        [Key]
         public long IdCliente { get; set; }
         public string Nombre { get; set; }
         public string Direccion { get; set; }
