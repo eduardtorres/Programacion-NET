@@ -6,10 +6,10 @@
                     <h5>
                         Ingrese con su cuenta
                     </h5>
-                    <form action="">
-                        <input type="email" placeholder="Enter your email">
-                        <input type="password" >
-                        <button>
+                    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" >
+                        <input type="email" placeholder="Enter your email" formControlName="email" >
+                        <input type="password" formControlName="password" >
+                        <button type="submit">
                             Login
                         </button>
                     </form>

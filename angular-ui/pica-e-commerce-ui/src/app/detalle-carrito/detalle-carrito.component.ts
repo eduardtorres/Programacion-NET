@@ -28,12 +28,12 @@ export class DetalleCarritoComponent implements OnInit {
   consultarProductos() {
     this.carritoService.consultarProductos().subscribe( data => {
       this.productos = data;
+      this.carritoService.persistirProductos(data);
     } );
   }
 
   quitarProducto(item : IProducto) {
     this.carritoService.quitarProducto(item).subscribe( data => {
-      window.alert(data.mensaje);
       this.consultarProductos();
     } );
   }

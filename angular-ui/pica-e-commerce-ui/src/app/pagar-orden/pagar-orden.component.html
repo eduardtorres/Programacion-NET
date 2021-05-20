@@ -3,20 +3,35 @@
         <div class="row">
             <div class="col-sm-6 col-lg-4">
                 <div class="box">
-
+                    <h5>
+                        Informacion para el Envio
+                    </h5>
                     <form [formGroup]="informacionForm">
                         <div>
-                            Nombre
-                        <input type="text" placeholder="Nombre" formControlName="nombre" >
+                            Nombre Envio
+                        <input type="text" placeholder="Nombre Envio" formControlName="NombreEnvio" >
                         </div>
                         <div>
-                            Direccion
-                        <input type="text" placeholder="Direccion" formControlName="direccion" >
+                            Apellido Envio
+                        <input type="text" placeholder="Apellido Envio" formControlName="ApellidoEnvio" >
+                        </div>
+                        <div>
+                            Direccion Envio
+                        <input type="text" placeholder="Direccion Envio" formControlName="DireccionEnvio" >
                         </div>
                         <div>
                             Telefono
-                        <input type="text" placeholder="Telefono" formControlName="telefono" >
+                        <input type="text" placeholder="Telefono Envio" formControlName="TelefonoEnvio" >
                         </div>
+                        <div>
+                            Ciudad Envio
+                        <input type="text" placeholder="Ciudad Envio" formControlName="CiudadEnvio" >
+                        </div>
+                        <div>
+                            Codigo Postal Envio
+                        <input type="text" placeholder="Codigo Postal Envio" formControlName="CodigoAreaEnvio" >
+                        </div>
+
                         <div>    
                             Tipo de Pago
                         <select formControlName="medios" id="medios" #mySelect (change)="onMediosChange(mySelect.value)">
@@ -26,17 +41,34 @@
                         </select>                      
                         </div>
                         <div *ngIf="mostrarCC" >
+                            <div>
+                                Titular
+                            <input type="text" placeholder="Titular" formControlName="CCtitular" >
+                        </div>
+
+                        <div>
+
+                            Tipo Tarjeta
+
+                            <select formControlName="CCtipo">
+                                <option value="VI">Visa</option>
+                                <option value="MC">Master Card</option>
+                                <option value="AE">AMEX</option>
+                              </select>
+
+                        </div>
+    
                         <div>
                             Numero
-                        <input type="text" placeholder="NUMERO" formControlName="numero" >
+                        <input type="text" placeholder="NUMERO" formControlName="CCnumero" >
                     </div>
                     <div>
                             Expiracion
-                        <input type="text" placeholder="MM/YY" formControlName="vencimiento" >
+                        <input type="text" placeholder="MM/YY" formControlName="CCvencimiento" >
                     </div>
                         <div>
                             CCV
-                        <input type="text" placeholder="CCV" formControlName="ccv" >
+                        <input type="text" placeholder="CCV" formControlName="CCV" >
                         </div>
                     </div>
                     </form>
@@ -45,43 +77,60 @@
             </div>
             <div class="col-sm-6 col-lg-4">
                 <div class="box">
+                    <h5>
+                        Detalle del pago
+                    </h5>
                     <div *ngIf="cotizar">
                         <h5>
                             Unidades
                         </h5>
                         <p>
-                            {{ cotizar.unidades }}    
+                            {{ cotizar.moneda }} {{ cotizar.unidades }}    
                         </p>    
                         <h5>
                             Neto
                         </h5>
                         <p>
-                            {{ cotizar.neto }}    
+                            {{ cotizar.moneda }} {{ cotizar.neto }}    
                         </p>    
                         <h5>
                             Impuestos
                         </h5>
                         <p>
-                            {{ cotizar.impuesto }}    
+                            {{ cotizar.moneda }} {{ cotizar.impuesto }}    
                         </p>    
                         <h5>
                             Transporte
                         </h5>
                         <p>
-                            {{ cotizar.transporte }}    
+                            {{ cotizar.moneda }} {{ cotizar.transporte }}    
                         </p>    
                         <h5>
                             Total
                         </h5>
                         <p>
-                            {{ cotizar.total }}    
+                            {{ cotizar.moneda }} {{ cotizar.total }}    
                         </p>     
                     </div>
                 </div>
             </div>
             <div class="col-sm-6 col-lg-4">
                 <div class="box">
-                    <button class="generic_button">
+                    <h5>
+                        Facturacion
+                    </h5>
+                    <form [formGroup]="facturacionForm">
+                        <div>
+                            Direccion Facturacion
+                        <input type="text" placeholder="Direccion Facturacion" formControlName="DireccionFacturacion" >
+                        </div>
+                        <div>
+                            Correo Electronico Facturacion
+                        <input type="text" placeholder="Email Facturacion" formControlName="CorreoElectronicoFacturacion" >
+                        </div>
+                    </form>
+                    
+                    <button class="generic_button" (click)="pagarOrden()">
                         Pagar
                     </button>
                 </div>

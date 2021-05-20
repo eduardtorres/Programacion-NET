@@ -39,7 +39,7 @@ export class DetalleProductoComponent implements OnInit {
     if( carritoId == 0) {
       this.carritoService.ObtenerCarrito('').subscribe(data => {
         console.warn('carrito:',data.id);
-        this.carritoService.persists(data);
+        this.carritoService.persistir(data);
         this.AgregarProducto();
       });
     }
@@ -49,18 +49,13 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   AgregarProducto() {
-
     let item : IProducto = this.producto!;
     const cantidad = this.agregarForm.get('cantidad')?.value;
     item.cantidad = Number(cantidad);
     item.carritoId = this.carritoService.CarritoExiste();
-
-    console.warn('producto:',item);
-
     this.carritoService.AgregarProducto(item).subscribe( data => {
       window.alert(data.mensaje);
     } );
-
   }
 
   

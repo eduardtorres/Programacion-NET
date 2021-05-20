@@ -161,7 +161,7 @@ a:focus {
 }
 
 .search_form button {
-  width: 45px;
+  width: 90px;
   min-width: 45px;
   height: 40px;
   padding: 0;
@@ -787,6 +787,26 @@ a:focus {
   color: #ffffff;
   background: #f3c93e;
   margin-top: 15px;
+}
+
+.generic_input {
+  border-radius: 5px 0 0 5px;
+  height: 40px;
+  width: auto;
+  min-width: unset;  
+  display: block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;  
 }
 
 /*# sourceMappingURL=style.css.map */

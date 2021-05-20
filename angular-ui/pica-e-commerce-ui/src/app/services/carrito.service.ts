@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { configuracion } from './configuracion';
 
 import { IRespuesta, ICarrito, IProducto, ICotizar } from '../interfaces/carrito.response'
-
-import { configuracion } from './configuracion';
+import { IAutenticar, ICliente } from '../interfaces/cliente.response';
+import { IOrden , IOrdenResponse } from '../interfaces/orden.response';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +16,18 @@ export class CarritoService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
 
+  pais : string = 'COL';
+  usuario : string = '';
   carrito : ICarrito | undefined;
+  cliente : ICliente | undefined;
+  productos : IProducto [] = [];
 
     constructor(
         private http: HttpClient
       ) {}    
 
-    AgregarProducto(producto: IProducto) {
-      
+    AgregarProducto(producto: IProducto) {      
       let serviceUrl : string = configuracion.urlServicio;
-
-      //return this.http.get<IBuscarProductosResponse>( serviceUrl + '/producto/listado/obtener/COP/' + busqueda , httpOptions);
       return this.http.post<IRespuesta>( 
           serviceUrl + '/carrito/producto/agregar',
           producto,
@@ -45,40 +46,42 @@ export class CarritoService {
     }
 
     ObtenerCarrito(newEmail : string) {
-      let pais = 'COL';
-      let usuario = '';
       if( newEmail == '' )
       {
-        if( this.carrito === undefined  )
+        if( this.usuario == '')
         {
           let max = 1000000000;
           let min = 100000000;
-          usuario =  (Math.floor(Math.random() * (max - min + 1)) + min).toString();
-        }
-        else
-        {
-          usuario = this.carrito?.usuario;
+          this.usuario =  (Math.floor(Math.random() * (max - min + 1)) + min).toString();
         }
       }
       else
       {
-        usuario = newEmail;
+        this.usuario = newEmail;
       }
-
       let serviceUrl : string = configuracion.urlServicio;
-      let url = serviceUrl + '/carrito/obtener/' + usuario + '/' + pais ;      
-
+      let url = serviceUrl + '/carrito/obtener/' + this.usuario + '/' + this.pais ;      
       return this.http.get<ICarrito> ( url , this.httpOptions);
     }
 
-    persists( carrito : ICarrito ) {
-      this.carrito = carrito;
+    persistir( _carrito : ICarrito ) {
+      this.carrito = _carrito;
+    }
+
+    actualizarPais( _pais : string ) {
+      this.pais = _pais;
+    }
+
+    persistirCliente( _cliente : ICliente ) {
+      this.cliente = _cliente;
+    }
+
+    persistirProductos( _productos : IProducto [] ) {
+      this.productos = _productos;
     }
 
     quitarProducto(producto : IProducto) {
-
       let serviceUrl : string = configuracion.urlServicio;
-
       return this.http.post<IRespuesta>( 
         serviceUrl + '/carrito/producto/quitar',
         producto,
@@ -98,6 +101,24 @@ export class CarritoService {
       let serviceUrl : string = configuracion.urlServicio;
       let url = serviceUrl + '/carrito/orden/cotizar' ;      
       return this.http.post<ICotizar> ( url , request , this.httpOptions);            
+    }
+
+    autenticar( email : string , password : string ) {      
+      let request = {
+        userName : email,
+        password : password
+      };
+      let serviceUrl : string = configuracion.urlServicio;
+      let url = serviceUrl + '/cliente/autenticar' ;      
+      return this.http.post<IAutenticar> ( url , request , this.httpOptions);            
+    }
+
+    colocarOrden(orden : IOrden) {
+      let serviceUrl : string = configuracion.urlServicio;
+      return this.http.post<IOrdenResponse>( 
+        serviceUrl + '/orden/colocar',
+        orden,
+        this.httpOptions);
     }
 
 }

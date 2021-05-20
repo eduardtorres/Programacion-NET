@@ -23,13 +23,19 @@
                 <a class="nav-link" [routerLink]="['/login']" >Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/carrito']" >Registrarse</a>
+                <a class="nav-link" [routerLink]="['/']" >Registrarse</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/carrito']">Carrito</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="testimonial.html">Mis ordenes</a>
+              </li>
+              <li class="nav-item">
+                <select class="generic_input" #countrySelect (change)="onCountryChange(countrySelect.value)">
+                  <option value="COL">COL</option>
+                  <option value="CHL">CHL</option>
+                </select>
               </li>
             </ul>
           </div>

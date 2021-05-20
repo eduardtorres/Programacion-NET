@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IProducto } from '../interfaces/carrito.response'
 
 import { configuracion } from './configuracion';
+import { CarritoService } from './carrito.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class ProductoService {
 
   productos : IProducto[] = [];
 
-    constructor(
-        private http: HttpClient
+    constructor(private http: HttpClient,
+        private carritoService : CarritoService
       ) {}    
 
     getProducts(busqueda:String) {
@@ -25,9 +26,8 @@ export class ProductoService {
       }
 
       let serviceUrl : string = configuracion.urlServicio;
-
-      //return this.http.get<IBuscarProductosResponse>( serviceUrl + '/producto/listado/obtener/COP/' + busqueda , httpOptions);
-      return this.http.get<IProducto[]>( serviceUrl + '/producto/listado/obtener/COP/' + busqueda , httpOptions);
+      let moneda : string = this.getMonedaFromCountry();
+      return this.http.get<IProducto[]>( serviceUrl + '/producto/listado/obtener/' + moneda + '/' + busqueda , httpOptions);
     }    
 
     getProductsOffline()
@@ -37,6 +37,16 @@ export class ProductoService {
 
     persists( collection : IProducto[]  ) {
       this.productos = collection;
+    }
+
+    getMonedaFromCountry() {
+      let pais = this.carritoService.pais;
+      if( pais == 'COL' )
+        return 'COP';
+      else if ( pais == 'CHL' )
+        return 'CLP';
+      else
+        return '';
     }
 
 }
