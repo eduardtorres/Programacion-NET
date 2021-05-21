@@ -8,7 +8,7 @@ namespace OrdenesCore.DTO
     {
         public int MedioPago { get; set; }
         public string CodMoneda { get; set; }
-        public int NumeroTarjeta { get; set; }
+        public string NumeroTarjeta { get; set; }
         public int MesExpiracion { get; set; }
         public int AnoExpiracion { get; set; }
         public string CodCV { get; set; }
