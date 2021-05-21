@@ -6,6 +6,8 @@ import { IProducto } from '../interfaces/carrito.response'
 
 import { FormBuilder } from '@angular/forms';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+
 @Component({
   selector: 'app-buscar-producto',
   templateUrl: './buscar-producto.component.html',
@@ -14,6 +16,8 @@ import { FormBuilder } from '@angular/forms';
 export class BuscarProductoComponent implements OnInit {
 
   productos : IProducto[] = [];
+
+  pensando : boolean = false;
   
   busquedaForm = this.formBuilder.group({
     filtro: ''
@@ -30,13 +34,20 @@ export class BuscarProductoComponent implements OnInit {
     // Process checkout data here
     //console.warn('Your order has been submitted', this.checkoutForm.value);    
     const busqueda = this.busquedaForm.get('filtro')?.value;
-    this.productoService.getProducts(busqueda).subscribe( data => {
-      this.productos = data;
-      this.productoService.persists( data );
-    } );
+    this.BuscarProductos( busqueda );
   }
 
   ngOnInit(): void {
+    this.BuscarProductos( 'all' );
+  }
+
+  BuscarProductos( filtro : string ) {
+    this.pensando = true;
+    this.productoService.getProducts(filtro).subscribe( data => {
+      this.productos = data;
+      this.productoService.persists( data );
+      this.pensando = false;
+    } );
   }
 
 }

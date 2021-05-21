@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { configuracion } from './configuracion';
 
 import { IRespuesta, ICarrito, IProducto, ICotizar } from '../interfaces/carrito.response'
-import { IAutenticar, ICliente } from '../interfaces/cliente.response';
+import { ICliente } from '../interfaces/cliente.response';
 import { IOrden , IOrdenResponse } from '../interfaces/orden.response';
 
 @Injectable({
@@ -101,16 +101,6 @@ export class CarritoService {
       let serviceUrl : string = configuracion.urlServicio;
       let url = serviceUrl + '/carrito/orden/cotizar' ;      
       return this.http.post<ICotizar> ( url , request , this.httpOptions);            
-    }
-
-    autenticar( email : string , password : string ) {      
-      let request = {
-        userName : email,
-        password : password
-      };
-      let serviceUrl : string = configuracion.urlServicio;
-      let url = serviceUrl + '/cliente/autenticar' ;      
-      return this.http.post<IAutenticar> ( url , request , this.httpOptions);            
     }
 
     colocarOrden(orden : IOrden) {

@@ -1,0 +1,24 @@
+<section class="info_section ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="info_form ">
+                    <h5>
+                        Registrar Cliente
+                    </h5>
+                    <form [formGroup]="registroForm" (ngSubmit)="onRegistroSubmit()" >
+                        <input type="text" placeholder="Nombre" formControlName="nombre" >
+                        <input type="text" placeholder="Direccion" formControlName="direccion" >
+                        <input type="text" placeholder="Documento" formControlName="nit" >
+                        <input type="text" placeholder="Telefono" formControlName="telefono" >
+                        <input type="text" placeholder="Enter your email" formControlName="email" >
+                        <input type="password" placeholder="Password" formControlName="password" >
+                        <button type="submit">
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

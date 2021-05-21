@@ -1,14 +1,13 @@
 <h2>Productos en el carrito</h2>
 
 <div *ngFor="let producto of productos">
-    <h3>
+    <div>
         [ {{ producto.categoria }} ] {{ producto.nombre }} 
-        
         <button (click)="quitarProducto(producto)" class="generic_button">
             Remover
         </button>
 
-    </h3>
+    </div>
 
     <div>
         {{ producto.cantidad }}

@@ -1,10 +1,11 @@
 export interface ICliente {
-    idCliente : string;
+    idCliente : number;
     nombre : string;
     direccion : string;
     nit : string;
     telefono : string;
     userName : string;
+    password : string;
 }
 
 export interface IAutenticar {

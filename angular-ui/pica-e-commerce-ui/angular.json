@@ -29,6 +29,7 @@
               "src/images"
             ],
             "styles": [              
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/css/style.css",
               "src/css/bootstrap.css",
               "src/css/responsive.css"
@@ -97,6 +98,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []

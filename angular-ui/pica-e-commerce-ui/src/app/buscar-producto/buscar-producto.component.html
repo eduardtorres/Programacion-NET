@@ -18,6 +18,12 @@
 
           </form>          
 
+          <div *ngIf="pensando">
+
+            <mat-spinner color="accent" diameter="20"></mat-spinner>
+
+          </div>
+
         </div>
 
       </div>
@@ -39,7 +45,7 @@
       <div class="col-sm-6 col-lg-4"  *ngFor="let item of productos">
         <div class="box">
           <div class="img-box">
-            <img src="images/p1.png" alt="">
+            <img src="images/{{ item.urlImagen }}" alt="">
             <a [routerLink]="['/productos', item.id]" class="add_cart_btn">
               <span>
                 Ver Detalles

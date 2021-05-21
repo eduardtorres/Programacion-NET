@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { FormBuilder } from '@angular/forms';
 import { CarritoService } from '../services/carrito.service';
+import { ClienteService } from '../services/cliente.service';
 
 @Component({
   selector: 'app-login-cliente',
@@ -14,7 +15,8 @@ export class LoginClienteComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
-    private carritoService : CarritoService) { }
+    private carritoService : CarritoService,
+    private clienteService : ClienteService ) { }
 
   loginForm = this.formBuilder.group({
     email: '',
@@ -27,7 +29,7 @@ export class LoginClienteComponent implements OnInit {
   onLoginSubmit() {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
-    this.carritoService.autenticar( email, password ).subscribe( data => {
+    this.clienteService.autenticar( email, password ).subscribe( data => {
       if( data.code == 1 )
       {
         this.carritoService.ObtenerCarrito(email).subscribe(data2 => {
