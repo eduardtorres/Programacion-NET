@@ -9,9 +9,10 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-import co.com.aespica.repositorio.Pago;
-import co.com.aespica.repositorio.MediosPago;
-import co.com.aespica.dominio.PagoDTO;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+
+import co.com.aespica.repositorio.*;
+import co.com.aespica.dominio.*;
 
 
 @Dependent
@@ -41,9 +42,13 @@ public class PagoService {
                 .getSingleResult();
     }
 
+    @Inject
+    @RestClient
+    ProveedorPagoService proveedorPagoService;
     @Transactional
     public int RealizarPago(PagoDTO pagoDto)
     {
+
         Pago pago = new Pago();
         pago.MedioPago = pagoDto.MedioPago;
         pago.Valor = pagoDto.Valor;
@@ -59,8 +64,22 @@ public class PagoService {
         
         Date date = Calendar.getInstance().getTime();
         pago.FechaPago = date;
-        pago.IndEstadoPago = false;//En Proceso
-        entityManager.persist(pago);
-        return pago.getId();
+
+        //Llamado a servicio de pago proveedor
+        RespuestaProveedorPago respuestaProveedorPago= proveedorPagoService.ejecutarPagoProveedor(pagoDto);
+        int resp=0;        
+        // Responde 0 siempre que se envie 'MC' en TipoTarjeta, indicando que no es valido el pago.
+        if (respuestaProveedorPago.codRespuesta==0){
+            pago.IndEstadoPago = false;//En Proceso
+            entityManager.persist(pago);
+            resp=0;
+        } else{
+            pago.IndEstadoPago = true;//En Proceso
+            entityManager.persist(pago);
+            resp=pago.getId();
+        }
+        //se devuelve el id del pago cuando la respuesta del pago es 1.
+        return resp;
+        
     }
 }
