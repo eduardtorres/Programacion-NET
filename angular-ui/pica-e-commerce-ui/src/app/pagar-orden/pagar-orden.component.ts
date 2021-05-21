@@ -8,6 +8,8 @@ import { ICotizar, IProducto } from '../interfaces/carrito.response'
 import { IDatosPago, IDetalleOrden, IMedioPago, IOrden } from '../interfaces/orden.response'
 import { ICliente } from '../interfaces/cliente.response';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+
 @Component({
   selector: 'app-pagar-orden',
   templateUrl: './pagar-orden.component.html',
@@ -21,6 +23,8 @@ export class PagarOrdenComponent implements OnInit {
   medios: IMedioPago[] = [];
 
   mostrarCC : boolean = false;
+
+  pensando : boolean = false;
 
   informacionForm = this.formBuilder.group({
     NombreEnvio: new FormControl(),
@@ -160,10 +164,12 @@ export class PagarOrdenComponent implements OnInit {
       ValorImpuestos : cotizar.impuesto      
     }
 
+    this.pensando = true;
     this.carritoService.colocarOrden( fullOrden ).subscribe( data=> {        
       if( data.id > 0 ) {
         window.alert( 'Orden creada exitosamente: ' + data.id );
       }
+      this.pensando = false;
     });
 
   }

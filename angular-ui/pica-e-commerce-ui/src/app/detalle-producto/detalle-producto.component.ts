@@ -4,8 +4,9 @@ import { FormBuilder } from '@angular/forms';
 
 import { ProductoService } from '../services/producto.service';
 import { CarritoService } from '../services/carrito.service';
-
 import { IProducto } from '../interfaces/carrito.response'
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 
 @Component({
   selector: 'app-detalle-producto',
@@ -16,6 +17,8 @@ import { IProducto } from '../interfaces/carrito.response'
 export class DetalleProductoComponent implements OnInit {
 
   producto : IProducto | undefined;
+
+  pensando : boolean = false;
 
   agregarForm = this.formBuilder.group({
     cantidad: ''
@@ -35,6 +38,7 @@ export class DetalleProductoComponent implements OnInit {
   }
 
   onAgregarSubmit() {
+    this.pensando = true;
     let carritoId = this.carritoService.CarritoExiste();
     if( carritoId == 0) {
       this.carritoService.ObtenerCarrito('').subscribe(data => {
@@ -44,7 +48,7 @@ export class DetalleProductoComponent implements OnInit {
       });
     }
     else {
-      this.AgregarProducto();
+      this.AgregarProducto();      
     }
   }
 
@@ -55,6 +59,7 @@ export class DetalleProductoComponent implements OnInit {
     item.carritoId = this.carritoService.CarritoExiste();
     this.carritoService.AgregarProducto(item).subscribe( data => {
       window.alert(data.mensaje);
+      this.pensando = false;
     } );
   }
 
