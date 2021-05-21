@@ -1,0 +1,55 @@
+[
+{
+    "categoria": "Consolas",
+    "codigo": "LNS",
+    "codigoProveedor": "Local",
+    "descripcion": "Nintendo Switch se transforma para adaptarse a ti y ahora podrás jugar todo lo que quieras, cuando quieras y donde quieras, porque hay un modo para cada lugar y situación, Nintendo Switch piensa en lo que necesitas y te ofrece un mundo de posibilidades. ",
+    "fabricante": "Nintendo",
+    "id": 1,
+    "inventario": 10,
+    "moneda": "COP",
+    "nombre": "Nintendo Switch",
+    "precio": 1100000.0,
+    "tipoProveedor": "Local",
+    "urlImagen": "p1.jpg"
+},
+{
+    "categoria": "Consolas",
+    "codigo": "LNSL",
+    "codigoProveedor": "Local",
+    "descripcion": "Les presentamos la consola Nintendo Switch™ Lite, una nueva versión de la consola Nintendo Switch que está optimizada para el juego personal y portátil. La consola Nintendo Switch Lite es una consola Nintendo Switch pequeña y ligera a un gran precio. Con una cruz de control incorporada y un elegante diseño, esta consola es perfecta para jugar en el camino. La consola Nintendo Switch Lite es compatible con populares juegos, Si estás buscando una consola de juegos que sea solo para ti, la consola Nintendo Switch Lite está lista para salir contigo a todas partes.",
+    "fabricante": "Nintendo",
+    "id": 2,
+    "inventario": 10,
+    "moneda": "COP",
+    "nombre": "Nintendo Switch Lite",
+    "precio": 900000.0,
+    "tipoProveedor": "Local"
+},
+{
+    "categoria": "Consolas",
+    "codigo": "LXBSS",
+    "codigoProveedor": "Local",
+    "descripcion": "Solo digital , Todo de nueva generación. Pásate a lo digital con la Xbox Series S y crea una biblioteca de juegos digitales. Tus juegos, partidas guardadas y copias de seguridad están a salvo en la nube. Además, disfruta de la capacidad de reservar y preinstalar los juegos disponibles próximamente para que puedas jugar a ellos en el momento de su lanzamiento.",
+    "fabricante": "Microsoft",
+    "id": 3,
+    "inventario": 10,
+    "moneda": "COP",
+    "nombre": "XBOX ONE Series S",
+    "precio": 1450000.0,
+    "tipoProveedor": "Local"
+},
+{
+    "categoria": "Celulares",
+    "codigo": "LIP13",
+    "codigoProveedor": "Local",
+    "descripcion": "Brillante por donde lo veas. El iPhone XR de Apple tiene una pantalla Liquid Retina de 6.1 pulgadas|, el LCD más desarrollado de la industria y una cámara de 12 megapíxeles. Cuenta con Face ID avanzado, tu rostro no solo te permite el acceso, descubre mucho más. Además, tiene el chip A12 Bionic, diseñado para el aprendizaje automático en tiempo real, eso significa que reconoce patrones y puede hacer predicciones para mejorar tu experiencia.",
+    "fabricante": "Apple",
+    "id": 4,
+    "inventario": 10,
+    "moneda": "COP",
+    "nombre": "IPhone 13 plus pro max",
+    "precio": 9000000,
+    "tipoProveedor": "Local"
+}
+]
