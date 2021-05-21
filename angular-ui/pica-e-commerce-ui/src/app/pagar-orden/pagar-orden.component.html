@@ -8,32 +8,32 @@
                     </h5>
                     <form [formGroup]="informacionForm">
                         <div>
-                            Nombre Envio
+                            Nombre Envio<br />
                         <input type="text" placeholder="Nombre Envio" formControlName="NombreEnvio" >
                         </div>
                         <div>
-                            Apellido Envio
+                            Apellido Envio<br />
                         <input type="text" placeholder="Apellido Envio" formControlName="ApellidoEnvio" >
                         </div>
                         <div>
-                            Direccion Envio
+                            Direccion Envio<br />
                         <input type="text" placeholder="Direccion Envio" formControlName="DireccionEnvio" >
                         </div>
                         <div>
-                            Telefono
+                            Telefono<br />
                         <input type="text" placeholder="Telefono Envio" formControlName="TelefonoEnvio" >
                         </div>
                         <div>
-                            Ciudad Envio
+                            Ciudad Envio<br />
                         <input type="text" placeholder="Ciudad Envio" formControlName="CiudadEnvio" >
                         </div>
                         <div>
-                            Codigo Postal Envio
+                            Codigo Postal Envio<br />
                         <input type="text" placeholder="Codigo Postal Envio" formControlName="CodigoAreaEnvio" >
                         </div>
 
                         <div>    
-                            Tipo de Pago
+                            Tipo de Pago<br />
                         <select formControlName="medios" id="medios" #mySelect (change)="onMediosChange(mySelect.value)">
                             <option *ngFor="let medio of medios" [value]="medio.id">
                                 {{medio.desMedioPago}}
@@ -42,13 +42,13 @@
                         </div>
                         <div *ngIf="mostrarCC" >
                             <div>
-                                Titular
+                                Titular<br />
                             <input type="text" placeholder="Titular" formControlName="CCtitular" >
                         </div>
 
                         <div>
 
-                            Tipo Tarjeta
+                            Tipo Tarjeta<br />
 
                             <select formControlName="CCtipo">
                                 <option value="VI">Visa</option>
@@ -59,15 +59,15 @@
                         </div>
     
                         <div>
-                            Numero
+                            Numero<br />
                         <input type="text" placeholder="NUMERO" formControlName="CCnumero" >
                     </div>
                     <div>
-                            Expiracion
+                            Expiracion<br />
                         <input type="text" placeholder="MM/YY" formControlName="CCvencimiento" >
                     </div>
                         <div>
-                            CCV
+                            CCV<br />
                         <input type="text" placeholder="CCV" formControlName="CCV" >
                         </div>
                     </div>
@@ -77,59 +77,55 @@
             </div>
             <div class="col-sm-6 col-lg-4">
                 <div class="box">
-                    <h5>
-                        Detalle del pago
-                    </h5>
-                    <div *ngIf="cotizar">
-                        <h5>
-                            Unidades
-                        </h5>
-                        <p>
-                            {{ cotizar.moneda }} {{ cotizar.unidades }}    
-                        </p>    
-                        <h5>
-                            Neto
-                        </h5>
-                        <p>
-                            {{ cotizar.moneda }} {{ cotizar.neto }}    
-                        </p>    
-                        <h5>
-                            Impuestos
-                        </h5>
-                        <p>
-                            {{ cotizar.moneda }} {{ cotizar.impuesto }}    
-                        </p>    
-                        <h5>
-                            Transporte
-                        </h5>
-                        <p>
-                            {{ cotizar.moneda }} {{ cotizar.transporte }}    
-                        </p>    
-                        <h5>
-                            Total
-                        </h5>
-                        <p>
-                            {{ cotizar.moneda }} {{ cotizar.total }}    
-                        </p>     
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-lg-4">
-                <div class="box">
+
                     <h5>
                         Facturacion
                     </h5>
                     <form [formGroup]="facturacionForm">
                         <div>
-                            Direccion Facturacion
+                            Documento Facturacion<br />
+                        <input type="text" placeholder="Direccion Facturacion" formControlName="NumeroDocumentoCliente" >
+                        </div>
+                        <div>
+                            Telefono Facturacion<br />
+                        <input type="text" placeholder="Telefono Facturacion" formControlName="TelefonoFacturacion" >
+                        </div>
+                        <div>
+                            Direccion Facturacion<br />
                         <input type="text" placeholder="Direccion Facturacion" formControlName="DireccionFacturacion" >
                         </div>
                         <div>
-                            Correo Electronico Facturacion
+                            Correo Electronico Facturacion<br />
                         <input type="text" placeholder="Email Facturacion" formControlName="CorreoElectronicoFacturacion" >
                         </div>
                     </form>
-                    
+
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="box">
+
+                    <h5>
+                        Detalle del pago
+                    </h5>
+                    <div *ngIf="cotizar">
+                        <h5>
+                            Unidades: {{ cotizar.unidades }}    
+                        </h5>
+                        <h5>
+                            Neto: {{ cotizar.moneda }} {{ cotizar.neto }}  
+                        </h5>
+                        <h5>
+                            Impuestos: {{ cotizar.moneda }} {{ cotizar.impuesto }}
+                        </h5>
+                        <h5>
+                            Transporte: {{ cotizar.moneda }} {{ cotizar.transporte }}
+                        </h5>
+                        <h5>
+                            Total: {{ cotizar.moneda }} {{ cotizar.total }} 
+                        </h5>
+                    </div>
+
                     <button class="generic_button" (click)="pagarOrden()">
                         Pagar
                     </button>

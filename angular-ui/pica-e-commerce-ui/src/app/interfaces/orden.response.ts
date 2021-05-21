@@ -29,13 +29,13 @@ export interface IOrden {
 export interface IDatosPago {
             MedioPago : number;
             CodMoneda : string;
-            NumeroTarjeta: number,
-            MesExpiracion: number,
-            AnoExpiracion: number,
-            CodCV: string,
-            TipoTarjeta: string,
-            NombreTitular: string,
-            Email: string
+            NumeroTarjeta: string;
+            MesExpiracion: number;
+            AnoExpiracion: number;
+            CodCV: string;
+            TipoTarjeta: string;
+            NombreTitular: string;
+            Email: string;
 }
 
 export interface IDetalleOrden {

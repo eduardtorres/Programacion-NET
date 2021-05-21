@@ -8,7 +8,6 @@ import { ICotizar, IProducto } from '../interfaces/carrito.response'
 import { IDatosPago, IDetalleOrden, IMedioPago, IOrden } from '../interfaces/orden.response'
 import { ICliente } from '../interfaces/cliente.response';
 
-
 @Component({
   selector: 'app-pagar-orden',
   templateUrl: './pagar-orden.component.html',
@@ -39,6 +38,8 @@ export class PagarOrdenComponent implements OnInit {
   });
 
   facturacionForm = this.formBuilder.group({
+    NumeroDocumentoCliente: new FormControl(),
+    TelefonoFacturacion: new FormControl(),
     DireccionFacturacion: new FormControl(),
     CorreoElectronicoFacturacion: new FormControl()
   });
@@ -57,6 +58,17 @@ export class PagarOrdenComponent implements OnInit {
     this.ordenService.consultarMedios().subscribe( data => {
       this.medios = data;
     });
+
+    if( this.carritoService.cliente != undefined )
+    {
+      let cliente : ICliente = this.carritoService.cliente;
+      this.facturacionForm.patchValue({  
+        NumeroDocumentoCliente : cliente.nit,
+        TelefonoFacturacion : cliente.telefono,
+        DireccionFacturacion : cliente.direccion,
+        CorreoElectronicoFacturacion : cliente.userName
+        });
+    }
 
   }
 
@@ -86,11 +98,12 @@ export class PagarOrdenComponent implements OnInit {
     let CCvencimiento = this.informacionForm.get('CCvencimiento')?.value;
     let CCV = this.informacionForm.get('CCV')?.value;
 
+    let NumeroDocumentoCliente = this.facturacionForm.get('NumeroDocumentoCliente')?.value;
+    let TelefonoFacturacion = this.facturacionForm.get('TelefonoFacturacion')?.value;
     let DireccionFacturacion = this.facturacionForm.get('DireccionFacturacion')?.value;
     let CorreoElectronicoFacturacion = this.facturacionForm.get('CorreoElectronicoFacturacion')?.value;
 
     let cotizar : ICotizar = this.cotizar!;
-    let cliente : ICliente = this.carritoService.cliente!;
     let productos : IProducto [] = this.carritoService.productos;
     let detalles : IDetalleOrden [] = [];
     let datospago : IDatosPago [] = [];
@@ -99,11 +112,11 @@ export class PagarOrdenComponent implements OnInit {
       AnoExpiracion : 25,
       CodCV : CCV,
       CodMoneda : cotizar.moneda ,
-      Email : cliente.userName ,
+      Email : CorreoElectronicoFacturacion ,
       MedioPago : Number(medios),
       MesExpiracion : 1,
       NombreTitular : CCtitular,
-      NumeroTarjeta : Number(CCnumero),
+      NumeroTarjeta : CCnumero,
       TipoTarjeta : CCtipo
     }
     datospago.push(datopago);
@@ -133,16 +146,16 @@ export class PagarOrdenComponent implements OnInit {
       DetallesOrden : detalles,
       DireccionEnvio : DireccionEnvio,
       DireccionFacturacion : DireccionFacturacion,
-      EmailCliente : cliente.userName,
+      EmailCliente : CorreoElectronicoFacturacion,
       EstadoEnvio : CiudadEnvio,
       EstadoFacturacion : CiudadEnvio,
       NombreEnvio : NombreEnvio,
-      NumeroDocumentoCliente : cliente.nit,
+      NumeroDocumentoCliente : NumeroDocumentoCliente,
       PaisEnvio : this.carritoService.pais,
       PaisFacturacion : this.carritoService.pais,
       PrecioTotal : cotizar.total,
       TelefonoEnvio : TelefonoEnvio,
-      TelefonoFacturacion : TelefonoEnvio,
+      TelefonoFacturacion : TelefonoFacturacion,
       TipoDocumentoCliente : 'CC',
       ValorImpuestos : cotizar.impuesto      
     }
