@@ -38,8 +38,31 @@ namespace ProveedoresInfraestructure.Repositories
                     msTimeOut: -1);
 
                 // Invokar translator JSLT
-                // translate respuestaJSON A formatoEsperadoJSON
+                // translate respuestaJSON A formatoEsperadoJSON                
 
+                string template = @"[{
+                                      ""id"": ""@id"",
+                                      ""codigo"": ""@codigo"",
+                                      ""proveedor"": ""@proveedor"",
+                                      ""tipoProveedor"": ""@tipoProveedor"",
+                                      ""codigoProveedor"": ""@codigoProveedor"",
+                                      ""nombre"": ""@name"",
+                                      ""descripcion"": ""@description"",
+                                      ""categoria"": ""@brand_name"",
+                                      ""urlImagen"": ""@image_url"",
+                                      ""precio"": ""@price"",
+                                      ""moneda"": ""@moneda"",
+                                      ""inventario"": ""@inventario"",
+                                      ""disponibilidad"": ""@availability""
+                                    }]";
+
+                //dynamic alertObj = JsonConvert.DeserializeObject(respuestaJSON);
+                var routes_list = (Dictionary<string, object>)JsonConvert.DeserializeObject(respuestaJSON);
+
+                foreach (var item in routes_list)
+                {
+                    template.Replace("@" + item.Key, item.Value.ToString());
+                }
 
                 string formatoEsperadoJSON = @"
                 [

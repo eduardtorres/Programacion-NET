@@ -34,8 +34,8 @@ namespace ClientesInfraestructure.Repositories
         
         public async Task<ClienteEntity> RegistrarCliente(ClienteEntity clienteEntity)
         {
-            await _customersContext.Clientes.AddAsync(clienteEntity);
-            await _customersContext.SaveChangesAsync(true);
+            _customersContext.Clientes.Add(clienteEntity);
+            await _customersContext.SaveChangesAsync();
             return clienteEntity;
         }
     }
