@@ -21,10 +21,10 @@ namespace ProveedoresInfraestructure.Repositories
             _providersContext = context;
         }
 
-        public async Task<IList<ProductoDTO>> BuscarProductos(string filtro, ProveedorEntity fabricanteEntity)
+        public async Task<IList<ProductoDTO>> BuscarProductos(string filtro, ProveedorDTO fabricanteEntity)
         {
             List<ProductoDTO> objetoLocal = new List<ProductoDTO>();
-            fabricanteEntity.TipoApi = "SOAP";
+            
             if (fabricanteEntity.TipoApi == "REST")
             {
                 RestClient restClient = new RestClient();
@@ -82,32 +82,23 @@ namespace ProveedoresInfraestructure.Repositories
             else if (fabricanteEntity.TipoApi == "SOAP")
             {
 
-                string body = @"
-<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:tem=""http://tempuri.org/"">
-   <soapenv:Header /> 
-    <soapenv:Body>  
-        <tem:GetDataUsingDataContract>                  
-             <tem:filtro >test</tem:filtro>         
-               </tem:GetDataUsingDataContract>          
-             </soapenv:Body>
-           </soapenv:Envelope>
-            ";
+                string body = fabricanteEntity.Body; 
 
                 System.Net.WebHeaderCollection collection = new System.Net.WebHeaderCollection();
-                collection.Add("SOAPAction", "http://tempuri.org/IService1/GetDataUsingDataContract");
+                collection.Add("SOAPAction", fabricanteEntity.SOAPAction );
                 collection.Add("Content-Type", "text/xml");
 
                 RestClient soapClient = new RestClient();
 
                 string respuestaXML = await soapClient.MakeRequest
-                    (requestUrlApi: "https://cmdev.sigue.com/aes/WcfServiceProveedor2/Service1.svc",
+                    (requestUrlApi: fabricanteEntity.UrlServicio ,
                     JSONRequest: body,
                     JSONmethod: "POST",
                     JSONContentType: "text/xml",
                     msTimeOut: -1,
                     headers: collection);
 
-                int x = 0;
+                objetoLocal = new List<ProductoDTO>();
             }
 
             return objetoLocal;
