@@ -21,9 +21,10 @@ namespace ProveedoresInfraestructure.Repositories
             _providersContext = context;
         }
 
-        public async Task<IList<ProductoDTO>> BuscarProductos(string filtro, ProveedorEntity fabricanteEntity)
+        public async Task<IList<ProductoDTO>> BuscarProductos(string filtro, ProveedorDTO fabricanteEntity)
         {
             List<ProductoDTO> objetoLocal = new List<ProductoDTO>();
+            
             if (fabricanteEntity.TipoApi == "REST")
             {
                 RestClient restClient = new RestClient();
@@ -103,13 +104,24 @@ namespace ProveedoresInfraestructure.Repositories
             }
             else if (fabricanteEntity.TipoApi == "SOAP")
             {
-                SoapClient soapClient = new SoapClient(serviceUrl: fabricanteEntity.UrlServicio, serviceNamespace: "http://tempuri.org/");
-                var respuestaSoap = await soapClient.PostAsync(fabricanteEntity.MetodoApi);
 
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(respuestaSoap.ToString());
-                var json = JsonConvert.SerializeXmlNode(xmlDoc, Newtonsoft.Json.Formatting.None, true);
-                objetoLocal = JsonConvert.DeserializeObject<List<ProductoDTO>>(json);
+                string body = fabricanteEntity.Body; 
+
+                System.Net.WebHeaderCollection collection = new System.Net.WebHeaderCollection();
+                collection.Add("SOAPAction", fabricanteEntity.SOAPAction );
+                collection.Add("Content-Type", "text/xml");
+
+                RestClient soapClient = new RestClient();
+
+                string respuestaXML = await soapClient.MakeRequest
+                    (requestUrlApi: fabricanteEntity.UrlServicio ,
+                    JSONRequest: body,
+                    JSONmethod: "POST",
+                    JSONContentType: "text/xml",
+                    msTimeOut: -1,
+                    headers: collection);
+
+                objetoLocal = new List<ProductoDTO>();
             }
 
             return objetoLocal;

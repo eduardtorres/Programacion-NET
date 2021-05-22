@@ -24,5 +24,7 @@ namespace ProveedoresCore.Entities
         public string MetodoApi { get; set; }
         public string TransformacionProductos { get; set; }
         public string TransformacionOrdenes { get; set; }
+        public string SOAPAction { get; set; }
+        public string Body { get; set; }
     }
 }

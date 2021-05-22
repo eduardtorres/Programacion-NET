@@ -39,20 +39,34 @@ namespace ProveedoresCore.Services
         public async Task<IList<ProductoDTO>> BuscarProductosProveedores(string filtro)
         {
 
-            //foreach( var Proveedor in await ListarProveedores())
-            //{
+            List<ProductoDTO> respuesta = new List<ProductoDTO>();
 
-            ProveedorEntity ProveedorEntity = new ProveedorEntity();
+            foreach ( var ProveedorEntity in await ListarProveedores())
+            {
 
-            ProveedorEntity.UrlServicio = "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/catalog/products";
+            //ProveedorEntity ProveedorEntity = new ProveedorEntity();
 
-            return await iProveedoresApiRepository.BuscarProductos(
+            //ProveedorEntity.UrlServicio = "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/catalog/products";
+
+            //ProveedorEntity.UrlServicio = "https://cmdev.sigue.com/aes/WcfServiceProveedor2/Service1.svc";
+            //ProveedorEntity.TipoApi = "SOAP";
+            //ProveedorEntity.SOAPAction = "http://tempuri.org/IService1/GetDataUsingDataContract";
+
+                if (!string.IsNullOrEmpty(ProveedorEntity.Body))
+                {
+
+                    ProveedorEntity.Body = ProveedorEntity.Body.Replace("@filtro", filtro);
+                }
+
+                List < ProductoDTO > listaProveedor = ( await iProveedoresApiRepository.BuscarProductos(
                 filtro,
                 ProveedorEntity
-                );
+                ) ).ToList();
 
-            //}
+                respuesta.AddRange(listaProveedor);
+            }
 
+            return respuesta;
         }
 
         public async Task<IList<InventarioDTO>> ConsultarInventario(IList<ProductoDTO> productos)
