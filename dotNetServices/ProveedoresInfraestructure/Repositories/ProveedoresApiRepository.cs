@@ -24,6 +24,7 @@ namespace ProveedoresInfraestructure.Repositories
         public async Task<IList<ProductoDTO>> BuscarProductos(string filtro, ProveedorEntity fabricanteEntity)
         {
             List<ProductoDTO> objetoLocal = new List<ProductoDTO>();
+            fabricanteEntity.TipoApi = "SOAP";
             if (fabricanteEntity.TipoApi == "REST")
             {
                 RestClient restClient = new RestClient();
@@ -80,13 +81,33 @@ namespace ProveedoresInfraestructure.Repositories
             }
             else if (fabricanteEntity.TipoApi == "SOAP")
             {
-                SoapClient soapClient = new SoapClient(serviceUrl: fabricanteEntity.UrlServicio, serviceNamespace: "http://tempuri.org/");
-                var respuestaSoap = await soapClient.PostAsync(fabricanteEntity.MetodoApi);
 
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(respuestaSoap.ToString());
-                var json = JsonConvert.SerializeXmlNode(xmlDoc, Newtonsoft.Json.Formatting.None, true);
-                objetoLocal = JsonConvert.DeserializeObject<List<ProductoDTO>>(json);
+                string body = @"
+<soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:tem=""http://tempuri.org/"">
+   <soapenv:Header /> 
+    <soapenv:Body>  
+        <tem:GetDataUsingDataContract>                  
+             <tem:filtro >test</tem:filtro>         
+               </tem:GetDataUsingDataContract>          
+             </soapenv:Body>
+           </soapenv:Envelope>
+            ";
+
+                System.Net.WebHeaderCollection collection = new System.Net.WebHeaderCollection();
+                collection.Add("SOAPAction", "http://tempuri.org/IService1/GetDataUsingDataContract");
+                collection.Add("Content-Type", "text/xml");
+
+                RestClient soapClient = new RestClient();
+
+                string respuestaXML = await soapClient.MakeRequest
+                    (requestUrlApi: "https://cmdev.sigue.com/aes/WcfServiceProveedor2/Service1.svc",
+                    JSONRequest: body,
+                    JSONmethod: "POST",
+                    JSONContentType: "text/xml",
+                    msTimeOut: -1,
+                    headers: collection);
+
+                int x = 0;
             }
 
             return objetoLocal;
