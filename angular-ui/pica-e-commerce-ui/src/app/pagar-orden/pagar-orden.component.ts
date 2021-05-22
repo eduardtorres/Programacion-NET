@@ -165,12 +165,16 @@ export class PagarOrdenComponent implements OnInit {
     }
 
     this.pensando = true;
-    this.carritoService.colocarOrden( fullOrden ).subscribe( data=> {        
+    this.ordenService.colocarOrden( fullOrden ).subscribe( data=> {        
       if( data.id > 0 ) {
         window.alert( 'Orden creada exitosamente: ' + data.id );
       }
       this.pensando = false;
-    });
+    },
+    error => {
+      window.alert( 'Ocurrio un error al guardar la orden' );
+    }
+    );
 
   }
 

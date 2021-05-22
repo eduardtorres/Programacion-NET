@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { IMedioPago } from '../interfaces/orden.response'
+import { IMedioPago, IOrden, IOrdenResponse } from '../interfaces/orden.response'
 
 import { configuracion } from './configuracion';
 
@@ -25,4 +25,11 @@ export class OrdenService {
         return this.http.get<IMedioPago[]> ( url , this.httpOptions);            
     }
 
+    colocarOrden(orden : IOrden) {
+        let serviceUrl : string = configuracion.urlServicio;
+        return this.http.post<IOrdenResponse>( 
+          serviceUrl + '/orden/colocar',
+          orden,
+          this.httpOptions);
+      }
 }

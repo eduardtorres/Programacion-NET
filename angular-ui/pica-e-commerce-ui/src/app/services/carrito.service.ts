@@ -102,13 +102,4 @@ export class CarritoService {
       let url = serviceUrl + '/carrito/orden/cotizar' ;      
       return this.http.post<ICotizar> ( url , request , this.httpOptions);            
     }
-
-    colocarOrden(orden : IOrden) {
-      let serviceUrl : string = configuracion.urlServicio;
-      return this.http.post<IOrdenResponse>( 
-        serviceUrl + '/orden/colocar',
-        orden,
-        this.httpOptions);
-    }
-
 }
