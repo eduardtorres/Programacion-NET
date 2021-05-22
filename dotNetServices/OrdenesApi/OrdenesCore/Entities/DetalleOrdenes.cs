@@ -11,7 +11,7 @@ namespace OrdenesCore.Entities
         public string CodigoProducto { get; set; }
         public long OrdenId { get; set; }
         public int CantidadOrdenada { get; set; }
-        public int PrecioUnitario { get; set; }
+        public decimal PrecioUnitario { get; set; }
         public string CodigoProveedor { get; set; }
         public string TipoProveedor { get; set; }
         public string NombreProducto { get; set; }

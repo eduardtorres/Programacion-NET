@@ -16,7 +16,7 @@ namespace OrdenesCore.Interfaces
 
         public Task<Orden> UpdateEstadoOrden(long codigoOrden, Orden orden);
 
-        public Task deleteOrden(long codigoOrden);
+        public Task DeleteOrden(long codigoOrden);
 
     }
 }

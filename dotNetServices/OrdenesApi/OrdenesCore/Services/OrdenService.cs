@@ -49,7 +49,7 @@ namespace OrdenesCore.Services
             return orden;
         }
 
-        public async Task deleteOrden(long codigoOrden)
+        public async Task DeleteOrden(long codigoOrden)
         {
             var resultado = await _repositoryOrdenes.GetByIdAsync(codigoOrden);
             if (resultado != null)
