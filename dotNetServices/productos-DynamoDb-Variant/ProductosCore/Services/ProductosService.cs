@@ -29,8 +29,9 @@ namespace ProductosCore.Services
 
             filtro = filtro.ToLower();
 
-            var productos = lista.Where(x => ( x.Nombre.ToLower().Contains(filtro) || x.Categoria.ToLower().Contains(filtro) || filtro == "All" ) ).
-                Select(
+            var productos =  lista
+                .Where(x => (x.Nombre.ToLower().Contains(filtro) || x.Categoria.ToLower().Contains(filtro) || filtro == "all" ))
+                .Select(
                 x => new ProductoDto()
                 {
                     id = x.Id,

@@ -84,7 +84,7 @@ namespace OrdenesApi.Controllers
         [HttpDelete("{codigoOrden}")]
         public async Task Delete(long codigoOrden)
         {
-            await _servicio.deleteOrden(codigoOrden);
+            await _servicio.DeleteOrden(codigoOrden);
         }
 
         public string GetMsgEmail(Orden orden)
