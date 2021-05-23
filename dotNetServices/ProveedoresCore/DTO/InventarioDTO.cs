@@ -8,7 +8,7 @@ namespace ProveedoresCore.DTO
     {
         public long IdInventario { get; set; }
         public long IdProducto { get; set; }
-        public long IdFabricante { get; set; }
+        public long IdProveedor { get; set; }
         public long Cantidad { get; set; }
     }
 }

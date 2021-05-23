@@ -14,47 +14,45 @@ namespace ProveedoresCore.Services
     {
         IProveedoresRepository iProveedoresRepository;
         IProveedoresApiRepository iProveedoresApiRepository;
+        ProveedoresAssembler proveedoresAssembler;
+        ProductosAssembler productosAssembler;
 
         public ProveedoresServices(IProveedoresRepository _iProveedoresRepository,
-            IProveedoresApiRepository _iProveedoresApiRepository)
+            IProveedoresApiRepository _iProveedoresApiRepository,
+            ProveedoresAssembler _proveedoresAssembler,
+            ProductosAssembler _productosAssembler)
         {
             iProveedoresRepository = _iProveedoresRepository;
             iProveedoresApiRepository = _iProveedoresApiRepository;
+            proveedoresAssembler = _proveedoresAssembler;
+            productosAssembler = _productosAssembler;
         }
 
         public async Task<IList<ProveedorDTO>> ListarProveedores()
-        {
-            ProveedoresAssembler assembler = new ProveedoresAssembler();
-            IList<ProveedorDTO> listaProveedores = assembler.assemblyDTOs(await iProveedoresRepository.ListarProveedores());
+        {            
+            IList<ProveedorDTO> listaProveedores = proveedoresAssembler.assemblyDTOs(await iProveedoresRepository.ListarProveedores());
             return listaProveedores;
         }
 
         public async Task<IList<ProductoDTO>> ListarProductosProveedores(long IdProveedor)
-        {
-            ProductosAssembler assembler = new ProductosAssembler();
-            IList<ProductoDTO> listaProveedores = assembler.assemblyDTOs(await iProveedoresRepository.ListarProductosProveedores(IdProveedor));
+        {            
+            IList<ProductoDTO> listaProveedores = productosAssembler.assemblyDTOs(await iProveedoresRepository.ListarProductosProveedores(IdProveedor));
             return listaProveedores;
         }
 
         public async Task<IList<ProductoDTO>> BuscarProductosProveedores(string filtro)
         {
-
             List<ProductoDTO> respuesta = new List<ProductoDTO>();
 
             foreach (var ProveedorEntity in await ListarProveedores())
             {
-
-                //ProveedorEntity ProveedorEntity = new ProveedorEntity();
-
                 //ProveedorEntity.UrlServicio = "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/catalog/products";
-
                 //ProveedorEntity.UrlServicio = "https://cmdev.sigue.com/aes/WcfServiceProveedor2/Service1.svc";
                 //ProveedorEntity.TipoApi = "SOAP";
                 //ProveedorEntity.SOAPAction = "http://tempuri.org/IService1/GetDataUsingDataContract";
 
                 if (!string.IsNullOrEmpty(ProveedorEntity.Body))
                 {
-
                     ProveedorEntity.Body = ProveedorEntity.Body.Replace("@filtro", filtro);
                 }
 

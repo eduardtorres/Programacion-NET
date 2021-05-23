@@ -17,6 +17,8 @@ namespace ProveedoresCore.DTO
         public string UrlImagen { get; set; }
         public double Precio { get; set; }
         public string Moneda { get; set; }
+        public double PrecioOriginal { get; set; }
+        public string MonedaOriginal { get; set; }
         public int Inventario { get; set; }
         public string Disponibilidad { get; set; }
     }
