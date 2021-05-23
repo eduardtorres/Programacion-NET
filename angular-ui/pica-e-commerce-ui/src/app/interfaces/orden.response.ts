@@ -1,4 +1,5 @@
 export interface IOrden {
+    Id : number;
     PrecioTotal: number;
     ValorImpuestos : number;
     NumeroDocumentoCliente : string;
@@ -54,9 +55,5 @@ export interface IMedioPago {
 }
 
 export interface IOrdenResponse {
-
-    id : number;
-    estado : string;
-    detail : string;
-
+    ordenId : number;
 }

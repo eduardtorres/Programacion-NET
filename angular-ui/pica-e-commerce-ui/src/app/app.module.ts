@@ -14,7 +14,8 @@ import { DetalleCarritoComponent } from './detalle-carrito/detalle-carrito.compo
 import { PagarOrdenComponent } from './pagar-orden/pagar-orden.component';
 import { RegistroClienteComponent } from './registro-cliente/registro-cliente.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { OrdenCreadaComponent } from './orden-creada/orden-creada.component'; 
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       { path: 'login', component: LoginClienteComponent },
       { path: 'carrito', component: DetalleCarritoComponent },
       { path: 'pagar', component: PagarOrdenComponent },
-      { path: 'registro', component: RegistroClienteComponent }
+      { path: 'registro', component: RegistroClienteComponent },
+      { path: 'orden-creada', component: OrdenCreadaComponent }
     ]),
     BrowserAnimationsModule,
     MatProgressSpinnerModule
@@ -40,7 +42,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     LoginClienteComponent,
     DetalleCarritoComponent,
     PagarOrdenComponent,
-    RegistroClienteComponent
+    RegistroClienteComponent,
+    OrdenCreadaComponent
   ],
   bootstrap: [
     AppComponent

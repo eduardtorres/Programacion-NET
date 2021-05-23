@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { CarritoService } from '../services/carrito.service';
 import { OrdenService } from '../services/orden.service';
@@ -49,6 +50,7 @@ export class PagarOrdenComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder,
+    private router: Router,
     private carritoService : CarritoService,
     private ordenService : OrdenService) {    
   }
@@ -138,7 +140,7 @@ export class PagarOrdenComponent implements OnInit {
       detalles.push(detalle);
     }
 
-    let fullOrden : IOrden = {
+    let fullOrden : IOrden = {      
       ApellidoEnvio : ApellidoEnvio,
       CarritoId : this.carritoService.CarritoExiste(),
       CiudadEnvio : CiudadEnvio,
@@ -153,6 +155,7 @@ export class PagarOrdenComponent implements OnInit {
       EmailCliente : CorreoElectronicoFacturacion,
       EstadoEnvio : CiudadEnvio,
       EstadoFacturacion : CiudadEnvio,
+      Id : 0,
       NombreEnvio : NombreEnvio,
       NumeroDocumentoCliente : NumeroDocumentoCliente,
       PaisEnvio : this.carritoService.pais,
@@ -166,13 +169,17 @@ export class PagarOrdenComponent implements OnInit {
 
     this.pensando = true;
     this.ordenService.colocarOrden( fullOrden ).subscribe( data=> {        
-      if( data.id > 0 ) {
-        window.alert( 'Orden creada exitosamente: ' + data.id );
+      if( data.ordenId > 0 ) {
+        this.carritoService.limpiar().subscribe(datalimpiar => {});
+        fullOrden.Id = data.ordenId;
+        this.ordenService.persistir( fullOrden );
+        this.router.navigateByUrl('/orden-creada');
       }
       this.pensando = false;
     },
     error => {
       window.alert( 'Ocurrio un error al guardar la orden' );
+      this.pensando = false;
     }
     );
 

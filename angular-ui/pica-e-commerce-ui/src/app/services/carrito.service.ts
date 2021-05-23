@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { configuracion } from './configuracion';
+import { Configuracion } from './configuracion';
 
 import { IRespuesta, ICarrito, IProducto, ICotizar } from '../interfaces/carrito.response'
 import { ICliente } from '../interfaces/cliente.response';
@@ -23,16 +23,9 @@ export class CarritoService {
   productos : IProducto [] = [];
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private configuracion : Configuracion
       ) {}    
-
-    AgregarProducto(producto: IProducto) {      
-      let serviceUrl : string = configuracion.urlServicio;
-      return this.http.post<IRespuesta>( 
-          serviceUrl + '/carrito/producto/agregar',
-          producto,
-          this.httpOptions);
-    }    
 
     CarritoExiste() {
       if( this.carrito == undefined )
@@ -43,25 +36,6 @@ export class CarritoService {
       {
         return this.carrito.id;
       }
-    }
-
-    ObtenerCarrito(newEmail : string) {
-      if( newEmail == '' )
-      {
-        if( this.usuario == '')
-        {
-          let max = 1000000000;
-          let min = 100000000;
-          this.usuario =  (Math.floor(Math.random() * (max - min + 1)) + min).toString();
-        }
-      }
-      else
-      {
-        this.usuario = newEmail;
-      }
-      let serviceUrl : string = configuracion.urlServicio;
-      let url = serviceUrl + '/carrito/obtener/' + this.usuario + '/' + this.pais ;      
-      return this.http.get<ICarrito> ( url , this.httpOptions);
     }
 
     persistir( _carrito : ICarrito ) {
@@ -80,8 +54,39 @@ export class CarritoService {
       this.productos = _productos;
     }
 
+    ObtenerCarrito(newEmail : string) {
+      if( newEmail == '' )
+      {
+        if( this.usuario == '')
+        {
+          this.usuario = this.configuracion.obtenerStringAleatoria();
+        }
+      }
+      else
+      {
+        this.usuario = newEmail;
+      }
+      let serviceUrl : string = this.configuracion.urlServicio;
+      let url = serviceUrl + '/carrito/obtener/' + this.usuario + '/' + this.pais ;      
+      return this.http.get<ICarrito> ( url , this.httpOptions);
+    }
+
+    limpiar() {
+      let serviceUrl : string = this.configuracion.urlServicio;
+      let url = serviceUrl + '/carrito/limpiar/' + this.CarritoExiste().toString() ;      
+      return this.http.delete<number> ( url , this.httpOptions);            
+    }
+
+    AgregarProducto(producto: IProducto) {      
+      let serviceUrl : string = this.configuracion.urlServicio;
+      return this.http.post<IRespuesta>( 
+          serviceUrl + '/carrito/producto/agregar',
+          producto,
+          this.httpOptions);
+    }    
+
     quitarProducto(producto : IProducto) {
-      let serviceUrl : string = configuracion.urlServicio;
+      let serviceUrl : string = this.configuracion.urlServicio;
       return this.http.post<IRespuesta>( 
         serviceUrl + '/carrito/producto/quitar',
         producto,
@@ -89,7 +94,7 @@ export class CarritoService {
     }
 
     consultarProductos() {
-      let serviceUrl : string = configuracion.urlServicio;
+      let serviceUrl : string = this.configuracion.urlServicio;
       let url = serviceUrl + '/carrito/productos/consultar/' + this.CarritoExiste().toString() ;      
       return this.http.get<IProducto[]> ( url , this.httpOptions);            
     }
@@ -98,7 +103,7 @@ export class CarritoService {
       let request = {
         carritoId : this.CarritoExiste()
       };
-      let serviceUrl : string = configuracion.urlServicio;
+      let serviceUrl : string = this.configuracion.urlServicio;
       let url = serviceUrl + '/carrito/orden/cotizar' ;      
       return this.http.post<ICotizar> ( url , request , this.httpOptions);            
     }

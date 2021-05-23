@@ -16,23 +16,33 @@
               <img src="images/{{ producto.urlImagen }}" alt="">
             </div>
             <div class="detail-box">
-              <h5>
-                {{ producto.descripcion }}
-              </h5>
+              
               <div class="product_info">
-                <h5>
-                  <span>{{ producto.moneda }}</span> {{ producto.precio }}
-                </h5>
+                
   
               </div>
             </div>
+          </div>        
+        </div>
+        <div class="col-sm-6 col-lg-4" >
+          <div class="box">
+            <h5>
+              Proveedor: {{ producto.codigoProveedor }}
+            </h5>
+            <h5>
+              {{ producto.descripcion }}
+            </h5>
+
           </div>
         </div>
         <div class="col-sm-6 col-lg-4" >
-          
+          <h5>
+            <span>{{ producto.moneda }}</span> {{ producto.precio }}
+          </h5>
+
           <h5>
             Agregar al carrito
-        </h5>
+          </h5>
 
         <form [formGroup]="agregarForm" (ngSubmit)="onAgregarSubmit()" >
           <label for="cantidad">
@@ -47,6 +57,14 @@
         <div *ngIf="pensando">
 
           <mat-spinner color="accent" diameter="20"></mat-spinner>
+
+        </div>
+
+        <div>
+          
+          <button (click)="verCarrito()" class="generic_button">
+            Ver Carrito
+         </button>
 
         </div>
 

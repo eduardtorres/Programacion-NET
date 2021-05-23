@@ -30,8 +30,6 @@ namespace pica_sqs_enviar.Controllers
 
             try
             {
-                string strBody = await (new System.IO.StreamReader(Request.Body)).ReadToEndAsync();
-
                 if (orden.DetallesOrden == null) throw new Exception("orden.DetallesOrden == null");
 
                 orden.Id = await iBrokerService.GetOrderId();

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 
 import { ProductoService } from '../services/producto.service';
@@ -25,6 +25,7 @@ export class DetalleProductoComponent implements OnInit {
   });
 
   constructor(private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private productoService : ProductoService,
     private carritoService : CarritoService) { 
@@ -61,6 +62,10 @@ export class DetalleProductoComponent implements OnInit {
       window.alert(data.mensaje);
       this.pensando = false;
     } );
+  }
+
+  verCarrito() {
+    this.router.navigateByUrl('/carrito');
   }
 
   
