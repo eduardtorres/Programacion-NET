@@ -19,7 +19,7 @@ public class Inventario {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     public long Id;
     @Column(name = "Categoria", nullable = false)
