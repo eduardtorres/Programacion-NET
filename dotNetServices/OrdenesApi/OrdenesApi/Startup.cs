@@ -53,7 +53,7 @@ namespace OrdenesApi
             services.AddScoped<IRestClientBroker, RestClientBroker>();
             services.AddScoped<ISendEmails, SendEmails>();
             services.AddScoped<IOrdenService, OrdenService>();
-            services.AddAutoMapper(typeof(OrdenesProfile), typeof(DetalleOrdenesProfile));
+            services.AddAutoMapper(typeof(OrdenesProfile), typeof(DetalleOrdenesProfile), typeof(ToOrdenDTOProfile), typeof(ToDetallenOrdenDTOProfile));
             services.AddHttpClient("disponibilidad", client =>
                 {
                     client.BaseAddress = new Uri(Configuration["BaseUrl"]);

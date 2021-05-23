@@ -17,7 +17,7 @@ namespace OrdenesInfraestructure.WebServices
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<bool> CreateOrdenBroker(Orden orden)
+        public async Task<long> CreateOrdenBroker(Orden orden)
         {
 
             var ordenJson = new StringContent(JsonSerializer.Serialize(orden), Encoding.UTF8, "application/json");
@@ -26,12 +26,13 @@ namespace OrdenesInfraestructure.WebServices
             if (result.IsSuccessStatusCode)
             {
                 var responseStream = await result.Content.ReadAsStreamAsync();
-                var responseList = await JsonSerializer.DeserializeAsync<ResponseCreateOrdenBroker> (responseStream);
-                    if (responseList.code == 1)
-                        return true;
-                    return false;
+                var responseList = await JsonSerializer.DeserializeAsync<ResponseCreateOrdenBroker>(responseStream);
+                if (responseList.code == 1)
+                    //return true;
+                    return responseList.orderId;
+                return 0;
             }
-            return false;
+            return 0;
         }
     }
 }

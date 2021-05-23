@@ -15,7 +15,7 @@ namespace OrdenesInfraestructure.Emails
 
         public SendEmails()
         {
-            _smtp = "";
+
         }
 
        public async Task<bool> SendEmail(string sender, string body)

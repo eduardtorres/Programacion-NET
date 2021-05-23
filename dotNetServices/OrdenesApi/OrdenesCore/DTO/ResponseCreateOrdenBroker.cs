@@ -6,6 +6,7 @@ namespace OrdenesCore.DTO
 {
     public class ResponseCreateOrdenBroker
     {
+        public long orderId { get; set; }
         public int code { get; set; }
         public string message { get; set; }
     }

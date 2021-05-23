@@ -26,25 +26,25 @@ namespace OrdenesCore.Services
             _mapper = mapper;
         }
 
-        public async Task<Orden> CreateOrden(Orden orden)
+        public async Task<RequestConfirmarOrden> CreateOrden(RequestConfirmarOrden orden)
         {
-            orden.Estado = "PENDIENTE";
-            orden.FechaCreacion = DateTime.Now.ToString();
-            var EntityOrden = _mapper.Map<Ordenes>(orden);
-            var ordenCreada = await _repositoryOrdenes.AddAsync(EntityOrden);
-            orden.Id = ordenCreada.Id;
+                orden.Estado = "ACEPTADA";
+                orden.FechaCreacion = DateTime.Now.ToString();
+                var EntityOrden = _mapper.Map<Ordenes>(orden);
+                var ordenCreada = await _repositoryOrdenes.AddAsync(EntityOrden);
+                orden.Id = ordenCreada.Id;
 
-            var ListaDetalleOrden = orden.DetallesOrden;
-            List<DetalleOrdenes> ListaEnDetalleOrdenes = new List<DetalleOrdenes>();
+                var ListaDetalleOrden = orden.DetallesOrden;
+                List<DetalleOrdenes> ListaEnDetalleOrdenes = new List<DetalleOrdenes>();
 
-            foreach (var elemento in ListaDetalleOrden)
-            {
-                var EntityDetalleOrden = _mapper.Map<DetalleOrdenes>(elemento);
-                EntityDetalleOrden.OrdenId = orden.Id;
-                ListaEnDetalleOrdenes.Add(EntityDetalleOrden);
-            }
-            
-            var DetalleordenCreada = await _repositoryDetalleOrdenes.AddRangeAsync(ListaEnDetalleOrdenes);
+                foreach (var elemento in ListaDetalleOrden)
+                {
+                    var EntityDetalleOrden = _mapper.Map<DetalleOrdenes>(elemento);
+                    EntityDetalleOrden.OrdenId = orden.Id;
+                    ListaEnDetalleOrdenes.Add(EntityDetalleOrden);
+                }
+
+            var detalleordenCreada = await _repositoryDetalleOrdenes.AddRangeAsync(ListaEnDetalleOrdenes);
 
             return orden;
         }
@@ -109,6 +109,34 @@ namespace OrdenesCore.Services
                 orden.Id = entidadOrdenActualizar.Id;
                 return orden;
              }
+            return null;
+        }
+
+
+        public async Task<IEnumerable<ResponseOrdenesByCliente>> GetOrdenesByCustomer(string ordenesByCustomer)
+        {
+
+            var resultado = await _repositoryOrdenes.GetByCustomerAsync(ordenesByCustomer);
+            List<ResponseOrdenesByCliente> ListaOrdenes = new List<ResponseOrdenesByCliente>();
+            if (resultado.Count > 0)
+            {
+                foreach (var elemento in resultado)
+                {
+                    var dtoOrden = _mapper.Map<ResponseOrdenesByCliente>(elemento);
+                    var entitiesDetallesOrden = await _repositoryDetalleOrdenes.GetOrdenDetailByOrdenIdAsync(dtoOrden.Id);
+                    List<DetalleOrden> listaDetOrden = new List<DetalleOrden>();
+                    foreach (var entity in entitiesDetallesOrden)
+                    {
+                        var dtoDetalleOrden = _mapper.Map<DetalleOrden>(entity);
+                        listaDetOrden.Add(dtoDetalleOrden);
+                    }
+                    dtoOrden.DetallesOrden = listaDetOrden;
+                    ListaOrdenes.Add(dtoOrden);
+
+                }
+                return ListaOrdenes;
+                //return lista = listaOrden.ToList();
+            }
             return null;
         }
     }

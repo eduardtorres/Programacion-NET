@@ -8,6 +8,6 @@ namespace OrdenesCore.Interfaces
 {
     public interface IRestClientBroker
     {
-        public Task<bool> CreateOrdenBroker(Orden orden);
+        public Task<long> CreateOrdenBroker(Orden orden);
     }
 }

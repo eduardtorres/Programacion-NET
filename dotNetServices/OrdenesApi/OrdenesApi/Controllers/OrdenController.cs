@@ -52,15 +52,24 @@ namespace OrdenesApi.Controllers
         [HttpPost("colocar")]
         public async Task<ActionResult<Orden>> Post([FromBody] Orden orden)
         {
-            Orden resultado;
             if (!await _restClientCarritoCompras.GetProductAvailability(orden.CarritoId))
                 return ValidationProblem("NoAvailability");
-            if (!await _restClientCarritoCompras.DeleteCarritoCompras(orden.CarritoId))
-                return ValidationProblem("OrderWasNotCreated");
+            var ordenId = await _restClientBroker.CreateOrdenBroker(orden);
+            if (ordenId == 0)
+                return BadRequest();
+            ResponseColocarOrden dtoOrden = new ResponseColocarOrden();
+            dtoOrden.OrdenId = ordenId;
+            return Ok(dtoOrden);
+        }
+
+
+        // POST Prod/<OrdenesController>
+        [HttpPost("confirmar")]
+        public async Task<ActionResult<Orden>> Post([FromBody] RequestConfirmarOrden orden)
+        {
+            RequestConfirmarOrden resultado;
             resultado = await _servicio.CreateOrden(orden);
             if (resultado == null)
-                return BadRequest();
-            if (!await _restClientBroker.CreateOrdenBroker(orden))
                 return BadRequest();
             string body = this.GetMsgEmail(orden);
             if (!await _sendEmails.SendEmail(orden.EmailCliente, body))
@@ -87,7 +96,16 @@ namespace OrdenesApi.Controllers
             await _servicio.DeleteOrden(codigoOrden);
         }
 
-        public string GetMsgEmail(Orden orden)
+        [HttpGet("ordenes_cliente/{email}")]
+        public async Task<ActionResult<IEnumerable<Orden>>> Get(string email)
+        {
+            var resultado = await _servicio.GetOrdenesByCustomer(email);
+            if (resultado != null)
+                return Ok(resultado);
+            return NotFound();
+        }
+
+        public string GetMsgEmail(RequestConfirmarOrden orden)
         {
             string estadoOrden = orden.Estado; ;
 

@@ -12,6 +12,7 @@ namespace OrdenesInfraestructure.Profiles
         public OrdenesProfile()
         {
             CreateMap<Orden, Ordenes>();
+            CreateMap<RequestConfirmarOrden, Ordenes>();
         }
     }
 }

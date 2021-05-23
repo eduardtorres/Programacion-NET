@@ -6,6 +6,7 @@ using OrdenesCore.Entities;
 using System.Threading.Tasks;
 using OrdenesInfraestructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace OrdenesInfraestructure.Repositories
 {
@@ -41,9 +42,26 @@ namespace OrdenesInfraestructure.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<IReadOnlyList<DetalleOrdenes>> GetByCustomerAsync(string emailCliente)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<DetalleOrdenes> GetByIdAsync(long id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IReadOnlyList<DetalleOrdenes>> GetOrdenDetailByOrdenIdAsync(long ordenId)
+        {
+            try
+            {
+                return await _dbContext.DetalleOrden.Where(resultado => resultado.OrdenId == ordenId).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
+            }
         }
 
         public async Task UpdateAsync(DetalleOrdenes entity)
@@ -51,7 +69,5 @@ namespace OrdenesInfraestructure.Repositories
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
-
-        
     }
 }
