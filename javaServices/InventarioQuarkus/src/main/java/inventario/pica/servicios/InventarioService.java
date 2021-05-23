@@ -88,7 +88,7 @@ public class InventarioService {
             Date date = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             String strDate = dateFormat.format(date);
-            inventarioEncontrado = new Inventario(0,Categoria, Codigo, CodigoProveedor, Descripcion, Disponibilidad, Fabricante,Inventario, Moneda, Nombre, NombreImagen,Precio,TipoProveedor,UrlImagen);
+            inventarioEncontrado = new Inventario(0,Categoria, Codigo, CodigoProveedor, Descripcion, Fabricante,Inventario, Moneda, Nombre,Precio,TipoProveedor);
             entityManager.persist(inventarioEncontrado);
         }
         return inventarioEncontrado;
