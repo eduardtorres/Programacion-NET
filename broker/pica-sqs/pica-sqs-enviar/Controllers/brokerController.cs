@@ -24,7 +24,7 @@ namespace pica_sqs_enviar.Controllers
 
         [HttpPost("orden/colocar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> enviarOrden()
+        public async Task<ActionResult> enviarOrden(Orden orden)
         {
             var response = new ResponseBase();
 
@@ -32,26 +32,13 @@ namespace pica_sqs_enviar.Controllers
             {
                 string strBody = await (new System.IO.StreamReader(Request.Body)).ReadToEndAsync();
 
-                var client = new AmazonSQSClient();
+                if (orden.DetallesOrden == null) throw new Exception("orden.DetallesOrden == null");
 
-                var request = new SendMessageRequest
-                {
-                    DelaySeconds = (int)TimeSpan.FromSeconds(1).TotalSeconds,
-                    MessageAttributes = new Dictionary<string, MessageAttributeValue>
-                    {
-                        {
-                            "orderid", new MessageAttributeValue
-                            { DataType = "String", StringValue = "1" }
-                        }
-                    },
-                    MessageBody = strBody,
-                    QueueUrl = "https://sqs.us-east-2.amazonaws.com/528726598722/pica-queue"
-                };
+                orden.Id = await iBrokerService.GetOrderId();
 
-                var sendMessageResponse = await client.SendMessageAsync(request);
-                response.message = sendMessageResponse.MessageId;
+                response.message = await iBrokerService.SendMessage(orden);
                 response.code = 1;
-                response.orderId = await iBrokerService.GetOrderId();
+                response.orderId = orden.Id;
             }
             catch (Exception ex)
             {

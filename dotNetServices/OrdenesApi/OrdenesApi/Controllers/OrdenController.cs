@@ -50,7 +50,7 @@ namespace OrdenesApi.Controllers
 
         // POST Prod/<OrdenesController>
         [HttpPost("colocar")]
-        public async Task<ActionResult<Orden>> Post([FromBody] Orden orden)
+        public async Task<ActionResult<ResponseColocarOrden>> Post([FromBody] Orden orden)
         {
             if (!await _restClientCarritoCompras.GetProductAvailability(orden.CarritoId))
                 return ValidationProblem("NoAvailability");
@@ -65,7 +65,7 @@ namespace OrdenesApi.Controllers
 
         // POST Prod/<OrdenesController>
         [HttpPost("confirmar")]
-        public async Task<ActionResult<Orden>> Post([FromBody] RequestConfirmarOrden orden)
+        public async Task<ActionResult<RequestConfirmarOrden>> Post([FromBody] RequestConfirmarOrden orden)
         {
             RequestConfirmarOrden resultado;
             resultado = await _servicio.CreateOrden(orden);

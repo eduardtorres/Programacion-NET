@@ -31,6 +31,7 @@ namespace pica_sqs_enviar
             services.AddControllers();
 
             services.AddScoped<ISecuenciaRepository, SecuenciaRepository>();
+            services.AddScoped<ISQSRepository, SQSRepository>();
             services.AddScoped<IBrokerService, BrokerService>();
 
         }
