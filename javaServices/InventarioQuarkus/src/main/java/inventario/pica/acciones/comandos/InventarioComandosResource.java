@@ -4,6 +4,7 @@ import inventario.pica.servicios.*;
 import inventario.pica.repositorios.*;
 import inventario.pica.dominio.*;
 
+import javax.validation.Valid;
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.PUT;
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 @Path("/inventario")
 public class InventarioComandosResource {
 
+
     @Inject
     InventarioService inventarioService;
 
@@ -34,6 +36,7 @@ public class InventarioComandosResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public RespuestaBaseDto AgregarInventario(InventarioDto request) {
+        System.out.println("Agregado");
         return inventarioService.AgregarInventario(request);
     }
 
@@ -42,22 +45,30 @@ public class InventarioComandosResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public RespuestaBaseDto QuitarProducto(InventarioDto request) {
+        System.out.println("Quitar "+request.id);
         return inventarioService.QuitarInventario(request);
     }
-	
-	@Path("/descargar/{id}")
+	//DEscargar por ID
+	@Path("/descargar/{cantidad}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public RespuestaBaseDto DescargarProducto(InventarioDto request) {
-        return inventarioService.DescargarInventario(request);
+    public RespuestaBaseDto DescargarInventario(InventarioDto request,@PathParam("cantidad") int cantidad) {
+        System.out.println(" Requeste : "+request );
+        System.out.println(" cantidad : " + cantidad );
+        return inventarioService.DescargarInventario(request,cantidad);
+
     }
 
-    @Path("/limpiar/{id}")
-    @DELETE
+
+    @Path("/limpiar/{codigo}/{cantidad}")
+    @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    public int Limpiarinventario( @PathParam("id") int id) {
-        return inventarioService.Limpiar(id);
+    public RespuestaBaseDto DescargarInventarioCodigo( @PathParam("Codigo") String Codigo, @PathParam("cantidad") int Cantidad) {
+
+        System.out.println("Hola" + Codigo);
+        System.out.println("Hola 2" + Cantidad);
+        return inventarioService.DescargarInventarioCodigo(Codigo,Cantidad);
     }
 
 

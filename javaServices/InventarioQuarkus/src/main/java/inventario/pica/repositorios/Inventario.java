@@ -10,8 +10,9 @@ import java.util.List;
 @Table(name = "Inventario")
 @NamedQueries({
         @NamedQuery(name = "Inventario.findAll", query = "SELECT i FROM Inventario i"),
-        @NamedQuery(name = "Inventario.ObtenerPorCodigoTipoPro", query = "SELECT i FROM Inventario i WHERE i.Codigo = :Codigo and i.TipoProveedor = :TipoProveedor order by Id desc"),
-        @NamedQuery(name = "Inventario.ObtenerPorid", query = "SELECT p FROM Inventario p WHERE p.Id = :Id order by UniqueKey")
+        @NamedQuery(name = "Inventario.ObtenerPorCodigoTipoPro", query = "SELECT i FROM Inventario i WHERE i.Codigo = :codigo and i.TipoProveedor = :tipoproveedor order by Id desc"),
+        @NamedQuery(name = "Inventario.ObtenerPorid", query = "SELECT p FROM Inventario p WHERE p.Id = :Id"),
+        @NamedQuery(name = "Inventario.ObtenerPorCodigo", query = "SELECT p FROM Inventario p WHERE p.Codigo = :Codigo")
 
 })
 public class Inventario {
@@ -107,5 +108,36 @@ public class Inventario {
         TipoProveedor   = inventarioDto.tipoProveedor  ;
         UrlImagen       = inventarioDto.urlImagen      ;
 
+    }
+    public InventarioDto ToDto()
+    {
+        InventarioDto response = new InventarioDto();
+
+        response.id              = Id;
+        response.categoria       = Categoria;
+        response.codigo          = Codigo;
+        response.codigoProveedor = CodigoProveedor;
+        response.descripcion     = Descripcion;
+        response.disponibilidad  = Disponibilidad;
+        response.fabricante      = Fabricante;
+        response.inventario      = Inventario;
+        response.moneda          = Moneda;
+        response.nombre          = Nombre;
+        response.nombreImagen    = NombreImagen;
+        response.precio          = Precio;
+        response.tipoProveedor   = TipoProveedor;
+        response.urlImagen       = UrlImagen;
+
+        return response;
+    }
+
+    public static List<InventarioDto> ToListDto( List<Inventario> originalList )
+    {
+        List<InventarioDto> newList = new ArrayList<InventarioDto>();
+        for( Inventario item : originalList )
+        {
+            newList.add(item.ToDto());
+        }
+        return newList;
     }
 }

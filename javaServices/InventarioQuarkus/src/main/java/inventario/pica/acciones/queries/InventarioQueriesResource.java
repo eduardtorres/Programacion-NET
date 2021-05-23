@@ -29,20 +29,24 @@ public class InventarioQueriesResource {
         return InventarioService.fetchAll();
     }
 
-    @Path("/obtener/{id}/{codigo}")
+    @Path("/obtener/{codigo}/{tipoProveedor}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Inventario Obtener( @PathParam("codigo") String codigo , @PathParam("tipoproveedor") String tipoproveedor ) {
+        public Inventario Obtener( @PathParam("codigo") String codigo , @PathParam("tipoProveedor") String tipoproveedor ) {
+        System.out.println("codigo : " +codigo);
+        System.out.println("tipoproveedor : " + tipoproveedor );
         return InventarioService.ObtenerPorCodigoTipoPro(codigo,tipoproveedor);
     }
-/*
-    @Path("/productos/consultar/{id}")
+
+    @Path("/inventario/consultar/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Inventario> ConsultarProductos(@PathParam("id") int id) {
-        return InventarioService.ObtenerInventario(id);
+    public List<InventarioDto> ConsultarInventarios(@PathParam("id") long id) {
+        System.out.println("Consulta por ID");
+        System.out.println("id : " +id);
+        return InventarioService.ObtenerInventarioDto(id);
     }
-
+/*
     @Path("/orden/cotizar")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

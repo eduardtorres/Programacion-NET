@@ -30,31 +30,46 @@ public class InventarioService {
 
     public Inventario ObtenerPorCodigoTipoPro( String codigo , String tipoproveedor ) {
         return entityManager
-                .createNamedQuery("Inventario.obtenerPorcodigo", Inventario.class)
+                .createNamedQuery("Inventario.ObtenerPorCodigoTipoPro", Inventario.class)
                 .setParameter("codigo", codigo)
                 .setParameter("tipoproveedor", tipoproveedor)
                 .getResultStream()
                 .findFirst()
                 .orElse(null);
     }
-/*
-    public List<Producto> ObtenerProductos(int id)
+
+
+    public List<Inventario> ObtenerInventarioID(int id)
     {
         return entityManager
-                .createNamedQuery("Producto.ObtenerPorinventario", Producto.class)
-                .setParameter("inventarioId", id)
+                .createNamedQuery("Producto.ObtenerPorid", Inventario.class)
+                .setParameter("Id", id)
                 .getResultList();     
     }
+    public List<Inventario> ObtenerInventarioICodigo(String Codigo)
+    {
+        return entityManager
+                .createNamedQuery("Producto.ObtenerPorCodigo", Inventario.class)
+                .setParameter("Codigo", Codigo)
+                .getResultList();
+    }
 
-    public List<Inventario> ObtenerInventario(int id)
+    public List<InventarioDto> ObtenerInventarioDto(long id)
     {        
         return Inventario.ToListDto( ObtenerInventario(id) );
     }
-*/
+    public List<Inventario> ObtenerInventario(long id)
+    {
+        return entityManager
+                .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
+                .setParameter("Id", id)
+                .getResultList();
+    }
+
     public Inventario InventarioExiste(InventarioDto inventarioDto)
     {
         return entityManager
-                .createNamedQuery("inventario.ObtenerPorid", Inventario.class)
+                .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
                 .setParameter("Id", inventarioDto.id)
                 .getResultStream()
                 .findFirst()
@@ -104,37 +119,54 @@ public class InventarioService {
     }
 
     @Transactional
-    public RespuestaBaseDto DescargarInventario(InventarioDto inventarioDto)
+    public RespuestaBaseDto DescargarInventario(InventarioDto inventarioDto, int cantidad)
     {
+        int retorno = 0;
 
-        Inventario inventarioEncontrado = InventarioExiste(inventarioDto);
-        RespuestaBaseDto respuesta;
-        if( inventarioEncontrado != null )
-        {
-            Inventario inventario = new Inventario();
-            inventario.LoadFromDto(inventarioDto);
-            entityManager.persist(inventario);
-            respuesta = new RespuestaBaseDto();
-            respuesta.codigo = 100;
-            respuesta.mensaje = "Inventario descargado satisfactoriamente";
+        System.out.println(" Descargar ID : "+inventarioDto.id);
+        if (inventarioDto.codigoProveedor == "Local") {
+             retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
+                    + "WHERE e.Id = :id")
+                    .setParameter("id", inventarioDto.id)
+                    .setParameter("cantidad", cantidad)
+                    //          .setParameter("CodigoProveedor", request.codigoProveedor)
+                    .executeUpdate();
         }
         else
         {
+             retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
+                    + "WHERE e.codigo = :codigo")
+                    .setParameter("codigo", inventarioDto.codigo )
+                    .setParameter("cantidad", cantidad)
+                    //          .setParameter("CodigoProveedor", request.codigoProveedor)
+                    .executeUpdate();
+        }
+        RespuestaBaseDto respuesta;
 
+        if( retorno >= 1 )
+        {
+            respuesta = new RespuestaBaseDto();
+            respuesta.codigo = 100;
+            respuesta.mensaje = "Producto Descargado satisfactoriamente";
+        }
+        else
+        {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 0;
-            respuesta.mensaje = "El inventario no existe para descargar";
+            respuesta.mensaje = "Producto no existe:" + inventarioDto ;
         }
         return respuesta;
+
     }
 
     @Transactional
     public RespuestaBaseDto QuitarInventario( InventarioDto request ) {
 
-        int retorno = entityManager.createQuery("delete from Producto where Id = :Id and Codigo = :Codigo and CodigoProveedor = :CodigoProveedor")
+  //      int retorno = entityManager.createQuery("delete from Producto where Id = :Id and Codigo = :Codigo and CodigoProveedor = :CodigoProveedor")
+        int retorno = entityManager.createQuery("delete from Inventario where Id = :Id ")
             .setParameter("Id", request.id)
-            .setParameter("Codigo", request.codigo)
-            .setParameter("CodigoProveedor", request.codigoProveedor)
+  //          .setParameter("Codigo", request.codigo)
+  //          .setParameter("CodigoProveedor", request.codigoProveedor)
             .executeUpdate();
 
             RespuestaBaseDto respuesta;
@@ -198,4 +230,18 @@ public class InventarioService {
     private   ObtenerInventarioDto(int id) {
     }
 */
+@Transactional
+public RespuestaBaseDto DescargarInventarioCodigo( String Codigo , int cantidad ) {
+    RespuestaBaseDto respuesta;
+
+    System.out.println("Holaaaa "+ Codigo);
+    System.out.println("Holaaaa "+ cantidad);
+
+    //consultar inventario actual
+        respuesta = new RespuestaBaseDto();
+        respuesta.codigo = 0;
+        respuesta.mensaje = "El inventario ya existe en el inventario";
+
+    return respuesta;
+}
 }
