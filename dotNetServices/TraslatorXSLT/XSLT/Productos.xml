@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<?xml-stylesheet type="text/xsl" href="Productos.xslt"?>
 <productos>
-	<producto id="@id">
+	<producto>
+		<id>@id</id>
 		<codigo>@codigo</codigo>
 		<proveedor>@proveedor</proveedor>
 		<tipoProveedor>@tipoProveedor</tipoProveedor>

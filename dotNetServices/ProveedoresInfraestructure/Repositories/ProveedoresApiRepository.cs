@@ -115,8 +115,8 @@ namespace ProveedoresInfraestructure.Repositories
 
                 string respuestaXML = await soapClient.MakeRequest
                     (requestUrlApi: fabricanteEntity.UrlServicio ,
-                    JSONRequest: body,
-                    JSONmethod: "POST",
+                    JSONRequest: fabricanteEntity.Body,
+                    JSONmethod: fabricanteEntity.MetodoApi,
                     JSONContentType: "text/xml",
                     msTimeOut: -1,
                     headers: collection);
