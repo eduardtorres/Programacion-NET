@@ -124,7 +124,8 @@ public class InventarioService {
         int retorno = 0;
 
         System.out.println(" Descargar ID : "+inventarioDto.id);
-        if (inventarioDto.codigoProveedor == "Local") {
+
+        if (inventarioDto.tipoProveedor == "Local") {
              retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
                     + "WHERE e.Id = :id")
                     .setParameter("id", inventarioDto.id)
@@ -135,7 +136,7 @@ public class InventarioService {
         else
         {
              retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
-                    + "WHERE e.codigo = :codigo")
+                    + "WHERE e.Codigo = :codigo")
                     .setParameter("codigo", inventarioDto.codigo )
                     .setParameter("cantidad", cantidad)
                     //          .setParameter("CodigoProveedor", request.codigoProveedor)
