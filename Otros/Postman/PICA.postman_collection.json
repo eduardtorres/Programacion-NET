@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Inventary",
+			"name": "Inventary Spring boot",
 			"item": [
 				{
 					"name": "Select",
@@ -26,12 +26,77 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8084/api/v1/inventary",
+							"raw": "http://localhost:5008/Inventario/inventario",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8084",
+							"port": "5008",
+							"path": [
+								"Inventario",
+								"inventario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5008/api/v1/inventary",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5008",
+							"path": [
+								"api",
+								"v1",
+								"inventary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select puntual",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5008/api/v1/inventary",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5008",
 							"path": [
 								"api",
 								"v1",
@@ -56,12 +121,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8084/api/v1/inventary",
+							"raw": "http://localhost:5008/api/v1/inventary",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8084",
+							"port": "5008",
 							"path": [
 								"api",
 								"v1",
@@ -130,6 +195,246 @@
 								"10"
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inventary Quarkus",
+			"item": [
+				{
+					"name": "Select",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        \"categoria\": \"Videojuegos\",\r\n        \"codigo\": \"8888\",\r\n        \"codigoProveedor\": \"EX654\",\r\n        \"descripcion\": \"Consola portatil\",\r\n        \"disponibilidad\": \"DISPONIBLE\",\r\n        \"fabricante\": \"sony\",\r\n        \"id\": 2,\r\n        \"inventario\": 333,\r\n        \"moneda\": \"COP\",\r\n        \"nombre\": \"360\",\r\n        \"nombreImagen\": \"306.jpg\",\r\n        \"precio\": 500.44,\r\n        \"tipoProveedor\": \"Externo\",\r\n        \"urlImagen\": \"https://www.alkosto.com/\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inventario/producto/consultar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inventario",
+								"producto",
+								"consultar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select codigo y tipo prooveedor",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"categoria\": \"Videojuegos\",\r\n        \"codigo\": \"654654\",\r\n        \"codigoProveedor\": \"lo21654\",\r\n        \"descripcion\": \"Consola portatil\",\r\n        \"disponibilidad\": \"DISPONIBLE\",\r\n        \"fabricante\": \"sony\",\r\n        \"id\": 2,\r\n        \"inventario\": 452,\r\n        \"moneda\": \"COP\",\r\n        \"nombre\": \"WII\",\r\n        \"nombreImagen\": \"Ninntendo.jpg\",\r\n        \"precio\": 654.44,\r\n        \"tipoProveedor\": \"Local\",\r\n        \"urlImagen\": \"https://www.alkosto.com/\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inventario/obtener/8888/Externo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inventario",
+								"obtener",
+								"8888",
+								"Externo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inventario/inventario/consultar/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inventario",
+								"inventario",
+								"consultar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Inventario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{        \"categoria\": \"Videojuegos\",\r\n        \"codigo\": \"8888\",\r\n        \"codigoProveedor\": \"EX654\",\r\n        \"descripcion\": \"Consola portatil\",\r\n        \"disponibilidad\": \"DISPONIBLE\",\r\n        \"fabricante\": \"sony\",\r\n        \"inventario\": 333,\r\n        \"moneda\": \"COP\",\r\n        \"nombre\": \"360\",\r\n        \"nombreImagen\": \"306.jpg\",\r\n        \"precio\": 500.44,\r\n        \"tipoProveedor\": \"Externo\",\r\n        \"urlImagen\": \"https://www.alkosto.com/\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inventario/producto/agregar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inventario",
+								"producto",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quitar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"categoria\": \"Videojuegos\",\r\n        \"codigo\": \"8888\",\r\n        \"codigoProveedor\": \"EX654\",\r\n        \"descripcion\": \"Consola portatil\",\r\n        \"disponibilidad\": \"DISPONIBLE\",\r\n        \"fabricante\": \"sony\",\r\n        \"id\": 4,\r\n        \"inventario\": 333,\r\n        \"moneda\": \"COP\",\r\n        \"nombre\": \"360\",\r\n        \"nombreImagen\": \"306.jpg\",\r\n        \"precio\": 500.44,\r\n        \"tipoProveedor\": \"Externo\",\r\n        \"urlImagen\": \"https://www.alkosto.com/\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inventario/producto/quitar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inventario",
+								"producto",
+								"quitar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Descargar por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "        {\r\n        \"categoria\": \"Videojuegos\",\r\n        \"codigo\": \"654654\",\r\n        \"codigoProveedor\": \"lo21654\",\r\n        \"descripcion\": \"Consola portatil\",\r\n        \"disponibilidad\": \"DISPONIBLE\",\r\n        \"fabricante\": \"sony\",\r\n        \"id\": 2,\r\n        \"inventario\": 452,\r\n        \"moneda\": \"COP\",\r\n        \"nombre\": \"WII\",\r\n        \"nombreImagen\": \"Ninntendo.jpg\",\r\n        \"precio\": 654.44,\r\n        \"tipoProveedor\": \"Local\",\r\n        \"urlImagen\": \"https://www.alkosto.com/\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inventario/descargar/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inventario",
+								"descargar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Descargar por Codigo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    { \"categoria\": \"Videojuegos\",\r\n        \"codigo\": \"8888\",\r\n        \"codigoProveedor\": \"EX654\",\r\n        \"descripcion\": \"Consola portatil\",\r\n        \"disponibilidad\": \"DISPONIBLE\",\r\n        \"fabricante\": \"sony\",\r\n        \"id\": 3,\r\n        \"inventario\": 333,\r\n        \"moneda\": \"COP\",\r\n        \"nombre\": \"360\",\r\n        \"nombreImagen\": \"306.jpg\",\r\n        \"precio\": 500.44,\r\n        \"tipoProveedor\": \"Externo\",\r\n        \"urlImagen\": \"https://www.alkosto.com/\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inventario/descargar/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inventario",
+								"descargar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "KAFKA",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
 					},
 					"response": []
 				}

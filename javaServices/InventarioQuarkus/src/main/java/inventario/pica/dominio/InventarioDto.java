@@ -14,6 +14,5 @@ public class InventarioDto {
     public int inventario;
     public String categoria;
     public String urlImagen;
-    public String nombreImagen;
     public String tipoProveedor;
 }
