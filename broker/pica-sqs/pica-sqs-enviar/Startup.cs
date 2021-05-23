@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using pica_sqs_enviar.core.domain.interfaces;
+using pica_sqs_enviar.core.domain.services;
+using pica_sqs_enviar.core.infraestructure.persistence;
 
 namespace pica_sqs_enviar
 {
@@ -26,6 +29,10 @@ namespace pica_sqs_enviar
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<ISecuenciaRepository, SecuenciaRepository>();
+            services.AddScoped<IBrokerService, BrokerService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

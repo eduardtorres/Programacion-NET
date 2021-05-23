@@ -6,7 +6,8 @@ using Amazon.SQS;
 using Amazon.SQS.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using pica_sqs_enviar.Model;
+using pica_sqs_enviar.core.domain.entities;
+using pica_sqs_enviar.core.domain.interfaces;
 
 namespace pica_sqs_enviar.Controllers
 {
@@ -14,12 +15,17 @@ namespace pica_sqs_enviar.Controllers
     [ApiController]
     public class brokerController : ControllerBase
     {
+        IBrokerService iBrokerService;
+
+        public brokerController(IBrokerService _iBrokerService)
+        {
+            iBrokerService = _iBrokerService;
+        }
 
         [HttpPost("orden/colocar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> enviarOrden()
         {
-
             var response = new ResponseBase();
 
             try
@@ -30,7 +36,7 @@ namespace pica_sqs_enviar.Controllers
 
                 var request = new SendMessageRequest
                 {
-                    DelaySeconds = (int)TimeSpan.FromSeconds(5).TotalSeconds,
+                    DelaySeconds = (int)TimeSpan.FromSeconds(1).TotalSeconds,
                     MessageAttributes = new Dictionary<string, MessageAttributeValue>
                     {
                         {
@@ -45,11 +51,13 @@ namespace pica_sqs_enviar.Controllers
                 var sendMessageResponse = await client.SendMessageAsync(request);
                 response.message = sendMessageResponse.MessageId;
                 response.code = 1;
+                response.orderId = await iBrokerService.GetOrderId();
             }
             catch (Exception ex)
             {
                 response.message = ex.ToString();
                 response.code = 0;
+                response.orderId = 0;
             }
             
             return Ok(response);
