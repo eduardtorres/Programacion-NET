@@ -15,6 +15,7 @@
     <ProjectReference Include="..\ProveedoresCore\ProveedoresCore.csproj" />
     <ProjectReference Include="..\RESTConector\RESTConector.csproj" />
     <ProjectReference Include="..\SOAPConector\SOAPConector.csproj" />
+    <ProjectReference Include="..\TraslatorJSLT\TraslatorJSLT.csproj" />
   </ItemGroup>
 
 </Project>
