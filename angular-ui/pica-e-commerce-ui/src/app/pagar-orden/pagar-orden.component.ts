@@ -57,12 +57,15 @@ export class PagarOrdenComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.pensando = true;
+
     this.carritoService.cotizar().subscribe( data => {  
       this.cotizar = data;
     });
 
     this.ordenService.consultarMedios().subscribe( data => {
       this.medios = data;
+      this.pensando = false;
     });
 
     if( this.carritoService.cliente != undefined )

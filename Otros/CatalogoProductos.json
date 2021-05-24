@@ -24,7 +24,8 @@
     "moneda": "COP",
     "nombre": "Nintendo Switch Lite",
     "precio": 900000.0,
-    "tipoProveedor": "Local"
+    "tipoProveedor": "Local",
+    "urlImagen": "p2.jpg"
 },
 {
     "categoria": "Consolas",
@@ -37,7 +38,8 @@
     "moneda": "COP",
     "nombre": "XBOX ONE Series S",
     "precio": 1450000.0,
-    "tipoProveedor": "Local"
+    "tipoProveedor": "Local",
+    "urlImagen": "p3.jpg"
 },
 {
     "categoria": "Celulares",
@@ -50,6 +52,7 @@
     "moneda": "COP",
     "nombre": "IPhone 13 plus pro max",
     "precio": 9000000,
-    "tipoProveedor": "Local"
+    "tipoProveedor": "Local",
+    "urlImagen": "p4.jpg"
 }
 ]
