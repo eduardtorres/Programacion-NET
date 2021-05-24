@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "Transportador")
 @NamedQueries({
         @NamedQuery(name = "Transportador.findAll", query = "SELECT p FROM Transportador p WHERE p.estadoTransportador = 1"),
-     //   @NamedQuery(name = "Transportador.ObtenerPorid", query = "SELECT p FROM Transportador p WHERE p.idTransportador = :idTransportador")
+        @NamedQuery(name = "Transportador.ObtenerPorid", query = "SELECT p FROM Transportador p WHERE p.idTransportador = :idTransportador")
 })
 public class Transportador {
 
@@ -27,7 +27,7 @@ public class Transportador {
     @Column(name = "telefono", nullable = false)
     public String telefono;
     @Column(name = "estadoTransportador", nullable = false)
-    public boolean estadoTransportador;
+    public String estadoTransportador;
 
     public Transportador()
     {
@@ -39,7 +39,7 @@ public class Transportador {
                          String  _emailTransportador,
                          String  _direccionTransportador,
                          String  _telefono,
-                         boolean _estadoTransportador)
+                         String _estadoTransportador)
     {
         idTransportador         = _idTransportador;
         nombreTransportador     = _nombreTransportador;
@@ -55,7 +55,7 @@ public class Transportador {
     public String  getemailTransportador() { return emailTransportador; }
     public String  getdireccion_transporta() { return direccionTransportador; }
     public String  gettelefono() { return telefono; }
-    public boolean getestadoTransportador() { return estadoTransportador; }
+    public String getestadoTransportador() { return estadoTransportador; }
 
 
     public void LoadFromDto(TransportadorDto transportadorDto)

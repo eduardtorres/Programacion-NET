@@ -8,5 +8,5 @@ RUN mvn clean package
 
 # Running stage
 FROM openjdk:11.0.5-jdk-slim-buster
-COPY --from=builder /build/target/inventario-pica-1.0.0-SNAPSHOT.jar .
-ENTRYPOINT java -Djava.net.preferIPv4Stack=true -jar inventario-pica-1.0.0-SNAPSHOT.jar
+COPY --from=builder /build/target/transportadores-pica-1.0.0-SNAPSHOT.jar .
+ENTRYPOINT java -Djava.net.preferIPv4Stack=true -jar transportadores-pica-1.0.0-SNAPSHOT.jar

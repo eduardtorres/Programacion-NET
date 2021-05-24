@@ -7,5 +7,5 @@ public class TransportadorDto {
     public String  emailTransportador;
     public String  direccionTransportador;
     public String  telefono;
-    public boolean estadoTransportador;
+    public String estadoTransportador;
 }
