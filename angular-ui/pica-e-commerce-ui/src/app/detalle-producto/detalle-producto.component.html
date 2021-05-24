@@ -26,33 +26,52 @@
         </div>
         <div class="col-sm-6 col-lg-4" >
           <div class="box">
+            <div *ngIf="producto.tipoProveedor=='Local'; else elseBlocktipoProveedor" >
+              Este producto se vende directamente por K'All sonys
+            </div>
+            <ng-template #elseBlocktipoProveedor>
+              Este producto se vende por el proveedor : {{ producto.codigoProveedor }}
+            </ng-template>
             <h5>
-              Proveedor: {{ producto.codigoProveedor }}
-            </h5>
-            <h5>
+              Descripcion del Producto: <br />
               {{ producto.descripcion }}
             </h5>
-
           </div>
         </div>
         <div class="col-sm-6 col-lg-4" >
-          <h5>
-            <span>{{ producto.moneda }}</span> {{ producto.precio }}
-          </h5>
+
+          <div *ngIf="producto.disponibilidad=='DISPONIBLE'; else elseBlockdisponibilidad" >
+            <span style="color:green">
+            Este producto esta disponible
+          </span>
+          </div>
+          <ng-template #elseBlockdisponibilidad>
+            <span style="color: red;">
+            Este producto no esta disponible
+            </span>
+          </ng-template>
 
           <h5>
-            Agregar al carrito
+            <b>{{ producto.moneda }} {{ producto.precio }} </b>
           </h5>
 
-        <form [formGroup]="agregarForm" (ngSubmit)="onAgregarSubmit()" >
-          <label for="cantidad">
-            Unidades
-          </label>
-            <input type="text" formControlName="cantidad" placeholder="Unidades">
-            <button type="submit" class="generic_button">
-                Agregar
-            </button>
-        </form>
+          <div *ngIf="producto.disponibilidad=='DISPONIBLE'">
+
+              <h5>
+                Agregar al carrito
+              </h5>
+
+            <form [formGroup]="agregarForm" (ngSubmit)="onAgregarSubmit()" >
+              <label for="cantidad">
+                Unidades
+              </label>
+                <input type="text" formControlName="cantidad" placeholder="Unidades">
+                <button type="submit" class="generic_button">
+                    Agregar
+                </button>
+            </form>
+
+          </div>
 
         <div *ngIf="pensando">
 

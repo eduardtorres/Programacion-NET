@@ -129,9 +129,13 @@
                         </h5>
                     </div>
 
+                    <div *ngIf="!pensando">
+
                     <button class="generic_button" (click)="pagarOrden()">
                         Pagar
                     </button>
+
+                    </div>
 
                     <div *ngIf="pensando">
 

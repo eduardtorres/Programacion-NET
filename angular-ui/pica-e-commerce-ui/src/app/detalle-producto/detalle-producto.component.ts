@@ -57,6 +57,14 @@ export class DetalleProductoComponent implements OnInit {
     let item : IProducto = this.producto!;
     const cantidad = this.agregarForm.get('cantidad')?.value;
     item.cantidad = Number(cantidad);
+
+    if( item.cantidad <= 0 )
+    {
+      window.alert('Cantidad no valida');
+      this.pensando = false;
+      return;
+    }
+
     item.carritoId = this.carritoService.CarritoExiste();
     this.carritoService.AgregarProducto(item).subscribe( data => {
       window.alert(data.mensaje);
