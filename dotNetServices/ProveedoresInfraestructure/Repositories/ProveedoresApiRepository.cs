@@ -11,25 +11,29 @@ using ProveedoresInfraestructure.Data;
 using System.Linq;
 using TraslatorJSLT;
 using ProveedoresCore.Entities;
+using TraslatorXSLT;
 
 namespace ProveedoresInfraestructure.Repositories
 {
     public class ProveedoresApiRepository : IProveedoresApiRepository
     {
         ProvidersContext _providersContext;
-        public ProveedoresApiRepository(ProvidersContext context)
+        IConvertJsonToDto _convertJsonToDto;
+        IConvertXmlToDto _convertXmlToDto;
+        public ProveedoresApiRepository(ProvidersContext context, IConvertJsonToDto convertJsonToDto, IConvertXmlToDto convertXmlToDto)
         {
             _providersContext = context;
+            _convertJsonToDto = convertJsonToDto;
+            _convertXmlToDto = convertXmlToDto;
         }
 
         public async Task<IList<ProductoDTO>> BuscarProductos(string filtro, ProveedorDTO fabricanteEntity)
         {
             IList<ProductoDTO> objetoLocal = null;
-            ConvertJsonToDto convert = new ConvertJsonToDto();
 
             if (fabricanteEntity.TipoApi == "REST")
             {
-                RestClient restClient = new RestClient();                
+                RestClient restClient = new RestClient();
 
                 string respuestaJSON = await restClient.MakeRequest
                     (requestUrlApi: fabricanteEntity.UrlServicio,
@@ -37,31 +41,30 @@ namespace ProveedoresInfraestructure.Repositories
                     JSONmethod: fabricanteEntity.MetodoApi,
                     JSONContentType: "application/json",
                     msTimeOut: -1);
-                
-                var routes_list = (Dictionary<string, object>)JsonConvert.DeserializeObject(respuestaJSON);                
 
-                objetoLocal = await convert.ConvertToProductList(routes_list, fabricanteEntity.TransformacionProductos);                
+                var routes_list = (Dictionary<string, object>)JsonConvert.DeserializeObject(respuestaJSON);
+
+                objetoLocal = await _convertJsonToDto.ConvertToProductList(routes_list, fabricanteEntity.TransformacionProductos);
             }
             else if (fabricanteEntity.TipoApi == "SOAP")
             {
-
-                string body = fabricanteEntity.Body; 
+                string body = fabricanteEntity.Body;
 
                 System.Net.WebHeaderCollection collection = new System.Net.WebHeaderCollection();
-                collection.Add("SOAPAction", fabricanteEntity.SOAPAction );
+                collection.Add("SOAPAction", fabricanteEntity.SOAPAction);
                 collection.Add("Content-Type", "text/xml");
 
                 RestClient soapClient = new RestClient();
 
                 string respuestaXML = await soapClient.MakeRequest
-                    (requestUrlApi: fabricanteEntity.UrlServicio ,
+                    (requestUrlApi: fabricanteEntity.UrlServicio,
                     JSONRequest: fabricanteEntity.Body,
                     JSONmethod: fabricanteEntity.MetodoApi,
                     JSONContentType: "text/xml",
                     msTimeOut: -1,
                     headers: collection);
 
-                objetoLocal = new List<ProductoDTO>();
+                objetoLocal = await _convertXmlToDto.ConvertToProductList(respuestaXML, fabricanteEntity.TransformacionProductos);
             }
 
             return objetoLocal;

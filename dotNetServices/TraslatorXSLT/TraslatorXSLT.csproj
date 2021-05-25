@@ -6,6 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProveedoresCore\ProveedoresCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="XSLT\Productos.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

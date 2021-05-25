@@ -16,6 +16,7 @@
     <ProjectReference Include="..\RESTConector\RESTConector.csproj" />
     <ProjectReference Include="..\SOAPConector\SOAPConector.csproj" />
     <ProjectReference Include="..\TraslatorJSLT\TraslatorJSLT.csproj" />
+    <ProjectReference Include="..\TraslatorXSLT\TraslatorXSLT.csproj" />
   </ItemGroup>
 
 </Project>

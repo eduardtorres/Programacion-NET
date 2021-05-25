@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TraslatorJSLT
 {
-    public class ConvertJsonToDto
+    public class ConvertJsonToDto : IConvertJsonToDto
     {       
         public async Task<IList<ProductoDTO>> ConvertToProductList(Dictionary<string, object> routes_list, string template)
         {
