@@ -11,12 +11,12 @@ municipioDepartameto [varchar](255) NOT NULL,
 
 GO
 CREATE TABLE Transportador (
-idTransportador bigint NOT NULL,
-nombreTransportador NVARCHAR(80) NOT NULL,
-emailTransportador NVARCHAR(50) NOT NULL,
-direccionTransportador varchar(250) NOT NULL,
-telefono varchar(50) NOT NULL,
-estadoTransportador BIT NOT NULL,
+Id INT NOT NULL IDENTITY,
+Nombre NVARCHAR(90),
+EMail NVARCHAR(50),
+Direccion NVARCHAR(250),
+Telefono NVARCHAR(30),
+Estado BIT,
 );
 
 GO
@@ -1160,9 +1160,10 @@ INSERT INTO CodigoDane VALUES ('00000','EXPORTACION - FUERA DEL PAIS')
 
 GO
 
-INSERT INTO Transportador VALUES (1,'DHL','contactoLATAM@dhl.com','Tv. 95a &, Av La Esperanza, Bogotá','+57 7423965',1) 
-INSERT INTO Transportador VALUES (2,'SERVIENTREGA','contactoLATAM@SERVIENTREGA.com','33, Tv. 78c #6B','+57 4110787',1) 
-INSERT INTO Transportador VALUES (3,'DEPRISA','contactoLATAM@DEPRISA.com','Cl. 17 #96-26, ZONA 5, Bogotá','+57 7469629',1) 
-INSERT INTO Transportador VALUES (4,'Rapp',',ail@DEPRISA.com','Cl. 123','+57 65416856',0) 
+INSERT INTO Transportador VALUES ('DHL','contactoLATAM@dhl.com','Tv. 95a &, Av La Esperanza, Bogotá','+57 7423965',1) 
+INSERT INTO Transportador VALUES ('SERVIENTREGA','contactoLATAM@SERVIENTREGA.com','33, Tv. 78c #6B','+57 4110787',1) 
+INSERT INTO Transportador VALUES ('DEPRISA','contactoLATAM@DEPRISA.com','Cl. 17 #96-26, ZONA 5, Bogotá','+57 7469629',1) 
+INSERT INTO Transportador VALUES ('Rapp',',ail@DEPRISA.com','Cl. 123','+57 65416856',0) 
+
 
 GO
