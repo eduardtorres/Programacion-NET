@@ -8,7 +8,7 @@ namespace ProveedoresCore.DTO
         }
         public int Id { get; set; }
         public string Codigo { get; set; }
-        public string Fabricante { get; set; }
+        public string Proveedor { get; set; }
         public string TipoProveedor { get; set; }
         public string CodigoProveedor { get; set; }
         public string Nombre { get; set; }
@@ -21,5 +21,7 @@ namespace ProveedoresCore.DTO
         public string MonedaOriginal { get; set; }
         public int Inventario { get; set; }
         public string Disponibilidad { get; set; }
+        public int Prioridad { get; set; }
+        public bool Activo { get; set; }
     }
 }

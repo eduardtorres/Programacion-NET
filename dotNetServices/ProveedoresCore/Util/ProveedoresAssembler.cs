@@ -14,7 +14,13 @@ namespace ProveedoresCore.Util
             dto.Direccion = entity.Direccion;
             dto.Nit = entity.Nit;
             dto.Telefono = entity.Telefono;
-            dto.UrlServicio = entity.UrlServicio;            
+            dto.UrlServicio = entity.UrlServicio;
+            dto.TipoApi = entity.TipoApi;
+            dto.MetodoApi = entity.MetodoApi;
+            dto.TransformacionProductos = entity.TransformacionProductos;
+            dto.TransformacionOrdenes = entity.TransformacionOrdenes;
+            dto.SOAPAction = entity.SOAPAction;
+            dto.Body = entity.Body;
             return dto;
         }
 
@@ -27,6 +33,12 @@ namespace ProveedoresCore.Util
             entity.Nit = dto.Nit;
             entity.Telefono = dto.Telefono;
             entity.UrlServicio = dto.UrlServicio;
+            entity.TipoApi = dto.TipoApi;
+            entity.MetodoApi = dto.MetodoApi;
+            entity.TransformacionProductos = dto.TransformacionProductos;
+            entity.TransformacionOrdenes = dto.TransformacionOrdenes;
+            entity.SOAPAction = dto.SOAPAction;
+            entity.Body = dto.Body;
             return entity;
         }
     }

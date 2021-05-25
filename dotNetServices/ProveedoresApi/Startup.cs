@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProveedoresInfraestructure.Data;
 using Microsoft.EntityFrameworkCore;
+using TraslatorJSLT;
+using TraslatorXSLT;
 
 namespace ProveedoresApi
 {
@@ -29,7 +31,9 @@ namespace ProveedoresApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            
+            services.AddScoped<IConvertJsonToDto, ConvertJsonToDto>();
+            services.AddScoped<IConvertXmlToDto, ConvertXmlToDto>();
             services.AddScoped<IProveedoresApiRepository, ProveedoresApiRepository>();
             services.AddScoped<IProveedoresRepository, ProveedoresRepository>();
             services.AddScoped<IProveedoresServices, ProveedoresServices>();

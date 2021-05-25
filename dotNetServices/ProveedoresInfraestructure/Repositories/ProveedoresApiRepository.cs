@@ -42,7 +42,7 @@ namespace ProveedoresInfraestructure.Repositories
                     JSONContentType: "application/json",
                     msTimeOut: -1);
 
-                var routes_list = (Dictionary<string, object>)JsonConvert.DeserializeObject(respuestaJSON);
+                var routes_list = JsonConvert.DeserializeObject<Dictionary<string, object>>(respuestaJSON);                
 
                 objetoLocal = await _convertJsonToDto.ConvertToProductList(routes_list, fabricanteEntity.TransformacionProductos);
             }

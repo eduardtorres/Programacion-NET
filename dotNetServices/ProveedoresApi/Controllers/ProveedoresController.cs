@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProveedoresApi.Controllers
 {
-    [Route("fabricante")]
+    [Route("proveedor")]
     [ApiController]
     public class ProveedoresController : ControllerBase
     {
