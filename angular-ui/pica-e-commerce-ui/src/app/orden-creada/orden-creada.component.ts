@@ -17,7 +17,7 @@ export class OrdenCreadaComponent implements OnInit {
   ngOnInit(): void {
 
     this.orden = this.ordenService.ordenCreada;
-    this.detalles = this.orden?.DetallesOrden!;
+    this.detalles = this.orden?.detallesOrden!;
 
   }
 

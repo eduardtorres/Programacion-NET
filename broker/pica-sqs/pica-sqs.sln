@@ -7,6 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pica-sqs-enviar", "pica-sqs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pica-sqs-enviar.core", "pica-sqs-enviar.core\pica-sqs-enviar.core.csproj", "{297A0F82-A6A0-4602-A6F5-A7B6F0B8273F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "productor", "productor", "{CCB7EB82-91A5-42AC-BCFE-3F03031EC9B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "consumidor", "consumidor", "{10295C88-D4A6-4DC8-A247-55515FEB0592}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pica_sqs_consumidor", "pica_sqs_consumidor\pica_sqs_consumidor.csproj", "{6B436F1A-12AD-455E-AF9B-7D5D484DEE92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pica_sqs_consumidor.core", "pica_sqs_consumidor.core\pica_sqs_consumidor.core.csproj", "{58AF81B6-EAA6-4D07-B5C2-2280A3E61DD8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,11 +29,25 @@ Global
 		{297A0F82-A6A0-4602-A6F5-A7B6F0B8273F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{297A0F82-A6A0-4602-A6F5-A7B6F0B8273F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{297A0F82-A6A0-4602-A6F5-A7B6F0B8273F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B436F1A-12AD-455E-AF9B-7D5D484DEE92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B436F1A-12AD-455E-AF9B-7D5D484DEE92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B436F1A-12AD-455E-AF9B-7D5D484DEE92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B436F1A-12AD-455E-AF9B-7D5D484DEE92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58AF81B6-EAA6-4D07-B5C2-2280A3E61DD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58AF81B6-EAA6-4D07-B5C2-2280A3E61DD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58AF81B6-EAA6-4D07-B5C2-2280A3E61DD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58AF81B6-EAA6-4D07-B5C2-2280A3E61DD8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DAFC068E-232D-4488-BDD0-CB40323C5489}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A84E6FD-3F16-4E58-89D0-23C0DFCEEF5C} = {CCB7EB82-91A5-42AC-BCFE-3F03031EC9B4}
+		{297A0F82-A6A0-4602-A6F5-A7B6F0B8273F} = {CCB7EB82-91A5-42AC-BCFE-3F03031EC9B4}
+		{6B436F1A-12AD-455E-AF9B-7D5D484DEE92} = {10295C88-D4A6-4DC8-A247-55515FEB0592}
+		{58AF81B6-EAA6-4D07-B5C2-2280A3E61DD8} = {10295C88-D4A6-4DC8-A247-55515FEB0592}
 	EndGlobalSection
 EndGlobal

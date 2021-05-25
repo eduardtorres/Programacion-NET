@@ -118,63 +118,66 @@ export class PagarOrdenComponent implements OnInit {
     let datospago : IDatosPago [] = [];
 
     let datopago : IDatosPago = {
-      AnoExpiracion : 25,
-      CodCV : CCV,
-      CodMoneda : cotizar.moneda ,
-      Email : CorreoElectronicoFacturacion ,
-      MedioPago : Number(medios),
-      MesExpiracion : 1,
-      NombreTitular : CCtitular,
-      NumeroTarjeta : CCnumero,
-      TipoTarjeta : CCtipo
+      anoExpiracion : 25,
+      codCV : CCV,
+      codMoneda : cotizar.moneda ,
+      email : CorreoElectronicoFacturacion ,
+      medioPago : Number(medios),
+      mesExpiracion : 1,
+      nombreTitular : CCtitular,
+      numeroTarjeta : CCnumero,
+      tipoTarjeta : CCtipo
     }
     datospago.push(datopago);
 
     for( let item of productos ) {
       let detalle : IDetalleOrden = {
-        CantidadOrdenada : item.cantidad,
-        CodigoProducto : item.codigo,
-        CodigoProveedor : item.codigoProveedor,
-        NombreProducto : item.nombre,
-        PrecioUnitario : item.precio,
-        ProductoId : item.id,
-        TipoProveedor : item.tipoProveedor
+        cantidadOrdenada : item.cantidad,
+        codigoProducto : item.codigo,
+        codigoProveedor : item.codigoProveedor,
+        nombreProducto : item.nombre,
+        precioUnitario : item.precio,
+        productoId : item.id,
+        tipoProveedor : item.tipoProveedor
       };
       detalles.push(detalle);
     }
 
     let fullOrden : IOrden = {      
-      ApellidoEnvio : ApellidoEnvio,
-      CarritoId : this.carritoService.CarritoExiste(),
-      CiudadEnvio : CiudadEnvio,
-      CiudadFacturacion : CiudadEnvio,
-      CodigoAreaEnvio : CodigoAreaEnvio,
-      CodigoAreaFacturacion : CodigoAreaEnvio,
-      CorreoElectronicoFacturacion : CorreoElectronicoFacturacion,
-      DatosPago : datospago,
-      DetallesOrden : detalles,
-      DireccionEnvio : DireccionEnvio,
-      DireccionFacturacion : DireccionFacturacion,
-      EmailCliente : CorreoElectronicoFacturacion,
-      EstadoEnvio : CiudadEnvio,
-      EstadoFacturacion : CiudadEnvio,
-      Id : 0,
-      NombreEnvio : NombreEnvio,
-      NumeroDocumentoCliente : NumeroDocumentoCliente,
-      PaisEnvio : this.carritoService.pais,
-      PaisFacturacion : this.carritoService.pais,
-      PrecioTotal : cotizar.total,
-      TelefonoEnvio : TelefonoEnvio,
-      TelefonoFacturacion : TelefonoFacturacion,
-      TipoDocumentoCliente : 'CC',
-      ValorImpuestos : cotizar.impuesto      
+      apellidoEnvio : ApellidoEnvio,
+      carritoId : this.carritoService.CarritoExiste(),
+      ciudadEnvio : CiudadEnvio,
+      ciudadFacturacion : CiudadEnvio,
+      codigoAreaEnvio : CodigoAreaEnvio,
+      codigoAreaFacturacion : CodigoAreaEnvio,
+      correoElectronicoFacturacion : CorreoElectronicoFacturacion,
+      datosPago : datospago,
+      detallesOrden : detalles,
+      direccionEnvio : DireccionEnvio,
+      direccionFacturacion : DireccionFacturacion,
+      emailCliente : CorreoElectronicoFacturacion,
+      estadoEnvio : CiudadEnvio,
+      estadoFacturacion : CiudadEnvio,
+      id : 0,
+      nombreEnvio : NombreEnvio,
+      numeroDocumentoCliente : NumeroDocumentoCliente,
+      paisEnvio : this.carritoService.pais,
+      paisFacturacion : this.carritoService.pais,
+      precioTotal : cotizar.total,
+      telefonoEnvio : TelefonoEnvio,
+      telefonoFacturacion : TelefonoFacturacion,
+      tipoDocumentoCliente : 'CC',
+      valorImpuestos : cotizar.impuesto,
+      
+      estado : '',
+      fechaCreacion : ''
     }
 
     this.pensando = true;
     this.ordenService.colocarOrden( fullOrden ).subscribe( data=> {        
       if( data.ordenId > 0 ) {
         this.carritoService.limpiar().subscribe(datalimpiar => {});
-        fullOrden.Id = data.ordenId;
+        fullOrden.id = data.ordenId;
         this.ordenService.persistir( fullOrden );
         this.router.navigateByUrl('/orden-creada');
       }

@@ -12,13 +12,13 @@
             
             <div class="detail-box" *ngIf="orden" >
               <h5>
-                Numero de Orden : {{ orden.Id }}
+                Numero de Orden : {{ orden.id }}
               </h5>              
               <h5>
-                Impuestos : {{ orden.ValorImpuestos }}
+                Impuestos : {{ orden.valorImpuestos }}
               </h5>              
               <h5>
-                Total : {{ orden.PrecioTotal }}
+                Total : {{ orden.precioTotal }}
               </h5>              
               
             </div>
@@ -36,12 +36,12 @@
 
               <div *ngFor="let detalle of detalles">
                 <div>
-                    {{ detalle.NombreProducto }} 
+                    {{ detalle.nombreProducto }} 
                 </div>            
                 <div>
-                    {{ detalle.CantidadOrdenada }}
+                    {{ detalle.cantidadOrdenada }}
                     x
-                    {{ detalle.PrecioUnitario }}
+                    {{ detalle.precioUnitario }}
                 </div>
             
               </div>                          

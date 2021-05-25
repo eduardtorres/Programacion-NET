@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IMedioPago, IOrden, IOrdenResponse } from '../interfaces/orden.response'
 
 import { Configuracion } from './configuracion';
+import { ICliente } from '../interfaces/cliente.response';
 
 @Injectable({
     providedIn: 'root'
@@ -30,13 +31,22 @@ export class OrdenService {
 
     colocarOrden(orden : IOrden) {
         let serviceUrl : string = this.configuracion.urlServicio;
+        let url = serviceUrl + '/orden/colocar' ;      
         return this.http.post<IOrdenResponse>( 
-          serviceUrl + '/orden/colocar',
+          url,
           orden,
           this.httpOptions);
       }
     
     persistir( orden : IOrden ) {
         this.ordenCreada = orden;
+    }
+
+    consultarOrdenesPorUsuario( cliente : ICliente ) {
+        let serviceUrl : string = this.configuracion.urlServicio;
+        let url = serviceUrl + '/orden/ordenes_cliente/' + cliente.userName ;      
+        return this.http.get<IOrden[]>( 
+          url,
+          this.httpOptions);
     }
 }

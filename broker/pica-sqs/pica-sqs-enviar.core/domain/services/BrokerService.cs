@@ -17,14 +17,30 @@ namespace pica_sqs_enviar.core.domain.services
             iSQSRepository = _iSQSRepository;
         }
 
-        public async Task<string> SendMessage(Orden orden)
+        public async Task<ResponseBase> enviarOrden(Orden orden)
         {
-            return await iSQSRepository.SendMessage(orden);
-        }
-
-        public async Task<int> GetOrderId()
-        {
-            return await iSecuenciaRepository.GetOrderId();
+            var response = new ResponseBase();
+            try
+            {
+                if (orden.DetallesOrden != null)
+                {
+                    orden.Id = await iSecuenciaRepository.GetOrderId();
+                }
+                else
+                {
+                    orden.Id = 0;
+                }                
+                response.message = await iSQSRepository.SendMessage(orden);
+                response.code = 1;
+                response.orderId = orden.Id;
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.ToString();
+                response.code = 0;
+                response.orderId = 0;
+            }
+            return response;
         }
     }
 }

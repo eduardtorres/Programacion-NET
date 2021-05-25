@@ -7,6 +7,8 @@ import { IProducto } from '../interfaces/carrito.response'
 import { FormBuilder } from '@angular/forms';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+import { CarritoService } from '../services/carrito.service';
+import { ICliente } from '../interfaces/cliente.response';
 
 @Component({
   selector: 'app-buscar-producto',
@@ -16,7 +18,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export class BuscarProductoComponent implements OnInit {
 
   productos : IProducto[] = [];
-
+  cliente : ICliente | undefined ;
   pensando : boolean = false;
   
   busquedaForm = this.formBuilder.group({
@@ -25,6 +27,7 @@ export class BuscarProductoComponent implements OnInit {
 
   constructor(
     private productoService : ProductoService,
+    private carritoService : CarritoService,
     private formBuilder: FormBuilder
      ) { 
 
@@ -39,6 +42,7 @@ export class BuscarProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.BuscarProductos( 'all' );
+    this.cliente = this.carritoService.cliente;
   }
 
   BuscarProductos( filtro : string ) {
@@ -48,6 +52,10 @@ export class BuscarProductoComponent implements OnInit {
       this.productoService.persists( data );
       this.pensando = false;
     } );
+  }
+
+  onCountryChange( value : string ) {
+    this.carritoService.actualizarPais(value);
   }
 
 }

@@ -55,8 +55,8 @@ public class PagoService {
 
         pago.CodMoneda     = pagoDto.CodMoneda;
         pago.NumeroTarjeta = pagoDto.NumeroTarjeta;
-        pago.MesExpiracion = pagoDto.MesExpiracion;
-        pago.AnoExpiracion = pagoDto.AnoExpiracion;
+        pago.MesExpiracion = Integer.toString(pagoDto.MesExpiracion);
+        pago.AnoExpiracion = Integer.toString(pagoDto.AnoExpiracion);
         pago.CodCV         = pagoDto.CodCV;
         pago.TipoTarjeta   = pagoDto.TipoTarjeta;
         pago.NombreTitular = pagoDto.NombreTitular;
