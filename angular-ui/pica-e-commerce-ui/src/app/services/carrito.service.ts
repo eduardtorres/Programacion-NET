@@ -73,11 +73,13 @@ export class CarritoService {
 
     limpiar() {
 
+      let carritoId = this.CarritoExiste().toString();
+
       this.productos = [];
       this.carrito = undefined;
 
       let serviceUrl : string = this.configuracion.urlServicio;
-      let url = serviceUrl + '/carrito/limpiar/' + this.CarritoExiste().toString() ;      
+      let url = serviceUrl + '/carrito/limpiar/' + carritoId;      
       return this.http.delete<number> ( url , this.httpOptions);       
 
     }
