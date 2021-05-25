@@ -4,7 +4,7 @@
     <div class="header_bottom">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="/">
+          <a class="navbar-brand" [routerLink]="['/']">
             <span>
               E-COMMERCE K'ALL SONYS
             </span>
@@ -29,13 +29,7 @@
                 <a class="nav-link" [routerLink]="['/carrito']">Carrito</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/']">Mis ordenes</a>
-              </li>
-              <li class="nav-item">
-                <select class="generic_input" #countrySelect (change)="onCountryChange(countrySelect.value)">
-                  <option value="COL">COL</option>
-                  <option value="CHL">CHL</option>
-                </select>
+                <a class="nav-link" [routerLink]="['/ordenes-cliente']">Mis ordenes</a>
               </li>
             </ul>
           </div>

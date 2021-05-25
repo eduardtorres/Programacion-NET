@@ -25,50 +25,8 @@ namespace pica_sqs_enviar.Controllers
         [HttpPost("orden/colocar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> enviarOrden(Orden orden)
-        {
-            var response = new ResponseBase();
-
-            try
-            {
-                if (orden.DetallesOrden == null) throw new Exception("orden.DetallesOrden == null");
-
-                orden.Id = await iBrokerService.GetOrderId();
-
-                response.message = await iBrokerService.SendMessage(orden);
-                response.code = 1;
-                response.orderId = orden.Id;
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.ToString();
-                response.code = 0;
-                response.orderId = 0;
-            }
-            
-            return Ok(response);
+        {                        
+            return Ok(await iBrokerService.enviarOrden(orden));
         }
-
-        [HttpPost("orden/test")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> enviarTest()
-        {
-
-            string responseStr;
-
-            try
-            {
-                string strBody = await (new System.IO.StreamReader(Request.Body)).ReadToEndAsync();
-                responseStr = strBody;
-            }
-            catch (Exception ex)
-            {
-                responseStr = ex.ToString();
-            }
-
-            var response = new ResponseBase();
-            response.message = responseStr;
-            return Ok(response);
-        }
-
     }
 }

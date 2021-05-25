@@ -23,6 +23,13 @@
             <mat-spinner color="accent" diameter="20"></mat-spinner>
 
           </div>
+    
+          <select class="generic_input" #countrySelect (change)="onCountryChange(countrySelect.value)" style="width:200px;">
+            <option value="COL">Colombia</option>
+            <option value="CHL">Chile</option>
+            <option value="MEX">Mexico</option>
+            <option value="PER">Peru</option>
+          </select>    
 
         </div>
 
@@ -33,6 +40,9 @@
   <!-- end header section -->
 </div>
 
+<div *ngIf="cliente" >
+  <b> Bienvenido: {{ cliente.nombre }} </b>
+</div>
 
 <section class="product_section layout_padding">
   <div class="container">

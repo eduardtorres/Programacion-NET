@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CarritoService } from '../services/carrito.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -7,15 +6,8 @@ import { CarritoService } from '../services/carrito.service';
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent {
-
-  constructor (private carritoService : CarritoService) {
-
+  constructor () {
   }
-
-  onCountryChange( value : string ) {
-    this.carritoService.actualizarPais(value);
-  }
-
 }
 
 

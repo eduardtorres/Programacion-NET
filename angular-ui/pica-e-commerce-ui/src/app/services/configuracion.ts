@@ -16,6 +16,10 @@ export class Configuracion {
           return 'COP';
         else if ( pais == 'CHL' )
           return 'CLP';
+        else if ( pais == 'MEX' )
+          return 'MXN';
+        else if ( pais == 'PER' )
+          return 'PEN';
         else
           return '';
       }

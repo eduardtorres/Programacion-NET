@@ -5,6 +5,8 @@ import { FormBuilder } from '@angular/forms';
 import { CarritoService } from '../services/carrito.service';
 import { ClienteService } from '../services/cliente.service';
 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+
 @Component({
   selector: 'app-login-cliente',
   templateUrl: './login-cliente.component.html',
@@ -12,6 +14,8 @@ import { ClienteService } from '../services/cliente.service';
 })
 
 export class LoginClienteComponent implements OnInit {
+
+  pensando : boolean = false;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -27,12 +31,14 @@ export class LoginClienteComponent implements OnInit {
   }
 
   onLoginSubmit() {
+    this.pensando = true;
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     this.clienteService.autenticar( email, password ).subscribe( data => {
       if( data.code == 1 )
       {
         this.carritoService.ObtenerCarrito(email).subscribe(data2 => {
+          this.pensando = false;
           console.warn('carrito:',data2.id);
           this.carritoService.persistir( data2 );
           this.router.navigateByUrl('/');
@@ -42,6 +48,7 @@ export class LoginClienteComponent implements OnInit {
       else
       {
         window.alert("Usuario/Password Invalido");
+        this.pensando = false;
       }
     });
   }
