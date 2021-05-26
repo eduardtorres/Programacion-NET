@@ -80,8 +80,8 @@ namespace ProveedoresInfraestructure.Repositories
 
                 string respuestaJSON = await restClient.MakeRequest
                     (requestUrlApi: fabricanteEntity.UrlServicioOrden,
-                    JSONRequest: fabricanteEntity.Body,
-                    JSONmethod: fabricanteEntity.MetodoApi,
+                    JSONRequest: fabricanteEntity.BodyOrden,
+                    JSONmethod: fabricanteEntity.MetodoApiOrden,
                     JSONContentType: "application/json",
                     msTimeOut: -1);
 
@@ -90,9 +90,7 @@ namespace ProveedoresInfraestructure.Repositories
                 objetoLocal = await _convertJsonToDto.ConvertToOrdersList(routes_list, fabricanteEntity.TransformacionOrdenes);
             }
             else if (fabricanteEntity.TipoApi == "SOAP")
-            {
-                string body = fabricanteEntity.Body;
-
+            {                
                 System.Net.WebHeaderCollection collection = new System.Net.WebHeaderCollection();
                 collection.Add("SOAPAction", fabricanteEntity.SOAPActionOrden);
                 collection.Add("Content-Type", "text/xml");
@@ -102,7 +100,7 @@ namespace ProveedoresInfraestructure.Repositories
                 string respuestaXML = await soapClient.MakeRequest
                     (requestUrlApi: fabricanteEntity.UrlServicioOrden,
                     JSONRequest: fabricanteEntity.Body,
-                    JSONmethod: fabricanteEntity.MetodoApi,
+                    JSONmethod: fabricanteEntity.MetodoApiOrden,
                     JSONContentType: "text/xml",
                     msTimeOut: -1,
                     headers: collection);

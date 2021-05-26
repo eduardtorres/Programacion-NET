@@ -18,6 +18,7 @@ namespace ProveedoresCore.DTO
         public string UrlServicioOrden { get; set; }
         public string TipoApi { get; set; }
         public string MetodoApi { get; set; }
+        public string MetodoApiOrden { get; set; }
         public string TransformacionProductos { get; set; }
         public string TransformacionOrdenes { get; set; }
         public string SOAPAction { get; set; }

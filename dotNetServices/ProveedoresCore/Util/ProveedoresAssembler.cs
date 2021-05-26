@@ -18,6 +18,7 @@ namespace ProveedoresCore.Util
             dto.UrlServicioOrden = entity.UrlServicioOrden;
             dto.TipoApi = entity.TipoApi;
             dto.MetodoApi = entity.MetodoApi;
+            dto.MetodoApiOrden = entity.MetodoApiOrden;
             dto.TransformacionProductos = entity.TransformacionProductos;
             dto.TransformacionOrdenes = entity.TransformacionOrdenes;
             dto.SOAPAction = entity.SOAPAction;
@@ -41,6 +42,7 @@ namespace ProveedoresCore.Util
             entity.UrlServicioOrden = dto.UrlServicioOrden;
             entity.TipoApi = dto.TipoApi;
             entity.MetodoApi = dto.MetodoApi;
+            entity.MetodoApiOrden = dto.MetodoApiOrden;
             entity.TransformacionProductos = dto.TransformacionProductos;
             entity.TransformacionOrdenes = dto.TransformacionOrdenes;
             entity.SOAPAction = dto.SOAPAction;
