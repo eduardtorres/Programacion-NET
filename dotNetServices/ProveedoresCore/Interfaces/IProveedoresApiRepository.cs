@@ -8,7 +8,7 @@ namespace ProveedoresCore.Interfaces
 {
     public interface IProveedoresApiRepository
     {
-        Task<IList<ProductoDTO>> BuscarProductos(string filtro, ProveedorDTO fabricanteEntity);
+        Task<IList<ProductoDTO>> BuscarProductos(ProveedorDTO fabricanteEntity);
         Task<IList<ProveedorEntity>> ListarProveedores();
     }
 }

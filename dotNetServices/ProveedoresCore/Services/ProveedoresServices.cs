@@ -44,8 +44,7 @@ namespace ProveedoresCore.Services
                     proveedorDTO.Body = proveedorDTO.Body.Replace("@filtro", filtro);
                 }
 
-                List<ProductoDTO> listaProductos = (await iProveedoresApiRepository.BuscarProductos(
-                filtro,
+                List<ProductoDTO> listaProductos = (await iProveedoresApiRepository.BuscarProductos(                
                 proveedorDTO
                 )).ToList();
 

@@ -9,5 +9,6 @@ namespace TraslatorXSLT
     public interface IConvertXmlToDto
     {
         Task<IList<ProductoDTO>> ConvertToProductList(string xml, string template);
+        Task<OrdenesDTO> ConvertToOrdersList(string xml, string template);
     }
 }

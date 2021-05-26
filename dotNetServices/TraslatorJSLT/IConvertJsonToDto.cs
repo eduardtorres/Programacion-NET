@@ -9,5 +9,6 @@ namespace TraslatorJSLT
     public interface IConvertJsonToDto
     {
         Task<IList<ProductoDTO>> ConvertToProductList(Dictionary<string, object> routes_list, string template);
+        Task<OrdenesDTO> ConvertToOrdersList(Dictionary<string, object> routes_list, string template);
     }
 }
