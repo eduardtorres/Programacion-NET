@@ -79,7 +79,7 @@ namespace ProveedoresInfraestructure.Repositories
                 RestClient restClient = new RestClient();
 
                 string respuestaJSON = await restClient.MakeRequest
-                    (requestUrlApi: fabricanteEntity.UrlServicio,
+                    (requestUrlApi: fabricanteEntity.UrlServicioOrden,
                     JSONRequest: fabricanteEntity.Body,
                     JSONmethod: fabricanteEntity.MetodoApi,
                     JSONContentType: "application/json",
@@ -100,7 +100,7 @@ namespace ProveedoresInfraestructure.Repositories
                 RestClient soapClient = new RestClient();
 
                 string respuestaXML = await soapClient.MakeRequest
-                    (requestUrlApi: fabricanteEntity.UrlServicio,
+                    (requestUrlApi: fabricanteEntity.UrlServicioOrden,
                     JSONRequest: fabricanteEntity.Body,
                     JSONmethod: fabricanteEntity.MetodoApi,
                     JSONContentType: "text/xml",

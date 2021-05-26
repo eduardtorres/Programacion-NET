@@ -20,6 +20,7 @@ namespace ProveedoresCore.Entities
         public string Nit { get; set; }
         public string Telefono { get; set; }
         public string UrlServicio { get; internal set; }
+        public string UrlServicioOrden { get; set; }
         public string TipoApi { get; set; }
         public string MetodoApi { get; set; }
         public string TransformacionProductos { get; set; }
