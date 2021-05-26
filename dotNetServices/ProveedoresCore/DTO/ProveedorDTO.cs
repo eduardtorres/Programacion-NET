@@ -21,6 +21,8 @@ namespace ProveedoresCore.DTO
         public string TransformacionOrdenes { get; set; }
         public string SOAPAction { get; set; }
         public string Body { get; set; }
+        public string BodyOrden { get; set; }
+        public string SOAPActionOrden { get; set; }
         public int Prioridad { get; set; }
         public bool Activo { get; set; }
     }

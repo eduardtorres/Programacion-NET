@@ -8,7 +8,8 @@ namespace ProveedoresCore.Interfaces
 {
     public interface IProveedoresRepository
     {
-        Task<IList<ProveedorEntity>> ListarProveedores();        
+        Task<IList<ProveedorEntity>> ListarProveedores();
+        Task<ProveedorEntity> BuscarProveedor(string nombre);
         Task<IList<InventarioEntity>> ConsultarInventario(IList<ProductoEntity> productos);
     }
 }

@@ -31,8 +31,14 @@ namespace ProveedoresCore.Services
             ProveedoresAssembler proveedoresAssembler = new ProveedoresAssembler();
             IList<ProveedorDTO> listaProveedores = proveedoresAssembler.assemblyDTOs(await iProveedoresRepository.ListarProveedores());
             return listaProveedores;
-        }        
+        }
 
+        public async Task<ProveedorDTO> BuscarProveedor(string nombre)
+        {
+            ProveedoresAssembler proveedoresAssembler = new ProveedoresAssembler();
+            ProveedorDTO listaProveedores = proveedoresAssembler.assemblyDTO(await iProveedoresRepository.BuscarProveedor(nombre));
+            return listaProveedores;
+        }
         public async Task<IList<ProductoDTO>> BuscarProductosProveedores(string filtro)
         {
             List<ProductoDTO> respuesta = new List<ProductoDTO>();
@@ -59,7 +65,20 @@ namespace ProveedoresCore.Services
 
             return respuesta;
         }
+        public async Task<OrdenesDTO> BuscarOrdenProveedores(string filtro)
+        {
+            OrdenesDTO respuesta = new OrdenesDTO();
 
+            var proveedorDTO = await BuscarProveedor(filtro);
+            if (!string.IsNullOrEmpty(proveedorDTO.BodyOrden))
+            {
+                proveedorDTO.BodyOrden = proveedorDTO.BodyOrden.Replace("@filtro", filtro);
+            }
+
+            respuesta = await iProveedoresApiRepository.BuscarOrden(proveedorDTO);
+
+            return respuesta;
+        }
         public async Task<IList<InventarioDTO>> ConsultarInventario(IList<ProductoDTO> productos)
         {
             ProductosAssembler assemblerProducto = new ProductosAssembler();

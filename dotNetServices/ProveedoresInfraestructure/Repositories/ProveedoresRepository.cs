@@ -22,8 +22,14 @@ namespace ProveedoresInfraestructure.Repositories
                          where p.Activo == true
                          select p).ToList();
             return await Task.FromResult(lista);
-        }      
-
+        }
+        public async Task<ProveedorEntity> BuscarProveedor(string nombre)
+        {
+            var lista = (from p in _providersContext.Proveedores
+                         where p.Activo == true && p.Nombre == nombre
+                         select p).ToList();
+            return await Task.FromResult(lista[0]);
+        }
         public async Task<IList<InventarioEntity>> ConsultarInventario(IList<ProductoEntity> productos)
         {
             var lista = (from i in _providersContext.Proveedores                        

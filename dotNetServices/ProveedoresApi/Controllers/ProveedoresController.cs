@@ -33,6 +33,13 @@ namespace ProveedoresApi.Controllers
             return Ok(await iProveedoresServices.BuscarProductosProveedores(filtro));
         }
 
+        [HttpGet("orden/colocar/{filtro}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> BuscarOrdenProveedores([FromRoute] string filtro)
+        {
+            return Ok(await iProveedoresServices.BuscarOrdenProveedores(filtro));
+        }
+
         [HttpGet("inventario/consultar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ProveedorDTO>> ConsultarInventario(IList<ProductoDTO> productos)

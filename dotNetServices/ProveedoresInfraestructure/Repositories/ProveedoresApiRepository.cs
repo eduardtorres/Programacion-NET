@@ -94,7 +94,7 @@ namespace ProveedoresInfraestructure.Repositories
                 string body = fabricanteEntity.Body;
 
                 System.Net.WebHeaderCollection collection = new System.Net.WebHeaderCollection();
-                collection.Add("SOAPAction", fabricanteEntity.SOAPAction);
+                collection.Add("SOAPAction", fabricanteEntity.SOAPActionOrden);
                 collection.Add("Content-Type", "text/xml");
 
                 RestClient soapClient = new RestClient();
