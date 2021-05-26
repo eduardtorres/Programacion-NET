@@ -119,28 +119,43 @@ public class InventarioService {
     }
 
     @Transactional
-    public RespuestaBaseDto DescargarInventario(InventarioDto inventarioDto, int cantidad)
+    public RespuestaBaseDto DescargarInventario(DescargarInventario descargarInventario, long id)
     {
         int retorno = 0;
 
-        System.out.println(" Descargar ID : "+inventarioDto.id);
+        System.out.println(" Descargar codigo : " + descargarInventario.codigo);
+        System.out.println(" Descargar CantidadOrdenada : " + descargarInventario.CantidadOrdenada);
+        System.out.println(" Descargar codigoProveedor : " + descargarInventario.codigoProveedor);
+        System.out.println(" Descargar tipoProveedor : " + descargarInventario.tipoProveedor);
 
-        if (inventarioDto.tipoProveedor == "Local") {
-             retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
-                    + "WHERE e.Id = :id")
-                    .setParameter("id", inventarioDto.id)
-                    .setParameter("cantidad", cantidad)
-                    //          .setParameter("CodigoProveedor", request.codigoProveedor)
+        if (descargarInventario.tipoProveedor.equals("Local")) {
+
+            System.out.println(" proveedor local ");
+
+            retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad " +
+                    "WHERE e.Id = :id")
+                    .setParameter("cantidad", descargarInventario.CantidadOrdenada)
+                    .setParameter("id", id)
                     .executeUpdate();
+            /*llamar Actualizar
+inventario por producto
+/producto
+/inventario
+/actualizar
+*
+/
+             */
         }
         else
         {
-             retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
+   /*         retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
                     + "WHERE e.Codigo = :codigo")
-                    .setParameter("codigo", inventarioDto.codigo )
-                    .setParameter("cantidad", cantidad)
+                    .setParameter("cantidad", descargarInventario.CantidadOrdenada)
+                    .setParameter("codigo", descargarInventario.codigo)
                     //          .setParameter("CodigoProveedor", request.codigoProveedor)
                     .executeUpdate();
+
+    */
         }
         RespuestaBaseDto respuesta;
 
@@ -148,13 +163,13 @@ public class InventarioService {
         {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 100;
-            respuesta.mensaje = "Producto Descargado satisfactoriamente";
+            respuesta.mensaje = "Producto Descargado satisfactoriamente" + retorno;
         }
         else
         {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 0;
-            respuesta.mensaje = "Producto no existe:" + inventarioDto ;
+            respuesta.mensaje = "Producto no existe:" + descargarInventario +" "+ retorno ;
         }
         return respuesta;
 

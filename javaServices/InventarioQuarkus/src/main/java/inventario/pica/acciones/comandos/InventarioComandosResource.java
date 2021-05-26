@@ -48,7 +48,7 @@ public class InventarioComandosResource {
         System.out.println("Quitar "+request.id);
         return inventarioService.QuitarInventario(request);
     }
-	//DEscargar por ID
+	/*//DEscargar por ID
 	@Path("/descargar/{cantidad}")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
@@ -59,7 +59,18 @@ public class InventarioComandosResource {
         return inventarioService.DescargarInventario(request,cantidad);
 
     }
+    */
+    //DEscargar por ID
+    @Path("/descargar/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public RespuestaBaseDto DescargarInventario(DescargarInventario request,@PathParam("id") long id) {
+        System.out.println(" Requeste : " + request.codigo );
+        System.out.println(" id : " + id );
+        return inventarioService.DescargarInventario(request,id);
 
+    }
 
     @Path("/limpiar/{codigo}/{cantidad}")
     @PUT
