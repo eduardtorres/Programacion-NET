@@ -46,4 +46,11 @@ public class IntercambioQueriesResource {
         return intercambioService.getByIdImpuestoTotal(CodPais);
     }
 
+    @Path("/pais/obtener/{IndEstado}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Pais> PaisObtener(@PathParam("IndEstado") int IndEstado) {
+        return intercambioService.PaisObtener(IndEstado);
+    }
+
 }

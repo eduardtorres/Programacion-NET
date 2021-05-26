@@ -4,12 +4,11 @@ import java.util.List;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.lang.model.util.ElementScanner6;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-
-import co.com.aespica.repositorio.Intercambio;
-import co.com.aespica.repositorio.Impuesto;
+import co.com.aespica.repositorio.*;
 
 
 @Dependent
@@ -54,6 +53,20 @@ public class IntercambioService {
         return sumaTotal;
     }
     
+    public List<Pais> PaisObtener(int IndEstado) {
+        boolean IndEstadoB;
+        if (IndEstado ==1) {
+            IndEstadoB=true;
+        }
+        else{
+            IndEstadoB=false;
+        }
+        return entityManager
+                .createNamedQuery("Pais.Obtener", Pais.class)
+                .setParameter("IndEstado", IndEstadoB)
+                .getResultList();
+    }
+
     //No se usa
     @Transactional
     public int eliminarTasaIntercambio(int id) {
