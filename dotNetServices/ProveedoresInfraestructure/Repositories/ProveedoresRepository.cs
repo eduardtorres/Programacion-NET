@@ -18,17 +18,11 @@ namespace ProveedoresInfraestructure.Repositories
         }
         public async Task<IList<ProveedorEntity>> ListarProveedores()
         {
-            var lista = _providersContext.Proveedores.ToList();
+            var lista = (from p in _providersContext.Proveedores
+                         where p.Activo == true
+                         select p).ToList();
             return await Task.FromResult(lista);
-        }
-
-        public async Task<IList<ProductoEntity>> ListarProductosProveedores(long IdProveedor)
-        {
-            var lista = (from i in _providersContext.Proveedores
-                         where i.IdProveedor == IdProveedor
-                         select i).ToList();                
-            return await Task.FromResult(new List<ProductoEntity>());
-        }
+        }      
 
         public async Task<IList<InventarioEntity>> ConsultarInventario(IList<ProductoEntity> productos)
         {

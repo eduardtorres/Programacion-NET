@@ -37,8 +37,7 @@ namespace ProveedoresApi
             services.AddScoped<IProveedoresApiRepository, ProveedoresApiRepository>();
             services.AddScoped<IProveedoresRepository, ProveedoresRepository>();
             services.AddScoped<IProveedoresServices, ProveedoresServices>();
-            services.AddDbContext<ProvidersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+            services.AddDbContext<ProvidersContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

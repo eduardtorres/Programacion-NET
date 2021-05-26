@@ -31,32 +31,31 @@ namespace ProveedoresCore.Services
             ProveedoresAssembler proveedoresAssembler = new ProveedoresAssembler();
             IList<ProveedorDTO> listaProveedores = proveedoresAssembler.assemblyDTOs(await iProveedoresRepository.ListarProveedores());
             return listaProveedores;
-        }
-
-        public async Task<IList<ProductoDTO>> ListarProductosProveedores(long IdProveedor)
-        {
-            ProductosAssembler productosAssembler = new ProductosAssembler();
-            IList<ProductoDTO> listaProveedores = productosAssembler.assemblyDTOs(await iProveedoresRepository.ListarProductosProveedores(IdProveedor));
-            return listaProveedores;
-        }
+        }        
 
         public async Task<IList<ProductoDTO>> BuscarProductosProveedores(string filtro)
         {
             List<ProductoDTO> respuesta = new List<ProductoDTO>();
 
-            foreach (var ProveedorEntity in await ListarProveedores())
+            foreach (var proveedorDTO in await ListarProveedores())
             {               
-                if (!string.IsNullOrEmpty(ProveedorEntity.Body))
+                if (!string.IsNullOrEmpty(proveedorDTO.Body))
                 {
-                    ProveedorEntity.Body = ProveedorEntity.Body.Replace("@filtro", filtro);
+                    proveedorDTO.Body = proveedorDTO.Body.Replace("@filtro", filtro);
                 }
 
-                List<ProductoDTO> listaProveedor = (await iProveedoresApiRepository.BuscarProductos(
+                List<ProductoDTO> listaProductos = (await iProveedoresApiRepository.BuscarProductos(
                 filtro,
-                ProveedorEntity
+                proveedorDTO
                 )).ToList();
 
-                respuesta.AddRange(listaProveedor);
+                foreach (var item in listaProductos)
+                {
+                    item.TipoProveedor = "Externo";
+                    item.CodigoProveedor = proveedorDTO.Nombre;
+                }
+
+                respuesta.AddRange(listaProductos);
             }
 
             return respuesta;
