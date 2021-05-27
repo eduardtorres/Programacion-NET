@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 
-@Path("/codigodane")
+@Path("/transportador")
 public class CodigoDaneQueriesResource {
     @Inject
     CodigoDaneService codigodaneService;
