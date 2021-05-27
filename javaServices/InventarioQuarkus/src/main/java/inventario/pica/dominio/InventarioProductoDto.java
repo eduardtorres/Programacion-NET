@@ -2,7 +2,7 @@ package inventario.pica.dominio;
 
 public class InventarioProductoDto {
 
-    public long id;
-    public long inventario;
+    public int id;
+    public int inventario;
 
 }

@@ -2,6 +2,7 @@ package inventario.pica.servicios;
 
 import inventario.pica.repositorios.*;
 import inventario.pica.dominio.*;
+import inventario.pica.api.PoductoApiClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.Dependent;
@@ -39,19 +40,45 @@ public class InventarioService {
                 .findFirst()
                 .orElse(null);
     }
+    @Inject
+    @RestClient
+    PoductoApiClient poductoApiClient;
+    @Transactional
+    public int ActualizaInventarioProducto(InventarioProductoDto inventarioProductoDto)
+    {
+        int  resp=0;
+        //consulta inventario actual
+        System.out.println("ID del producto que se consutal para informar "+ inventarioProductoDto.id);
+        Inventario inventarioActual = InventarioActualizado(inventarioProductoDto);
 
+        if ( inventarioActual != null )
+        {
+            //Llamado a servicio de producto
 
-    public List<Inventario> ObtenerInventarioID(int id)
+            System.out.println("Llama al productos "+ inventarioProductoDto.id);
+            inventarioProductoDto.inventario = Integer.valueOf(inventarioActual.Inventario);
+            System.out.println("nuevo inventario "+ inventarioProductoDto.inventario);
+            //  InventarioActualizado inventarioActualizado = poductoApiClient.ActulizarInventarioProducto(inventarioProductoDto );
+            String  Respuesta = poductoApiClient.ActulizarInventarioProducto(inventarioProductoDto );
+            System.out.println("RESPUESTA  "  + Respuesta);
+        }
+        else {
+            System.out.println("Inventario no disponible");
+        }
+        return resp;
+    }
+
+    public Inventario ObtenerInventarioID(long id)
     {
         return entityManager
-                .createNamedQuery("Producto.ObtenerPorid", Inventario.class)
+                .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
                 .setParameter("Id", id)
-                .getResultList();     
+                .getSingleResult();
     }
     public List<Inventario> ObtenerInventarioICodigo(String Codigo)
     {
         return entityManager
-                .createNamedQuery("Producto.ObtenerPorCodigo", Inventario.class)
+                .createNamedQuery("Inventario.ObtenerPorCodigo", Inventario.class)
                 .setParameter("Codigo", Codigo)
                 .getResultList();
     }
@@ -75,7 +102,16 @@ public class InventarioService {
                 .setParameter("Id", inventarioDto.id)
                 .getResultStream()
                 .findFirst()
-                .orElse(null);  
+                .orElse(null);
+    }
+    public Inventario InventarioActualizado(InventarioProductoDto inventarioProductoDto)
+    {
+        return entityManager
+                .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
+                .setParameter("Id", Long.valueOf(inventarioProductoDto.id))
+                .getResultStream()
+                .findFirst()
+                .orElse(null);
     }
 
 
@@ -119,41 +155,45 @@ public class InventarioService {
         }
         return respuesta;
     }
- /*   @Transactional
-    public RespuestaBaseDto ActualizarInventarioProducto(InventarioDto inventarioDto, long ID)
-    {
-        Inventario inventarioActualizado = InventarioService.
-        Inventario inventarioEncontrado = InventarioExiste(inventarioDto);
-        RespuestaBaseDto respuesta;
-        if( inventarioEncontrado != null )
-        {
-            respuesta = new RespuestaBaseDto();
-            respuesta.codigo = 0;
-            respuesta.mensaje = "El inventario ya existe en el inventario";
-        }
-        else
-        {
-            Inventario inventario = new Inventario();
-            inventario.LoadFromDto(inventarioDto);
-            entityManager.persist(inventario);
-            respuesta = new RespuestaBaseDto();
-            respuesta.codigo = 100;
-            respuesta.mensaje = "Inventario agregado satisfactoriamente";
-        }
-        return respuesta;
-    }
-*/
+
     @Transactional
-    public RespuestaBaseDto DescargarInventario(DescargarInventario descargarInventario, long id)
-    {
+    public RespuestaBaseDto DescargarInventario(DescargarInventario descargarInventario, long id) {
         int retorno = 0;
+        int valida = 0;
+        RespuestaBaseDto respuesta;
+        respuesta = new RespuestaBaseDto();
 
         System.out.println(" Descargar codigo : " + descargarInventario.codigo);
         System.out.println(" Descargar CantidadOrdenada : " + descargarInventario.CantidadOrdenada);
         System.out.println(" Descargar codigoProveedor : " + descargarInventario.codigoProveedor);
         System.out.println(" Descargar tipoProveedor : " + descargarInventario.tipoProveedor);
 
+        Inventario inventarioaActualizar = ObtenerInventarioID(id);
+
         if (descargarInventario.tipoProveedor.equals("Local")) {
+            if (descargarInventario.tipoProveedor.equals(inventarioaActualizar.TipoProveedor)) {
+                if (descargarInventario.CantidadOrdenada > 0) {
+                    if ((inventarioaActualizar.Inventario - descargarInventario.CantidadOrdenada) >= 0) {
+                        valida = 0;
+                    } else {
+                        valida = 1;
+                        respuesta.mensaje = "La Cantidad solicitada supera el Stock del inventario " + inventarioaActualizar.Inventario + " cantidad solicitada "+descargarInventario.CantidadOrdenada;
+                    }
+                } else {
+                    valida = 1;
+                    respuesta.mensaje = "La cantidad solicitada es un valor negativo " + descargarInventario.CantidadOrdenada;
+                }
+            } else {
+                valida = 1;
+                respuesta.mensaje = "El tipo de proveedor no es consitente con el de la base de datos " + descargarInventario.tipoProveedor + " y " +inventarioaActualizar.TipoProveedor;
+            }
+        } else {
+
+            valida = 2;
+            respuesta.mensaje = "Prodcuto Externo " + retorno;
+        }
+
+        if (valida == 0) {
 
             System.out.println(" proveedor local ");
 
@@ -164,32 +204,37 @@ public class InventarioService {
                     .executeUpdate();
             //llamar Actualizar
 
-          //  String inventarioActualProdcuto = poductoApiClient.ActulizarInventarioProducto();
-           // double impuestosPorc = poductoApiClient.ObtenerImpuesto(carrito.getPais());
-        }
-        else
-        {
+            int intId = Integer.valueOf((int) id);
+            Object inventarioProductoDto = new InventarioProductoDto();
+            ((InventarioProductoDto) inventarioProductoDto).id = intId;
+            ((InventarioProductoDto) inventarioProductoDto).inventario = 0;
+
+            int inventarioActual = ActualizaInventarioProducto((InventarioProductoDto) inventarioProductoDto);
+
+            if (retorno >= 1) {
+
+                respuesta.codigo = 1;
+                respuesta.mensaje = "Inventario Descargado y Stock de Producto Actualizado " + retorno;
+            } else {
+
+                respuesta.codigo = 0;
+                respuesta.mensaje = "Producto no existe:" + descargarInventario + " " + retorno;
+            }
+
+        } else {
+            if (valida == 2) {
+                respuesta.codigo = 0;
+                System.out.println("DEBE IR A PROVEEDOR");
+            }
+            /*
             retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
                     + "WHERE e.Codigo = :codigo")
                     .setParameter("cantidad", descargarInventario.CantidadOrdenada)
                     .setParameter("codigo", descargarInventario.codigo)
                     //          .setParameter("CodigoProveedor", request.codigoProveedor)
                     .executeUpdate();
+            */
 
-        }
-        RespuestaBaseDto respuesta;
-
-        if( retorno >= 1 )
-        {
-            respuesta = new RespuestaBaseDto();
-            respuesta.codigo = 1;
-            respuesta.mensaje = "Producto Descargado satisfactoriamente" + retorno;
-        }
-        else
-        {
-            respuesta = new RespuestaBaseDto();
-            respuesta.codigo = 0;
-            respuesta.mensaje = "Producto no existe:" + descargarInventario +" "+ retorno ;
         }
         return respuesta;
 
