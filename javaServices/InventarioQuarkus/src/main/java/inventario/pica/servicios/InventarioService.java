@@ -2,7 +2,6 @@ package inventario.pica.servicios;
 
 import inventario.pica.repositorios.*;
 import inventario.pica.dominio.*;
-import inventario.pica.api.PoductoApiClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.Dependent;
@@ -24,9 +23,6 @@ public class InventarioService {
     @Inject
     EntityManager entityManager;
 
-    @Inject
-    @RestClient
-    PoductoApiClient poductoApiClient;
 
     public List<Inventario> fetchAll() {
         return entityManager
@@ -168,7 +164,7 @@ public class InventarioService {
                     .executeUpdate();
             //llamar Actualizar
 
-          //  String inventarioActualProdcuto = poductoApiClient.ActulizarInventarioProducto(InventarioProductoDto);
+          //  String inventarioActualProdcuto = poductoApiClient.ActulizarInventarioProducto();
            // double impuestosPorc = poductoApiClient.ObtenerImpuesto(carrito.getPais());
         }
         else
