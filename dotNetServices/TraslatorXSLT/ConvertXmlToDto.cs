@@ -78,17 +78,17 @@ namespace TraslatorXSLT
                 {
                     try
                     {
-                        for (int i = 0; i < ((JArray)item.Value).Count; i++)
+                        var jsonValues = ((JObject)item.Value).ToObject<Dictionary<string, object>>();
+                        string plantilla = template;
+                        foreach (var json in jsonValues)
                         {
-                            string plantilla = template;
-                            var jsonValues = JsonConvert.DeserializeObject<Dictionary<string, object>>(((JArray)item.Value)[i].ToString());
-                            foreach (var json in jsonValues)
+                            if (!string.IsNullOrEmpty(json.Key) && json.Value != null)
                             {
                                 string pattern = @"\b" + json.Key + @"\b";
                                 plantilla = Regex.Replace(plantilla, "@" + pattern, json.Value.ToString());
                             }
-                            objetoLocal = JsonConvert.DeserializeObject<OrdenesDTO>(plantilla);                            
                         }
+                        objetoLocal = JsonConvert.DeserializeObject<OrdenesDTO>(plantilla);
                     }
                     catch (Exception exc)
                     {

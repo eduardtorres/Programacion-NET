@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace TraslatorJSLT
 {
     public class ConvertJsonToDto : IConvertJsonToDto
-    {       
+    {
         public async Task<IList<ProductoDTO>> ConvertToProductList(Dictionary<string, object> routes_list, string template)
         {
             IList<ProductoDTO> objetoLocal = new List<ProductoDTO>();
@@ -55,17 +55,17 @@ namespace TraslatorJSLT
                 {
                     try
                     {
-                        for (int i = 0; i < ((JArray)item.Value).Count; i++)
+                        var jsonValues = ((JObject)item.Value).ToObject<Dictionary<string, object>>();
+                        string plantilla = template;
+                        foreach (var json in jsonValues)
                         {
-                            string plantilla = template;
-                            var jsonValues = JsonConvert.DeserializeObject<Dictionary<string, object>>(((JArray)item.Value)[i].ToString());
-                            foreach (var json in jsonValues)
+                            if (!string.IsNullOrEmpty(json.Key) && json.Value != null)
                             {
                                 string pattern = @"\b" + json.Key + @"\b";
-                                plantilla = Regex.Replace(plantilla, "@" + pattern, json.Value.ToString());
+                                plantilla = Regex.Replace(plantilla, "@" + pattern, json.Value.ToString());                                
                             }
-                            objetoLocal = JsonConvert.DeserializeObject<OrdenesDTO>(plantilla);                            
                         }
+                        objetoLocal = JsonConvert.DeserializeObject<OrdenesDTO>(plantilla);
                     }
                     catch (Exception exc)
                     {

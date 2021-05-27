@@ -77,6 +77,17 @@ namespace ProveedoresCore.Services
 
             respuesta = await iProveedoresApiRepository.BuscarOrden(proveedorDTO);
 
+            if (!string.IsNullOrEmpty(respuesta.numeroOrdenProveedor))
+            {
+                respuesta.codigo = 1;
+                respuesta.mensaje = "Proveedor aceptó la orden";                
+            }
+            else
+                respuesta.codigo = 0;
+            {
+                respuesta.mensaje = "Proveedor no aceptó la orden";                
+            }
+
             return respuesta;
         }
         public async Task<IList<InventarioDTO>> ConsultarInventario(IList<ProductoDTO> productos)
