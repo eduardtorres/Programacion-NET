@@ -6,7 +6,7 @@
         "availability_description": "string",
         "bin_picking_number": "string",
         "brand_id": 1000000000,
-        "brand_name": "Common Good",
+        "brand_name": "tablet",
         "bulk_pricing_rules": [
           {
             "amount": 10,
@@ -49,9 +49,9 @@
             "url_zoom": "string"
           }
         ],
-        "inventory_level": 1000000000,
+        "inventory_level": 100,
         "inventory_tracking": "none",
-        "inventory_warning_level": 1000000000,
+        "inventory_warning_level": 100,
         "is_condition_shown": true,
         "is_featured": true,
         "is_free_shipping": true,
@@ -64,7 +64,7 @@
           "string"
         ],
         "mpn": "string",
-        "name": "Nintendo Switch Diablo Edition",
+        "name": "IPad Pro Air Max",
         "open_graph_description": "string",
         "open_graph_title": "string",
         "open_graph_type": "product",
@@ -76,16 +76,16 @@
         "page_title": "string",
         "preorder_message": "string",
         "preorder_release_date": "2021-05-14T02:41:30.444Z",
-        "price": 0,
+        "price": 2700000,
         "price_hidden_label": "string",
         "product_tax_code": "string",
         "related_products": [
           0
         ],
-        "retail_price": 0,
+        "retail_price": 2700000,
         "reviews_count": 4,
         "reviews_rating_sum": 3.2,
-        "sale_price": 0,
+        "sale_price": 2700000,
         "search_keywords": "string",
         "sku": "SM-13",
         "sort_order": 2147483647,
@@ -144,7 +144,7 @@
         "availability_description": "string",
         "bin_picking_number": "string",
         "brand_id": 1000000000,
-        "brand_name": "Common Good",
+        "brand_name": "tablet",
         "bulk_pricing_rules": [
           {
             "amount": 10,
@@ -187,9 +187,9 @@
             "url_zoom": "string"
           }
         ],
-        "inventory_level": 1000000000,
+        "inventory_level": 102,
         "inventory_tracking": "none",
-        "inventory_warning_level": 1000000000,
+        "inventory_warning_level": 102,
         "is_condition_shown": true,
         "is_featured": true,
         "is_free_shipping": true,
@@ -202,7 +202,7 @@
           "string"
         ],
         "mpn": "string",
-        "name": "Nintendo Switch Animal Crossing Edition",
+        "name": "Ipad mini",
         "open_graph_description": "string",
         "open_graph_title": "string",
         "open_graph_type": "product",
@@ -214,16 +214,16 @@
         "page_title": "string",
         "preorder_message": "string",
         "preorder_release_date": "2021-05-14T02:41:30.444Z",
-        "price": 0,
+        "price": 1900000,
         "price_hidden_label": "string",
         "product_tax_code": "string",
         "related_products": [
           0
         ],
-        "retail_price": 0,
+        "retail_price": 1900000,
         "reviews_count": 4,
         "reviews_rating_sum": 3.2,
-        "sale_price": 0,
+        "sale_price": 1900000,
         "search_keywords": "string",
         "sku": "SM-13",
         "sort_order": 2147483647,
