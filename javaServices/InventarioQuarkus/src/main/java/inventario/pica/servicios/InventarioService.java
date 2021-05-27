@@ -2,6 +2,8 @@ package inventario.pica.servicios;
 
 import inventario.pica.repositorios.*;
 import inventario.pica.dominio.*;
+import inventario.pica.api.PoductoApiClient;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -21,6 +23,10 @@ public class InventarioService {
 
     @Inject
     EntityManager entityManager;
+
+    @Inject
+    @RestClient
+    PoductoApiClient poductoApiClient;
 
     public List<Inventario> fetchAll() {
         return entityManager
@@ -117,7 +123,30 @@ public class InventarioService {
         }
         return respuesta;
     }
-
+ /*   @Transactional
+    public RespuestaBaseDto ActualizarInventarioProducto(InventarioDto inventarioDto, long ID)
+    {
+        Inventario inventarioActualizado = InventarioService.
+        Inventario inventarioEncontrado = InventarioExiste(inventarioDto);
+        RespuestaBaseDto respuesta;
+        if( inventarioEncontrado != null )
+        {
+            respuesta = new RespuestaBaseDto();
+            respuesta.codigo = 0;
+            respuesta.mensaje = "El inventario ya existe en el inventario";
+        }
+        else
+        {
+            Inventario inventario = new Inventario();
+            inventario.LoadFromDto(inventarioDto);
+            entityManager.persist(inventario);
+            respuesta = new RespuestaBaseDto();
+            respuesta.codigo = 100;
+            respuesta.mensaje = "Inventario agregado satisfactoriamente";
+        }
+        return respuesta;
+    }
+*/
     @Transactional
     public RespuestaBaseDto DescargarInventario(DescargarInventario descargarInventario, long id)
     {
@@ -137,32 +166,27 @@ public class InventarioService {
                     .setParameter("cantidad", descargarInventario.CantidadOrdenada)
                     .setParameter("id", id)
                     .executeUpdate();
-            /*llamar Actualizar
-inventario por producto
-/producto
-/inventario
-/actualizar
-*
-/
-             */
+            //llamar Actualizar
+
+          //  String inventarioActualProdcuto = poductoApiClient.ActulizarInventarioProducto(InventarioProductoDto);
+           // double impuestosPorc = poductoApiClient.ObtenerImpuesto(carrito.getPais());
         }
         else
         {
-   /*         retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
+            retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
                     + "WHERE e.Codigo = :codigo")
                     .setParameter("cantidad", descargarInventario.CantidadOrdenada)
                     .setParameter("codigo", descargarInventario.codigo)
                     //          .setParameter("CodigoProveedor", request.codigoProveedor)
                     .executeUpdate();
 
-    */
         }
         RespuestaBaseDto respuesta;
 
         if( retorno >= 1 )
         {
             respuesta = new RespuestaBaseDto();
-            respuesta.codigo = 100;
+            respuesta.codigo = 1;
             respuesta.mensaje = "Producto Descargado satisfactoriamente" + retorno;
         }
         else

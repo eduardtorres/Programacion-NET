@@ -68,7 +68,11 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-jaxb</artifactId>
     </dependency>
-        <dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client</artifactId>
+    </dependency>
+    <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-lambda-rest</artifactId>
         </dependency>
