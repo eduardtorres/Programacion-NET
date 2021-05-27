@@ -14,37 +14,32 @@ namespace OrdenesCore.Services
     {
         private IAsyncRepository<Ordenes> _repositoryOrdenes;
         private IAsyncRepository<DetalleOrdenes> _repositoryDetalleOrdenes;
-        private IUnitOfWork _unitofwork;
         private readonly IMapper _mapper;
         //private IRestClientCarritoCompras _restClientCarritoCompras;
 
-        public OrdenService(IAsyncRepository<Ordenes> RepositoryOrdenes, IAsyncRepository<DetalleOrdenes> RepositoryDetalleOrdenes, IUnitOfWork unitofwork, IMapper mapper)
+        public OrdenService(IAsyncRepository<Ordenes> RepositoryOrdenes, IAsyncRepository<DetalleOrdenes> RepositoryDetalleOrdenes, IMapper mapper)
         {
             _repositoryOrdenes = RepositoryOrdenes;
             _repositoryDetalleOrdenes = RepositoryDetalleOrdenes;
-            _unitofwork = unitofwork;
             _mapper = mapper;
         }
 
         public async Task<RequestConfirmarOrden> CreateOrden(RequestConfirmarOrden orden)
         {
-                orden.Estado = "ACEPTADA";
-                orden.FechaCreacion = DateTime.Now.ToString();
-                var EntityOrden = _mapper.Map<Ordenes>(orden);
-                var ordenCreada = await _repositoryOrdenes.AddAsync(EntityOrden);
-                orden.Id = ordenCreada.Id;
+            orden.FechaCreacion = DateTime.Now.ToString();
+            var EntityOrden = _mapper.Map<Ordenes>(orden);
+            var ordenCreada = await _repositoryOrdenes.AddAsync(EntityOrden);
+            var ListaDetalleOrden = orden.DetallesOrden;
+            List<DetalleOrdenes> ListaEnDetalleOrdenes = new List<DetalleOrdenes>();
 
-                var ListaDetalleOrden = orden.DetallesOrden;
-                List<DetalleOrdenes> ListaEnDetalleOrdenes = new List<DetalleOrdenes>();
+            foreach (var elemento in ListaDetalleOrden)
+            {
+                var EntityDetalleOrden = _mapper.Map<DetalleOrdenes>(elemento);
+                EntityDetalleOrden.OrdenId = ordenCreada.Id;
+                ListaEnDetalleOrdenes.Add(EntityDetalleOrden);
+            }
 
-                foreach (var elemento in ListaDetalleOrden)
-                {
-                    var EntityDetalleOrden = _mapper.Map<DetalleOrdenes>(elemento);
-                    EntityDetalleOrden.OrdenId = orden.Id;
-                    ListaEnDetalleOrdenes.Add(EntityDetalleOrden);
-                }
-
-            var detalleordenCreada = await _repositoryDetalleOrdenes.AddRangeAsync(ListaEnDetalleOrdenes);
+            await _repositoryDetalleOrdenes.AddRangeAsync(ListaEnDetalleOrdenes);
 
             return orden;
         }
@@ -135,7 +130,6 @@ namespace OrdenesCore.Services
 
                 }
                 return ListaOrdenes;
-                //return lista = listaOrden.ToList();
             }
             return null;
         }

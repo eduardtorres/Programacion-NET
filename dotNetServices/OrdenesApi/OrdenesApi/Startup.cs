@@ -53,6 +53,8 @@ namespace OrdenesApi
             services.AddScoped<IRestClientBroker, RestClientBroker>();
             services.AddScoped<ISendEmails, SendEmails>();
             services.AddScoped<IOrdenService, OrdenService>();
+            services.AddScoped<IRestClientPagos, RestClientPagos>();
+            services.AddScoped<IRestClientInventario, RestClientInventario>();
             services.AddAutoMapper(typeof(OrdenesProfile), typeof(DetalleOrdenesProfile), typeof(ToOrdenDTOProfile), typeof(ToDetallenOrdenDTOProfile));
             services.AddHttpClient("disponibilidad", client =>
                 {
@@ -63,6 +65,14 @@ namespace OrdenesApi
                 client.BaseAddress = new Uri(Configuration["BaseUrl"]);
             });
             services.AddHttpClient("colocarOrdenBroker", client =>
+            {
+                client.BaseAddress = new Uri(Configuration["BaseUrl"]);
+            });
+            services.AddHttpClient("autorizarPago", client =>
+            {
+                client.BaseAddress = new Uri(Configuration["BaseUrl"]);
+            });
+            services.AddHttpClient("descargarInventario", client =>
             {
                 client.BaseAddress = new Uri(Configuration["BaseUrl"]);
             });

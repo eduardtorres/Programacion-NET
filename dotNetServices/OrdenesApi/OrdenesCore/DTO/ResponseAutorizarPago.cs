@@ -4,7 +4,7 @@ using System.Text;
 
 namespace OrdenesCore.DTO
 {
-   public  class DatosPago
+    public class RequestAutorizarPago
     {
         public int MedioPago { get; set; }
         public decimal Valor { get; set; }

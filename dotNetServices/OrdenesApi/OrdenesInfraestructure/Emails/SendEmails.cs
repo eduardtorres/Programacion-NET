@@ -11,20 +11,12 @@ namespace OrdenesInfraestructure.Emails
     public class SendEmails : ISendEmails
     {
 
-        private string _smtp;
-
-        public SendEmails()
-        {
-
-        }
-
        public async Task<bool> SendEmail(string sender, string body)
         {
            var smtp2 = new SmtpClient("smtp.gmail.com", 587);
             smtp2.UseDefaultCredentials = false;
             smtp2.Credentials = new NetworkCredential("demokallsony@gmail.com", "******");
             smtp2.DeliveryMethod = SmtpDeliveryMethod.Network;
-            
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress("demokallsony@gmail.com", "K ALL SONY");
             mail.To.Add(new MailAddress(sender));

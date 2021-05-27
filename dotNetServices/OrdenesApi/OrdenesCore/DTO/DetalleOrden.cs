@@ -15,5 +15,6 @@ namespace OrdenesCore.DTO
         public string CodigoProveedor { get; set; }
         public string TipoProveedor { get; set; }
         public string NombreProducto { get; set; }
+        public int OrdenProveedorId { get; set; }
     }
 }
