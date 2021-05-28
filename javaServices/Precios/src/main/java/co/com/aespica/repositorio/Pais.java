@@ -22,20 +22,25 @@ public class Pais{
     @Column(name = "IndEstado")
     private boolean IndEstado;
 
+    @Column(name = "CodMoneda")
+    private String CodMoneda;
+
     public Pais()
     {
 
     }
 
-    public Pais(int _id, String _CodPais, String _DesPais, boolean _IndEstado) {
+    public Pais(int _id, String _CodPais, String _DesPais, boolean _IndEstado, String _CodMoneda) {
         Id = _id;
         CodPais = _CodPais;
         DesPais = _DesPais;
         IndEstado = _IndEstado;
+        CodMoneda = _CodMoneda;
     }
 
     public int getId(){ return Id; }
     public String getCodPais(){ return CodPais; }
     public String getDesPais(){ return DesPais; }
     public boolean getIndEstado(){ return IndEstado; }
+    public String getCodMoneda(){ return CodMoneda; }
 }

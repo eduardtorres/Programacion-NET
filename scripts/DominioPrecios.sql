@@ -17,8 +17,6 @@ CodPais NVARCHAR(3),
 DesPais NVARCHAR(50)
 );
 
-ALTER TABLE Pais ADD IndEstado BIT
-
 GO
 CREATE TABLE Impuesto (
 Id INT IDENTITY,
@@ -72,9 +70,28 @@ INSERT INTO Impuesto VALUES ('TAX VENEZUELA1','VEN',1)
 INSERT INTO Impuesto VALUES ('TAX VENEZUELA2','VEN',4)
 INSERT INTO Impuesto VALUES ('TAX MEXICO','MEX',2)
 
+
+ALTER TABLE Pais ADD IndEstado BIT;
+ALTER TABLE PAIS ADD CodMoneda nvarchar(3);
 GO
+
 UPDATE Pais SET INDESTADO=0
 UPDATE Pais SET INDESTADO=1 WHERE ID IN(6,7,9,13)
+UPDATE Pais SET CodMoneda= CASE 
+                           WHEN CodPais='USA' THEN 'USD'
+                           WHEN CodPais='ESP' THEN 'EUR'
+                           WHEN CodPais='ARG' THEN 'ARS'
+                           WHEN CodPais='BOL' THEN 'BOB'
+                           WHEN CodPais='BRA' THEN 'BRL'
+                           WHEN CodPais='CHL' THEN 'CLP'
+                           WHEN CodPais='COL' THEN 'COP'
+                           WHEN CodPais='PRY' THEN 'PYG'
+                           WHEN CodPais='PER' THEN 'PEN'
+                           WHEN CodPais='URY' THEN 'UYU'
+                           WHEN CodPais='VEN' THEN 'VES'
+                           WHEN CodPais='GRB' THEN 'GBP'
+                           WHEN CodPais='MEX' THEN 'MXN'
+                           END
 
 GO
 SELECT * FROM Intercambio
