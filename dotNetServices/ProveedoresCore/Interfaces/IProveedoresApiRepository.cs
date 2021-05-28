@@ -9,7 +9,7 @@ namespace ProveedoresCore.Interfaces
     public interface IProveedoresApiRepository
     {
         Task<IList<ProductoDTO>> BuscarProductos(ProveedorDTO fabricanteEntity);
-        Task<OrdenesDTO> BuscarOrden(ProveedorDTO fabricanteEntity);
+        Task<OrdenesDTO> CrearOrdenProveedor(ProveedorDTO fabricanteEntity);
         Task<IList<ProveedorEntity>> ListarProveedores();
     }
 }

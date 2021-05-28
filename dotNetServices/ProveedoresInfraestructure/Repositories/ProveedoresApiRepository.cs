@@ -70,7 +70,7 @@ namespace ProveedoresInfraestructure.Repositories
             return objetoLocal;
         }
 
-        public async Task<OrdenesDTO> BuscarOrden(ProveedorDTO fabricanteEntity)
+        public async Task<OrdenesDTO> CrearOrdenProveedor(ProveedorDTO fabricanteEntity)
         {
             OrdenesDTO objetoLocal = null;
 
@@ -99,7 +99,7 @@ namespace ProveedoresInfraestructure.Repositories
 
                 string respuestaXML = await soapClient.MakeRequest
                     (requestUrlApi: fabricanteEntity.UrlServicioOrden,
-                    JSONRequest: fabricanteEntity.Body,
+                    JSONRequest: fabricanteEntity.BodyOrden,
                     JSONmethod: fabricanteEntity.MetodoApiOrden,
                     JSONContentType: "text/xml",
                     msTimeOut: -1,

@@ -15,6 +15,7 @@ using ProveedoresInfraestructure.Data;
 using Microsoft.EntityFrameworkCore;
 using TraslatorJSLT;
 using TraslatorXSLT;
+using ProveedoresCore.Util;
 
 namespace ProveedoresApi
 {

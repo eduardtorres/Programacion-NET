@@ -3,10 +3,12 @@ using Newtonsoft.Json.Linq;
 using ProveedoresCore.DTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace TraslatorXSLT
 {
@@ -66,19 +68,32 @@ namespace TraslatorXSLT
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(xml);
                 string jsonT = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
-                string FinalString;
-                string FirstString = "[";
-                string LastString = "]";
-                int Pos1 = jsonT.IndexOf(FirstString) + FirstString.Length;
-                int Pos2 = jsonT.IndexOf(LastString);
-                FinalString = "{\r\n\"data\": " + FirstString + jsonT.Substring(Pos1, Pos2 - Pos1) + LastString + "\r\n}";
-                var routes_list = JsonConvert.DeserializeObject<Dictionary<string, object>>(FinalString);
+                
+                var routes_list = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonT);
+                var templateJson = JsonConvert.DeserializeObject<Dictionary<string, object>>(template);                
+                
+                JObject obj = JsonConvert.DeserializeObject<JObject>(jsonT);
+                JObject objTemp = JsonConvert.DeserializeObject<JObject>(template);
+                
 
-                foreach (var item in routes_list)
-                {
+                foreach (var item in templateJson)
+                {                    
                     try
                     {
-                        var jsonValues = ((JObject)item.Value).ToObject<Dictionary<string, object>>();
+                        XDocument data = XDocument.Parse(xml);
+
+                        List<string> result = data.Descendants("statusOrden")
+                          .Select(x => (string)x.Attribute("id")).ToList();
+
+                        Dictionary<string, object> jsonValues = new Dictionary<string, object>();
+                        try
+                        {
+                            jsonValues = ((JObject)item.Value).ToObject<Dictionary<string, object>>();
+                        }
+                        catch (Exception a)
+                        {
+                            continue;
+                        }
                         string plantilla = template;
                         foreach (var json in jsonValues)
                         {
@@ -92,7 +107,7 @@ namespace TraslatorXSLT
                     }
                     catch (Exception exc)
                     {
-                        throw new Exception("Se produjo un error en la conversión: " + exc.Message);
+                        continue;
                     }
                 }
             }

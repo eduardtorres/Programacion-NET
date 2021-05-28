@@ -1,10 +1,11 @@
 ﻿using ProveedoresCommon.Util;
 using ProveedoresCore.DTO;
 using ProveedoresCore.Entities;
+using ProveedoresCore.Interfaces;
 
 namespace ProveedoresCore.Util
 {
-    public class ProveedoresAssembler : AbstractAssembler<ProveedorDTO, ProveedorEntity>
+    public class ProveedoresAssembler : AbstractAssembler<ProveedorDTO, ProveedorEntity>, IProveedoresAssembler
     {
         public override ProveedorDTO assemblyDTO(ProveedorEntity entity)
         {

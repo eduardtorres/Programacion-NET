@@ -14,7 +14,7 @@ namespace ProveedoresCore.Util
             InventarioDTO dto = new InventarioDTO();
             dto.IdInventario = entity.IdInventario;
             dto.IdProducto = entity.IdProducto;
-            dto.IdProveedor = entity.IdFabricante;
+            dto.IdProveedor = entity.IdProveedor;
             dto.Cantidad = entity.Cantidad;
             return dto;
         }
@@ -24,7 +24,7 @@ namespace ProveedoresCore.Util
             InventarioEntity entity = new InventarioEntity();
             entity.IdInventario = dto.IdInventario;
             entity.IdProducto = dto.IdProducto;
-            entity.IdFabricante = dto.IdProveedor;
+            entity.IdProveedor = dto.IdProveedor;
             entity.Cantidad = dto.Cantidad;
             return entity;
         }

@@ -10,7 +10,7 @@ namespace ProveedoresCore.Interfaces
     {
         Task<IList<ProveedorDTO>> ListarProveedores();        
         Task<IList<ProductoDTO>> BuscarProductosProveedores(string filtro);
-        Task<OrdenesDTO> BuscarOrdenProveedores(string filtro);
+        Task<OrdenesDTO> CrearOrdenProveedor(OrdenesRequestDTO ordenesRequestDTO);
         Task<IList<InventarioDTO>> ConsultarInventario(IList<ProductoDTO> productos);        
     }
 }
