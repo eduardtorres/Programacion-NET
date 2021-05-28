@@ -9,6 +9,8 @@ echo "Precio"
 curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/precio/tasa/obtener/COP
 echo "Pago"
 curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/pago/medios/obtener
+echo "Proveedores"
+curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/proveedor/productos/obtener/x
 echo "Productos"
 curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/producto/listado/obtener/CLP/o
 echo "Carrito"
@@ -17,3 +19,7 @@ echo "Clientes"
 curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/cliente/listar
 echo "Ordenes"
 curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/orden
+echo "Inventario"
+curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/inventario/producto/consultar
+echo "Transportadores"
+curl https://hayi88qmck.execute-api.us-east-2.amazonaws.com/Prod/transportador/obtener
