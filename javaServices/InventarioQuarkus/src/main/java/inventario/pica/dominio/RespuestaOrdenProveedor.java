@@ -1,8 +1,9 @@
 package inventario.pica.dominio;
 
-public class RespuestaBaseDto {
-    
+
+public class RespuestaOrdenProveedor {
     public int codigo;
     public String mensaje;
     public int ordenId;
+
 }

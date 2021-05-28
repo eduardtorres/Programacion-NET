@@ -2,7 +2,7 @@ package inventario.pica.servicios;
 
 import inventario.pica.repositorios.*;
 import inventario.pica.dominio.*;
-import inventario.pica.api.PoductoApiClient;
+import inventario.pica.api.*;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.enterprise.context.Dependent;
@@ -31,7 +31,7 @@ public class InventarioService {
                 .getResultList();
     }
 
-    public Inventario ObtenerPorCodigoTipoPro( String codigo , String tipoproveedor ) {
+    public Inventario ObtenerPorCodigoTipoPro(String codigo, String tipoproveedor) {
         return entityManager
                 .createNamedQuery("Inventario.ObtenerPorCodigoTipoPro", Inventario.class)
                 .setParameter("codigo", codigo)
@@ -40,63 +40,78 @@ public class InventarioService {
                 .findFirst()
                 .orElse(null);
     }
+
     @Inject
     @RestClient
     PoductoApiClient poductoApiClient;
+
     @Transactional
-    public int ActualizaInventarioProducto(InventarioProductoDto inventarioProductoDto)
-    {
-        int  resp=0;
+    public int ActualizaInventarioProducto(InventarioProductoDto inventarioProductoDto) {
+        int resp = 0;
         //consulta inventario actual
-        System.out.println("ID del producto que se consutal para informar "+ inventarioProductoDto.id);
+        System.out.println("ID del producto que se consutal para informar " + inventarioProductoDto.id);
         Inventario inventarioActual = InventarioActualizado(inventarioProductoDto);
 
-        if ( inventarioActual != null )
-        {
+        if (inventarioActual != null) {
             //Llamado a servicio de producto
 
-            System.out.println("Llama al productos "+ inventarioProductoDto.id);
+            System.out.println("Llama al productos " + inventarioProductoDto.id);
             inventarioProductoDto.inventario = Integer.valueOf(inventarioActual.Inventario);
-            System.out.println("nuevo inventario "+ inventarioProductoDto.inventario);
+            System.out.println("nuevo inventario " + inventarioProductoDto.inventario);
             //  InventarioActualizado inventarioActualizado = poductoApiClient.ActulizarInventarioProducto(inventarioProductoDto );
-            String  Respuesta = poductoApiClient.ActulizarInventarioProducto(inventarioProductoDto );
-            System.out.println("RESPUESTA  "  + Respuesta);
-        }
-        else {
+            String Respuesta = poductoApiClient.ActualizarInventarioProducto(inventarioProductoDto);
+            System.out.println("RESPUESTA  " + Respuesta);
+        } else {
             System.out.println("Inventario no disponible");
         }
         return resp;
     }
+    @Inject
+    @RestClient
+    ProveedorApiOrden proveedorApiOrden;
+    @Transactional
+    public int ColocaOrdenProveedor(ProveedorOrdenDto proveedorOrdenDto) {
+        int resp = 0;
+        //consulta inventario actual
+   //     System.out.println("ID del producto que se consutal para informar " + proveedorOrdenDto.id);
+     //   Inventario inventarioActual = ObtenerInventarioID(proveedorOrdenDto.id);
 
-    public Inventario ObtenerInventarioID(long id)
-    {
+            //Llamado a servicio de producto
+
+            System.out.println("Llama al colocar Orden en Proveedor " + proveedorOrdenDto.id);
+            //  InventarioActualizado inventarioActualizado = poductoApiClient.ActulizarInventarioProducto(inventarioProductoDto );
+        RespuestaOrdenProveedor respuestaOrdenProveedor = proveedorApiOrden.ColocaOrdenProveedor(proveedorOrdenDto);
+            System.out.println("RESPUESTA  " + respuestaOrdenProveedor);
+
+        return resp;
+    }
+
+    public Inventario ObtenerInventarioID(long id) {
         return entityManager
                 .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
                 .setParameter("Id", id)
                 .getSingleResult();
     }
-    public List<Inventario> ObtenerInventarioICodigo(String Codigo)
-    {
+
+    public List<Inventario> ObtenerInventarioICodigo(String Codigo) {
         return entityManager
                 .createNamedQuery("Inventario.ObtenerPorCodigo", Inventario.class)
                 .setParameter("Codigo", Codigo)
                 .getResultList();
     }
 
-    public List<InventarioDto> ObtenerInventarioDto(long id)
-    {        
-        return Inventario.ToListDto( ObtenerInventario(id) );
+    public List<InventarioDto> ObtenerInventarioDto(long id) {
+        return Inventario.ToListDto(ObtenerInventario(id));
     }
-    public List<Inventario> ObtenerInventario(long id)
-    {
+
+    public List<Inventario> ObtenerInventario(long id) {
         return entityManager
                 .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
                 .setParameter("Id", id)
                 .getResultList();
     }
 
-    public Inventario InventarioExiste(InventarioDto inventarioDto)
-    {
+    public Inventario InventarioExiste(InventarioDto inventarioDto) {
         return entityManager
                 .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
                 .setParameter("Id", inventarioDto.id)
@@ -104,8 +119,8 @@ public class InventarioService {
                 .findFirst()
                 .orElse(null);
     }
-    public Inventario InventarioActualizado(InventarioProductoDto inventarioProductoDto)
-    {
+
+    public Inventario InventarioActualizado(InventarioProductoDto inventarioProductoDto) {
         return entityManager
                 .createNamedQuery("Inventario.ObtenerPorid", Inventario.class)
                 .setParameter("Id", Long.valueOf(inventarioProductoDto.id))
@@ -116,36 +131,31 @@ public class InventarioService {
 
 
     @Transactional
-    public Inventario Obtener( String Categoria, String Codigo, String CodigoProveedor,
+    public Inventario Obtener(String Categoria, String Codigo, String CodigoProveedor,
                               String Descripcion, String Disponibilidad, String Fabricante,
                               int Inventario, String Moneda, String Nombre, String NombreImagen,
                               Double Precio, String TipoProveedor, String UrlImagen) {
-        Inventario inventarioEncontrado = ObtenerPorCodigoTipoPro(Codigo,TipoProveedor);
-        if( inventarioEncontrado == null )
-        {
+        Inventario inventarioEncontrado = ObtenerPorCodigoTipoPro(Codigo, TipoProveedor);
+        if (inventarioEncontrado == null) {
             Date date = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             String strDate = dateFormat.format(date);
-            inventarioEncontrado = new Inventario(0,Categoria, Codigo, CodigoProveedor, Descripcion, Fabricante,Inventario, Moneda, Nombre,Precio,TipoProveedor);
+            inventarioEncontrado = new Inventario(0, Categoria, Codigo, CodigoProveedor, Descripcion, Fabricante, Inventario, Moneda, Nombre, Precio, TipoProveedor);
             entityManager.persist(inventarioEncontrado);
         }
         return inventarioEncontrado;
     }
 
     @Transactional
-    public RespuestaBaseDto AgregarInventario(InventarioDto inventarioDto)
-    {
+    public RespuestaBaseDto AgregarInventario(InventarioDto inventarioDto) {
 
         Inventario inventarioEncontrado = InventarioExiste(inventarioDto);
         RespuestaBaseDto respuesta;
-        if( inventarioEncontrado != null )
-        {
+        if (inventarioEncontrado != null) {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 0;
             respuesta.mensaje = "El inventario ya existe en el inventario";
-        }
-        else
-        {
+        } else {
             Inventario inventario = new Inventario();
             inventario.LoadFromDto(inventarioDto);
             entityManager.persist(inventario);
@@ -177,7 +187,7 @@ public class InventarioService {
                         valida = 0;
                     } else {
                         valida = 1;
-                        respuesta.mensaje = "La Cantidad solicitada supera el Stock del inventario " + inventarioaActualizar.Inventario + " cantidad solicitada "+descargarInventario.CantidadOrdenada;
+                        respuesta.mensaje = "La Cantidad solicitada supera el Stock del inventario " + inventarioaActualizar.Inventario + " cantidad solicitada " + descargarInventario.CantidadOrdenada;
                     }
                 } else {
                     valida = 1;
@@ -185,7 +195,7 @@ public class InventarioService {
                 }
             } else {
                 valida = 1;
-                respuesta.mensaje = "El tipo de proveedor no es consitente con el de la base de datos " + descargarInventario.tipoProveedor + " y " +inventarioaActualizar.TipoProveedor;
+                respuesta.mensaje = "El tipo de proveedor no es consitente con el de la base de datos " + descargarInventario.tipoProveedor + " y " + inventarioaActualizar.TipoProveedor;
             }
         } else {
 
@@ -225,15 +235,20 @@ public class InventarioService {
             if (valida == 2) {
                 respuesta.codigo = 0;
                 System.out.println("DEBE IR A PROVEEDOR");
+                Object proveedorOrdenDto = new ProveedorOrdenDto();
+                ((ProveedorOrdenDto) proveedorOrdenDto).id = Integer.valueOf((int) id);
+                ((ProveedorOrdenDto) proveedorOrdenDto).tipoProveedor = descargarInventario.tipoProveedor;
+                ((ProveedorOrdenDto) proveedorOrdenDto).codigoProveedor = descargarInventario.codigoProveedor;
+                ((ProveedorOrdenDto) proveedorOrdenDto).codigo = descargarInventario.codigo;
+
+                RespuestaOrdenProveedor respuestaOrdenProveedor = proveedorApiOrden.ColocaOrdenProveedor((ProveedorOrdenDto) proveedorOrdenDto);
+                if (respuestaOrdenProveedor.codigo == 1){
+                    System.out.println("el numero de id es " +respuestaOrdenProveedor.ordenId);
+                    respuesta.ordenId = respuestaOrdenProveedor.ordenId;
+                }else {
+                    System.out.println("error "+respuestaOrdenProveedor.codigo+" mensaje "+respuestaOrdenProveedor.mensaje);
+                }
             }
-            /*
-            retorno = entityManager.createQuery("UPDATE Inventario e SET e.Inventario = e.Inventario - :cantidad "
-                    + "WHERE e.Codigo = :codigo")
-                    .setParameter("cantidad", descargarInventario.CantidadOrdenada)
-                    .setParameter("codigo", descargarInventario.codigo)
-                    //          .setParameter("CodigoProveedor", request.codigoProveedor)
-                    .executeUpdate();
-            */
 
         }
         return respuesta;
@@ -241,28 +256,25 @@ public class InventarioService {
     }
 
     @Transactional
-    public RespuestaBaseDto QuitarInventario( InventarioDto request ) {
+    public RespuestaBaseDto QuitarInventario(InventarioDto request) {
 
-  //      int retorno = entityManager.createQuery("delete from Producto where Id = :Id and Codigo = :Codigo and CodigoProveedor = :CodigoProveedor")
+        //      int retorno = entityManager.createQuery("delete from Producto where Id = :Id and Codigo = :Codigo and CodigoProveedor = :CodigoProveedor")
         int retorno = entityManager.createQuery("delete from Inventario where Id = :Id ")
-            .setParameter("Id", request.id)
-  //          .setParameter("Codigo", request.codigo)
-  //          .setParameter("CodigoProveedor", request.codigoProveedor)
-            .executeUpdate();
+                .setParameter("Id", request.id)
+                //          .setParameter("Codigo", request.codigo)
+                //          .setParameter("CodigoProveedor", request.codigoProveedor)
+                .executeUpdate();
 
-            RespuestaBaseDto respuesta;
+        RespuestaBaseDto respuesta;
 
-        if( retorno >= 1 )
-        {
+        if (retorno >= 1) {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 100;
-            respuesta.mensaje = "Producto quitado satisfactoriamente";    
-        }
-        else
-        {
+            respuesta.mensaje = "Producto quitado satisfactoriamente";
+        } else {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 0;
-            respuesta.mensaje = "Producto no existe:" + request.codigo ;    
+            respuesta.mensaje = "Producto no existe:" + request.codigo;
         }
 
         return respuesta;
@@ -271,58 +283,27 @@ public class InventarioService {
     @Transactional
     public int Limpiar(int id) {
         entityManager.createQuery("delete from Producto where Id = :Id")
-            .setParameter("Id", id)
-            .executeUpdate();
+                .setParameter("Id", id)
+                .executeUpdate();
         int retorno = entityManager.createQuery("delete from inventario where Id = :Id")
-            .setParameter("Id", id)
-            .executeUpdate();
+                .setParameter("Id", id)
+                .executeUpdate();
         return retorno;
     }
-/*
-    public CotizacionDto CotizarOrden(CotizacionRequest request)
-    {
-        List<Producto> productos = ObtenerProductos( request.inventarioId );
-        double suma = 0;
-        for( Producto item : productos )
-        {
-            suma = suma + item.Precio;
-        }
-        CotizacionDto response = new CotizacionDto();
-        response.Neto = suma;
-        response.Transporte = 0;
-        response.Impuestos = 0;
-        response.Total = ( response.Neto + response.Transporte + response.Impuestos );
-        return response;
-    }
 
-    public List<ProductoDto> Disponibilidad(int id)
-    {
-        List<ProductoDto> Inventarios = ObtenerInventarioDto( id );
-        for( ProductoDto item : productos )
-        {
-            if( item.id == 10 )
-                item.disponibilidad = "NODISPONIBLE";
-            else
-                item.disponibilidad = "DISPONIBLE";
-        }
-        return productos;
-    }
 
-    private   ObtenerInventarioDto(int id) {
-    }
-*/
-@Transactional
-public RespuestaBaseDto DescargarInventarioCodigo( String Codigo , int cantidad ) {
-    RespuestaBaseDto respuesta;
+    @Transactional
+    public RespuestaBaseDto DescargarInventarioCodigo(String Codigo, int cantidad) {
+        RespuestaBaseDto respuesta;
 
-    System.out.println("Holaaaa "+ Codigo);
-    System.out.println("Holaaaa "+ cantidad);
+        System.out.println("Holaaaa " + Codigo);
+        System.out.println("Holaaaa " + cantidad);
 
-    //consultar inventario actual
+        //consultar inventario actual
         respuesta = new RespuestaBaseDto();
         respuesta.codigo = 0;
         respuesta.mensaje = "El inventario ya existe en el inventario";
 
-    return respuesta;
-}
+        return respuesta;
+    }
 }

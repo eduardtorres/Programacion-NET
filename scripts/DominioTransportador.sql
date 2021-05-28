@@ -21,19 +21,20 @@ Estado BIT,
 
 GO
 CREATE TABLE Cotizacion (
-idCotizacion bigint NOT NULL,
-idTransportador bigint NOT NULL,
-idCliente bigint NOT NULL,
-codCiudadOrigen varchar(255) NOT NULL,
-codCiudadDestino varchar(255) NOT NULL,
-alto [float] NOT NULL,
-ancho [float] NOT NULL,
-largo [float] NOT NULL,
-peso [float] NOT NULL,
-valorDeclarado [float] NOT NULL,
-destinoNacional BIT NOT NULL,
-fechaPeticion DATETIME not null,
-moneda varchar(255) NOT NULL,
+	Id bigint NOT NULL,
+	IdTransportador bigint NOT NULL,
+	IdCliente bigint NOT NULL,
+	CodCiudadOrigen varchar(255)  NOT NULL,
+	CodCiudadDestino varchar(255)   NOT NULL,
+	Alto float NOT NULL,
+	Ancho float NOT NULL,
+	Largo float NOT NULL,
+	Peso float NOT NULL,
+	ValorDeclarado float NOT NULL,
+	DestinoNacional bit NOT NULL,
+	FechaPeticion datetime NOT NULL,
+	Moneda varchar(255)   NOT NULL,
+	ValorCotizacion float NOT null
 );
 GO
 INSERT INTO CodigoDane VALUES ('05001','MEDELLIN - ANTIOQUIA')
@@ -1167,3 +1168,5 @@ INSERT INTO Transportador VALUES ('Rapp',',ail@DEPRISA.com','Cl. 123','+57 65416
 
 
 GO
+
+INSERT INTO Cotizacion VALUES(1, 1053333606, 1242342, '05001', '99524', 5.4, 8.6, 47.5, 25.0, 2146546.0, 1, '2020-05-24 18:15:36.080', 'COP',20000.00);
