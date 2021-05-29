@@ -78,9 +78,7 @@ namespace TraslatorXSLT
                     try
                     {
                         JToken result = jObject.SelectToken(item.Value.ToString());
-                        JToken temp = result;
-
-                        //jObject.SelectToken("s:Body").SelectToken("PonerOrdenExternaResponse").SelectToken("PonerOrdenExternaResult")["a:numeroOrden"].ToString();
+                        JToken temp = result;                        
                         
                         if (temp != null && temp.Type == JTokenType.String)
                         {
