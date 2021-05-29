@@ -30,7 +30,7 @@ namespace OrdenesInfraestructure.WebServices
                     var responseStream = await result.Content.ReadAsStreamAsync();
                     var responseList = await JsonSerializer.DeserializeAsync<ResponseDescargarInventario>(responseStream);
                     if (responseList.codigo == 1)
-                        //elemento.OrdenProveedorId = responseList.ordenId;
+                        elemento.OrdenProveedorId = responseList.ordenId;
                         return 1;
                     return 0;
                 }

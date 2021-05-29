@@ -8,6 +8,6 @@ namespace OrdenesCore.DTO
     {
         public int codigo { get; set; }
         public string mensaje { get; set; }
-        //public int ordenId { get; set; }
+        public int ordenId { get; set; }
     }
 }

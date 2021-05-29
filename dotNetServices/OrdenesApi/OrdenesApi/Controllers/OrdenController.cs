@@ -85,12 +85,12 @@ namespace OrdenesApi.Controllers
                 return await this.CreateNotificationOrden(orden);
             }
             orden.PagoId = resultadoPago;
-            /*** var resultadoInventario = await _restClientInventario.RemoveProductInventory(orden.DetallesOrden);
+            var resultadoInventario = await _restClientInventario.RemoveProductInventory(orden.DetallesOrden);
            if (resultadoInventario == 0)
             {
                 orden.Estado = "PENDIENTE INVENTARIO";
                 return await this.CreateNotificationOrden(orden);
-            }**/
+            }
             orden.Estado = "ACEPTADA";
             return await this.CreateNotificationOrden(orden);
         }
