@@ -240,11 +240,14 @@ public class InventarioService {
                 ((ProveedorOrdenDto) proveedorOrdenDto).tipoProveedor = descargarInventario.tipoProveedor;
                 ((ProveedorOrdenDto) proveedorOrdenDto).codigoProveedor = descargarInventario.codigoProveedor;
                 ((ProveedorOrdenDto) proveedorOrdenDto).codigo = descargarInventario.codigo;
+                ((ProveedorOrdenDto) proveedorOrdenDto).CantidadOrdenada = descargarInventario.CantidadOrdenada;
 
                 RespuestaOrdenProveedor respuestaOrdenProveedor = proveedorApiOrden.ColocaOrdenProveedor((ProveedorOrdenDto) proveedorOrdenDto);
                 if (respuestaOrdenProveedor.codigo == 1){
-                    System.out.println("el numero de id es " +respuestaOrdenProveedor.ordenId);
-                    respuesta.ordenId = respuestaOrdenProveedor.ordenId;
+                    System.out.println("el numero de id es " +respuestaOrdenProveedor.numeroOrdenProveedor);
+                    respuesta.ordenId = respuestaOrdenProveedor.numeroOrdenProveedor;
+                    respuesta.codigo = respuestaOrdenProveedor.codigo;
+                    respuesta.mensaje = respuestaOrdenProveedor.mensaje;
                 }else {
                     System.out.println("error "+respuestaOrdenProveedor.codigo+" mensaje "+respuestaOrdenProveedor.mensaje);
                 }

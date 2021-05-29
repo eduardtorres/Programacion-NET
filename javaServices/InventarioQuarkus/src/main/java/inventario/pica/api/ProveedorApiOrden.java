@@ -13,7 +13,7 @@ import inventario.pica.dominio.*;
 public interface ProveedorApiOrden {
 
     @POST
-    @Path("/orden/colocar/{Id}")
+    @Path("/orden/colocar/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     RespuestaOrdenProveedor ColocaOrdenProveedor(ProveedorOrdenDto proveedorOrdenDto);
