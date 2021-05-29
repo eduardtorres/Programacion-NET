@@ -10,16 +10,6 @@ municipioDepartameto [varchar](255) NOT NULL,
 );
 
 GO
-CREATE TABLE Transportador (
-id bigint NOT NULL,
-nombretransportador [varchar](255) NOT NULL,
-emailtransportador [varchar](255) NOT NULL,
-direcciontransportador [varchar](255) NOT NULL,
-telefono [varchar](255) NOT NULL,
---estadoTransportador BIT NOT NULL,
-);
-
-GO
 CREATE TABLE Cotizacion (
 Id bigint NOT NULL,
 IdTransportador bigint NOT NULL,
@@ -1166,3 +1156,28 @@ INSERT INTO Transportador VALUES (3,'DEPRISA','contactoLATAM@DEPRISA.com','Cl. 1
 INSERT INTO Transportador VALUES (4,'Rapp',',ail@DEPRISA.com','Cl. 123','+57 65416856',0) 
 
 GO
+
+
+Id bigint NOT NULL,
+IdTransportador bigint NOT NULL,
+IdCliente bigint NOT NULL,
+CodCiudadOrigen varchar(255) NOT NULL,
+CodCiudadDestino varchar(255) NOT NULL,
+Alto [float] NOT NULL,
+Ancho [float] NOT NULL,
+Largo [float] NOT NULL,
+Peso [float] NOT NULL,
+ValorDeclarado [float] NOT NULL,
+DestinoNacional BIT NOT NULL,
+FechaPeticion DATETIME not null,
+Moneda varchar(255) NOT NULL,
+ValorCotizado float
+
+
+
+
+INSERT INTO Cotizacion VALUES(1, 123456789, 1053333606, '05001', '99524', 5.4, 8.6, 47.5, 25, 2146546, 1, DATEADD(hh,-5,DATEADD(yy,-1,GETDATE())), 'COP')
+
+
+
+https://calendar.google.com/event?action=TEMPLATE&tmeid=MTFhZG1hdHBjMWR1ZGQxam81bmVlOHVmZWQgeWFuZXRoY2Fyb2xpbmEucm9kcmlndWV6LmNvbnRyYWN0b3JAYmJ2YS5jb20&tmsrc=yanethcarolina.rodriguez.contractor%40bbva.com

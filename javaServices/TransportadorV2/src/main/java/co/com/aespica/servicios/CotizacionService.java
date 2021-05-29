@@ -197,7 +197,8 @@ public class CotizacionService {
         cotizacionDto.valorCotizacion = valorCotizacion + (ValoresOrigen.FactorOrigen +ValoresOrigen.FactorSocial  + ValoresOrigen.FactorTipoTransporte
                 + (ValoresOrigen.FactorValorCarga * cotizacionDto.valorDeclarado) +
                 (ValoresOrigen.FactorTipoCarga * (cotizacionDto.alto * cotizacionDto.ancho * cotizacionDto.largo ) ) + (ValoresOrigen.FactorTipoTransporte * cotizacionDto.peso));
-
+        Date date = Calendar.getInstance().getTime();
+        cotizacionDto.fechaPeticion = date;
                 //Guarda cotizacion
         Cotizacion cotizacion = new Cotizacion();
         cotizacion.LoadFromDto(cotizacionDto);
