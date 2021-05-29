@@ -11,19 +11,6 @@ export class Configuracion {
     constructor() {        
     }
 
-    getMonedaFromCountry(pais : string) {
-        if( pais == 'COL' )
-          return 'COP';
-        else if ( pais == 'CHL' )
-          return 'CLP';
-        else if ( pais == 'MEX' )
-          return 'MXN';
-        else if ( pais == 'PER' )
-          return 'PEN';
-        else
-          return '';
-      }
-
     obtenerStringAleatoria() {
       let max = 1000000000;
       let min = 100000000;

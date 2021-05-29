@@ -9,6 +9,8 @@ import { FormBuilder } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
 import { CarritoService } from '../services/carrito.service';
 import { ICliente } from '../interfaces/cliente.response';
+import { IPais } from '../interfaces/precios.response';
+import { PaisService } from '../services/pais.service';
 
 @Component({
   selector: 'app-buscar-producto',
@@ -18,17 +20,20 @@ import { ICliente } from '../interfaces/cliente.response';
 export class BuscarProductoComponent implements OnInit {
 
   productos : IProducto[] = [];
+  paises : IPais[] = [];
   cliente : ICliente | undefined ;
   pensando : boolean = false;
-  
+  nrSelect : string = 'COL';
+
   busquedaForm = this.formBuilder.group({
     filtro: ''
   });
 
   constructor(
+    private formBuilder: FormBuilder,
     private productoService : ProductoService,
     private carritoService : CarritoService,
-    private formBuilder: FormBuilder
+    private paisService : PaisService
      ) { 
 
   }
@@ -36,18 +41,29 @@ export class BuscarProductoComponent implements OnInit {
   onSubmit(): void {
     // Process checkout data here
     //console.warn('Your order has been submitted', this.checkoutForm.value);    
-    const busqueda = this.busquedaForm.get('filtro')?.value;
-    this.BuscarProductos( busqueda );
+    this.BuscarProductos();
   }
 
   ngOnInit(): void {
-    this.BuscarProductos( 'all' );
+    this.BuscarProductos();
     this.cliente = this.carritoService.cliente;
+
+    this.paisService.obtener().subscribe(data => {  
+      this.paisService.persistir( data );
+      this.paises = data;
+    });
   }
 
-  BuscarProductos( filtro : string ) {
+  BuscarProductos() {
+
+    let busqueda = this.busquedaForm.get('filtro')?.value;
+
+    if( busqueda == '' ) {
+      busqueda = 'all'
+    }
+
     this.pensando = true;
-    this.productoService.getProducts(filtro).subscribe( data => {
+    this.productoService.getProducts(busqueda).subscribe( data => {
       this.productos = data;
       this.productoService.persists( data );
       this.pensando = false;
@@ -56,6 +72,7 @@ export class BuscarProductoComponent implements OnInit {
 
   onCountryChange( value : string ) {
     this.carritoService.actualizarPais(value);
+    this.BuscarProductos();
   }
 
 }

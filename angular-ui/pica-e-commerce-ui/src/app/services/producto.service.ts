@@ -6,6 +6,7 @@ import { IProducto } from '../interfaces/carrito.response'
 
 import { Configuracion } from './configuracion';
 import { CarritoService } from './carrito.service';
+import { PaisService } from './pais.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,17 +18,18 @@ export class ProductoService {
 
     constructor(private http: HttpClient,
         private carritoService : CarritoService,
+        private paisService : PaisService,
         private configuracion : Configuracion
       ) {}    
 
-    getProducts(busqueda:String) {
+    getProducts(busqueda:string) {
       
       const httpOptions = {
         headers: new HttpHeaders({'Content-Type': 'application/json'})
       }
 
       let serviceUrl : string = this.configuracion.urlServicio;
-      let moneda : string = this.configuracion.getMonedaFromCountry( this.carritoService.pais );
+      let moneda : string = this.paisService.getMonedaFromCountry( this.carritoService.pais );
       return this.http.get<IProducto[]>( serviceUrl + '/producto/listado/obtener/' + moneda + '/' + busqueda , httpOptions);
     }    
 

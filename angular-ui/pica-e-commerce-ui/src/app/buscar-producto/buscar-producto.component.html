@@ -24,11 +24,10 @@
 
           </div>
     
-          <select class="generic_input" #countrySelect (change)="onCountryChange(countrySelect.value)" style="width:200px;">
-            <option value="COL">Colombia</option>
-            <option value="CHL">Chile</option>
-            <option value="MEX">Mexico</option>
-            <option value="PER">Peru</option>
+          <select [(ngModel)]='nrSelect' class="generic_input" #countrySelect (change)="onCountryChange(countrySelect.value)" style="width:200px;">
+            <option *ngFor="let pais of paises" [value]="pais.codPais">
+              {{pais.desPais}}
+            </option>
           </select>    
 
         </div>
