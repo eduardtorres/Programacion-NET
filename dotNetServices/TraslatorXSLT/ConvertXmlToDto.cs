@@ -21,13 +21,12 @@ namespace TraslatorXSLT
             {
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(xml);
-                string jsonT = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
-                string FinalString;
+                string jsonT = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);                
                 string FirstString = "[";
                 string LastString = "]";
                 int Pos1 = jsonT.IndexOf(FirstString) + FirstString.Length;
                 int Pos2 = jsonT.IndexOf(LastString);
-                FinalString = "{\r\n\"data\": " + FirstString + jsonT.Substring(Pos1, Pos2 - Pos1) + LastString + "\r\n}";
+                string FinalString = "{\r\n\"data\": " + FirstString + jsonT.Substring(Pos1, Pos2 - Pos1) + LastString + "\r\n}";
                 var routes_list = JsonConvert.DeserializeObject<Dictionary<string, object>>(FinalString);
                 
                 foreach (var item in routes_list)
@@ -68,48 +67,41 @@ namespace TraslatorXSLT
                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(xml);
                 string jsonT = JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.None, true);
-                
-                var routes_list = JsonConvert.DeserializeObject<Dictionary<string, object>>(jsonT);
-                var templateJson = JsonConvert.DeserializeObject<Dictionary<string, object>>(template);                
-                
-                JObject obj = JsonConvert.DeserializeObject<JObject>(jsonT);
-                JObject objTemp = JsonConvert.DeserializeObject<JObject>(template);
-                
 
+                JToken jObject = JToken.Parse(jsonT);                
+                
+                var templateJson = JsonConvert.DeserializeObject<Dictionary<string, object>>(template);
+
+                string plantilla = template;
                 foreach (var item in templateJson)
-                {                    
+                {
                     try
                     {
-                        XDocument data = XDocument.Parse(xml);
+                        JToken result = jObject.SelectToken(item.Value.ToString());
+                        JToken temp = result;
 
-                        List<string> result = data.Descendants("statusOrden")
-                          .Select(x => (string)x.Attribute("id")).ToList();
-
-                        Dictionary<string, object> jsonValues = new Dictionary<string, object>();
-                        try
+                        //jObject.SelectToken("s:Body").SelectToken("PonerOrdenExternaResponse").SelectToken("PonerOrdenExternaResult")["a:numeroOrden"].ToString();
+                        
+                        if (temp != null && temp.Type == JTokenType.String)
                         {
-                            jsonValues = ((JObject)item.Value).ToObject<Dictionary<string, object>>();
-                        }
-                        catch (Exception a)
-                        {
-                            continue;
-                        }
-                        string plantilla = template;
-                        foreach (var json in jsonValues)
-                        {
-                            if (!string.IsNullOrEmpty(json.Key) && json.Value != null)
+                            if (!string.IsNullOrEmpty(temp.ToString()))
                             {
-                                string pattern = @"\b" + json.Key + @"\b";
-                                plantilla = Regex.Replace(plantilla, "@" + pattern, json.Value.ToString());
-                            }
+                                string pattern = @"\b" + item.Value.ToString() + @"\b";
+                                plantilla = Regex.Replace(plantilla, pattern, temp.ToString());
+                            }                            
                         }
-                        objetoLocal = JsonConvert.DeserializeObject<OrdenesDTO>(plantilla);
+                        else
+                        {
+                            jObject = temp != null ? temp : jObject;
+                            continue;
+                        }                        
                     }
                     catch (Exception exc)
                     {
                         continue;
                     }
                 }
+                objetoLocal = JsonConvert.DeserializeObject<OrdenesDTO>(plantilla);
             }
             catch (Exception exc)
             {

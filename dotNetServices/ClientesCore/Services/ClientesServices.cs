@@ -19,10 +19,21 @@ namespace ClientesCore.Services
         }
 
         public async Task<IList<ClienteDTO>> ListarClientes()
-        {            
-            ClientesAssembler assembler = new ClientesAssembler();
-            IList<ClienteDTO> listaClientes = assembler.assemblyDTOs(await iClientesRepository.ListarClientes());    
-            return listaClientes;
+        {
+            var clientes = await iClientesRepository.ListarClientes();
+
+            var listaClientes = clientes.Select(entity => new ClienteDTO()
+            {
+                IdCliente = entity.IdCliente,
+                Nombre = entity.Nombre,
+                Direccion = entity.Direccion,
+                Nit = entity.Nit,
+                Telefono = entity.Telefono,
+                UserName = entity.UserName,
+                Password = entity.Password,
+            });
+
+            return listaClientes.ToList();
         }
 
         public async Task<AutenticarDTO> AuthenticarCliente(string UserName, string Password)
