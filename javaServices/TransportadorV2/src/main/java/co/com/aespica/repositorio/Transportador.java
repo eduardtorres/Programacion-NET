@@ -5,7 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Transportador")
 @NamedQueries({
-        @NamedQuery(name = "Transportador.ObtenerTodos", query = "SELECT t FROM Transportador t")
+        @NamedQuery(name = "Transportador.ObtenerTodos", query = "SELECT t FROM Transportador t"),
+        @NamedQuery(name = "Transportador.ObtenerId", query = "SELECT t FROM Transportador t WHERE t.Id = :id "),
+        @NamedQuery(name = "Transportador.ObtenerNombre", query = "SELECT t FROM Transportador t WHERE t.Nombre = :nombre "),
 })
 public class Transportador {
     @Id
@@ -28,18 +30,22 @@ public class Transportador {
     @Column(name = "Estado")
     public boolean Estado;
 
+    @Column(name = "FactorFlete")
+    public Double FactorFlete;
+
     public Transportador()
     {
 
     }
 
-    public Transportador(String _Nombre, String _EMail, String _Direccion, String _Telefono, boolean _Estado) 
+    public Transportador(String _Nombre, String _EMail, String _Direccion, String _Telefono, boolean _Estado, Double _FactorFlete)
     {
         Nombre    = _Nombre;
         EMail     = _EMail;
         Direccion = _Direccion;
         Telefono  = _Telefono;
         Estado    = _Estado;
+        FactorFlete  = _FactorFlete;
     }
 
     public int getId() { return Id;}
@@ -48,5 +54,6 @@ public class Transportador {
     public String getDireccion() { return Direccion;}
     public String getTelefono() { return Telefono;}
     public boolean getEstado() { return Estado;}    
+    public Double getFactorFlete() { return FactorFlete;}
 
 }

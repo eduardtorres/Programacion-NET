@@ -1,19 +1,18 @@
-package cotizacion.pica.servicios;
+package co.com.aespica.servicios;
 
-import cotizacion.pica.repositorios.*;
-import cotizacion.pica.dominio.*;
+import co.com.aespica.dominio.*;
+import co.com.aespica.repositorio.Cotizacion;
+import co.com.aespica.repositorio.Flete;
 
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-
-import java.util.Date;
-import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 @Dependent
 @Transactional(Transactional.TxType.SUPPORTS)
@@ -29,10 +28,10 @@ public class CotizacionService {
                 .getResultList();
     }
 
-    public Cotizacion ObtenerPorCodigoTipoPro( Long Id ) {
+    public Cotizacion ObtenerPorIdTransportador( Long idTransportador ) {
         return entityManager
-                .createNamedQuery("Cotizacion.ObtenerPorCodigoTipoPro", Cotizacion.class)
-                .setParameter("Id", Id)
+                .createNamedQuery("Cotizacion.ObtenerPorIdTransportador", Cotizacion.class)
+                .setParameter("idTransportador", idTransportador)
            //     .setParameter("tipoproveedor", tipoproveedor)
                 .getResultStream()
                 .findFirst()
@@ -43,7 +42,7 @@ public class CotizacionService {
     public List<Cotizacion> ObtenerCotizacionID(Long id)
     {
         return entityManager
-                .createNamedQuery("Producto.ObtenerPorid", Cotizacion.class)
+                .createNamedQuery("Producto.ObtenerPorId", Cotizacion.class)
                 .setParameter("Id", id)
                 .getResultList();     
     }
@@ -71,7 +70,7 @@ public class CotizacionService {
     {
         return entityManager
                 .createNamedQuery("Cotizacion.ObtenerPorid", Cotizacion.class)
-                .setParameter("Id", cotizacionDto.id)
+                .setParameter("Id", cotizacionDto.idTransportador)
                 .getResultStream()
                 .findFirst()
                 .orElse(null);  
@@ -93,13 +92,15 @@ public class CotizacionService {
                                Date FechaPeticion,
                                String Moneda,
                                Double ValorCotizacion) {
-        Cotizacion cotizacionEncontrado = ObtenerPorCodigoTipoPro(Id);
+        Cotizacion cotizacionEncontrado = ObtenerPorIdTransportador(IdTransportador);
         if( cotizacionEncontrado == null )
         {
             Date date = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
             String strDate = dateFormat.format(date);
-            cotizacionEncontrado = new Cotizacion(                    IdTransportador,
+            cotizacionEncontrado = new Cotizacion(
+                    Id,
+                    IdTransportador,
                     IdCliente,
                     CodCiudadOrigen,
                     CodCiudadDestino,
@@ -145,7 +146,7 @@ public class CotizacionService {
 
   //      int retorno = entityManager.createQuery("delete from Producto where Id = :Id and Codigo = :Codigo and CodigoProveedor = :CodigoProveedor")
         int retorno = entityManager.createQuery("delete from Cotizacion where Id = :Id ")
-            .setParameter("Id", request.id)
+            .setParameter("Id", request.idTransportador)
   //          .setParameter("Codigo", request.codigo)
   //          .setParameter("CodigoProveedor", request.codigoProveedor)
             .executeUpdate();
@@ -162,7 +163,7 @@ public class CotizacionService {
         {
             respuesta = new RespuestaBaseDto();
             respuesta.codigo = 0;
-            respuesta.mensaje = "Producto no existe:" + request.id ;
+            respuesta.mensaje = "Producto no existe:" + request.idTransportador ;
         }
 
         return respuesta;
@@ -178,39 +179,45 @@ public class CotizacionService {
             .executeUpdate();
         return retorno;
     }
-
-    public ObtenerFlete obtenerFlete(CotizacionDto request)
+    @Transactional
+    public RespuestaCotizacionDto obtenerFlete(CotizacionDto cotizacionDto)
     {
-        List<Producto> productos = ObtenerProductos( request.cotizacionId );
-        double suma = 0;
-        for( Producto item : productos )
-        {
-            suma = suma + item.Precio;
-        }
-        CotizacionDto response = new CotizacionDto();
-        response.Neto = suma;
-        response.Transporte = 0;
-        response.Impuestos = 0;
-        response.Total = ( response.Neto + response.Transporte + response.Impuestos );
-        return response;
+       // Object ValoresOrigen = new FleteDto();
+       // Object ValoresDestino = new FleteDto();
+        String departamentoOrigen = cotizacionDto.codCiudadOrigen.substring(0,2);
+        String departamentoDestino = cotizacionDto.codCiudadDestino.substring(0,2);
+        Flete ValoresOrigen = ObtenerFleteID(departamentoOrigen);
+        Flete ValoresDestino = ObtenerFleteID(departamentoDestino);
+
+        double valorCotizacion = 0;
+
+        //Simulacion Flete
+        //se obtiene el valor de ogigen por destino
+        valorCotizacion = ValoresOrigen.FactorOrigen * ValoresDestino.FactorDestino;
+        cotizacionDto.valorCotizacion = valorCotizacion + (ValoresOrigen.FactorOrigen +ValoresOrigen.FactorSocial  + ValoresOrigen.FactorTipoTransporte
+                + (ValoresOrigen.FactorValorCarga * cotizacionDto.valorDeclarado) +
+                (ValoresOrigen.FactorTipoCarga * (cotizacionDto.alto * cotizacionDto.ancho * cotizacionDto.largo ) ) + (ValoresOrigen.FactorTipoTransporte * cotizacionDto.peso));
+
+                //Guarda cotizacion
+        Cotizacion cotizacion = new Cotizacion();
+        cotizacion.LoadFromDto(cotizacionDto);
+        entityManager.persist(cotizacion);
+        RespuestaCotizacionDto respuesta = new RespuestaCotizacionDto();
+        respuesta.codigo = 1;
+        respuesta.mensaje = "Cotizacion Generada Corectamente " + cotizacionDto.valorCotizacion;
+        respuesta.valorCotizacion = cotizacionDto.valorCotizacion;
+        //
+
+       return respuesta;
     }
 
-    public List<ProductoDto> Disponibilidad(int id)
-    {
-        List<ProductoDto> Cotizacions = ObtenerCotizacionDto( id );
-        for( ProductoDto item : productos )
-        {
-            if( item.id == 10 )
-                item.disponibilidad = "NODISPONIBLE";
-            else
-                item.disponibilidad = "DISPONIBLE";
-        }
-        return productos;
-    }
 
-    private   ObtenerCotizacionDto(int id) {
+    public Flete ObtenerFleteID(String codDane) {
+        return entityManager
+                .createNamedQuery("Flete.ObtenerxDepartamento", Flete.class)
+                .setParameter("iddanedepartamento", codDane)
+                .getSingleResult();
     }
-
 @Transactional
 public RespuestaBaseDto DescargarCotizacionCodigo( String Codigo , int cantidad ) {
     RespuestaBaseDto respuesta;

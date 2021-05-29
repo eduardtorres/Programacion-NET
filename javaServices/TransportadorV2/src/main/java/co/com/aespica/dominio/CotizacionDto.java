@@ -1,11 +1,10 @@
-package cotizacion.pica.dominio;
+package co.com.aespica.dominio;
 
-import java.text.DateFormat;
 import java.util.Date;
 
 public class CotizacionDto {
 
-    public Long    id;
+   // public Long    id;
     public Long    idTransportador;
     public Long    idCliente;
     public String  codCiudadOrigen;

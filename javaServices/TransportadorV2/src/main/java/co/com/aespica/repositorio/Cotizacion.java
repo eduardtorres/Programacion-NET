@@ -1,56 +1,53 @@
-package cotizacion.pica.repositorios;
+package co.com.aespica.repositorio;
+
+import co.com.aespica.dominio.CotizacionDto;
 
 import javax.persistence.*;
-import java.util.Date;
-
-import cotizacion.pica.dominio.CotizacionDto;
-
-import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "Cotizacion")
 @NamedQueries({
         @NamedQuery(name = "Cotizacion.findAll", query = "SELECT i FROM Cotizacion i"),
-        @NamedQuery(name = "Cotizacion.ObtenerPorCodigoTipoPro", query = "SELECT i FROM Cotizacion i WHERE i.IdTransportador = :IdTransportador order by Id desc"),
-        @NamedQuery(name = "Cotizacion.ObtenerPorid", query = "SELECT p FROM Cotizacion p WHERE p.Id = :Id"),
-        @NamedQuery(name = "Cotizacion.ObtenerPorCodigo", query = "SELECT p FROM Cotizacion p WHERE p.IdCliente = :IdCliente order by Id desc")
+        @NamedQuery(name = "Cotizacion.ObtenerPorId", query = "SELECT p FROM Cotizacion p WHERE p.Id = :Id"),
+        @NamedQuery(name = "Cotizacion.ObtenerPorIdTransportador", query = "SELECT i FROM Cotizacion i WHERE i.IdTransportador = :idTransportador order by Id desc"),
+        @NamedQuery(name = "Cotizacion.ObtenerPorIdCliente", query = "SELECT p FROM Cotizacion p WHERE p.IdCliente = :idCliente order by Id desc")
 
 })
 public class Cotizacion {
-
-
     @Id
-   // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "Id")
-    public Long Id;
+    public  Long Id;
+
     @Column(name = "IdTransportador", nullable = false)
-    public Long IdTransportador;
+    public  Long IdTransportador;
     @Column(name = "IdCliente", nullable = false)
-    public Long IdCliente;
+    public  Long IdCliente;
     @Column(name = "CodCiudadOrigen", nullable = false)
-    public String CodCiudadOrigen;
+    public  String CodCiudadOrigen;
     @Column(name = "CodCiudadDestino", nullable = false)
-    public String CodCiudadDestino;
+    public  String CodCiudadDestino;
     @Column(name = "Alto", nullable = false)
-    public Double Alto;
+    public  Double Alto;
     @Column(name = "Ancho", nullable = false)
-    public Double Ancho;
+    public  Double Ancho;
     @Column(name = "Largo", nullable = false)
-    public Double Largo;
+    public  Double Largo;
     @Column(name = "Peso", nullable = false)
-    public Double Peso;
+    public  Double Peso;
     @Column(name = "ValorDeclarado", nullable = false)
-    public Double ValorDeclarado;
+    public  Double ValorDeclarado;
     @Column(name = "DestinoNacional", nullable = false)
-    public Boolean DestinoNacional;
+    public  Boolean DestinoNacional;
     @Column(name = "FechaPeticion", nullable = false)
-    public Date FechaPeticion;
+    public  Date FechaPeticion;
     @Column(name = "Moneda", nullable = false)
-    public String Moneda;
+    public  String Moneda;
     @Column(name = "ValorCotizacion", nullable = false)
-    public Double ValorCotizacion;
+    public  Double ValorCotizacion;
 
 
     public Cotizacion()
@@ -58,7 +55,8 @@ public class Cotizacion {
 
     }
 
-    public Cotizacion(Long _IdTransportador,
+    public Cotizacion(Long _Id,
+                      Long _IdTransportador,
                       Long _IdCliente,
                       String _CodCiudadOrigen,
                       String _CodCiudadDestino,
@@ -72,7 +70,7 @@ public class Cotizacion {
                       String _Moneda,
                       Double _ValorCotizacion)
     {
-            //    Id              = _Id;
+                Id              = _Id;
                 IdTransportador = _IdTransportador;
                 IdCliente       = _IdCliente;
                 CodCiudadOrigen = _CodCiudadOrigen;
@@ -87,9 +85,6 @@ public class Cotizacion {
                 Moneda          = _Moneda;
         ValorCotizacion          = _ValorCotizacion;
 
-    }
-
-    public Cotizacion(Long Id, Long IdTransportador, Long IdCliente, String CodCiudadOrigen, String CodCiudadDestino, Double Alto, Double Ancho, Double Largo, Double Peso, Double ValorDeclarado, Boolean DestinoNacional, Date FechaPeticion, String Moneda, Double ValorCotizacion) {
     }
 
     public Long   getId() { return Id; }
@@ -110,7 +105,7 @@ public class Cotizacion {
 
     public void LoadFromDto(CotizacionDto cotizacionDto)
     {
-        Id               = cotizacionDto.id;
+      //  Id               = cotizacionDto.id;
         IdTransportador  = cotizacionDto.idTransportador;
         IdCliente        = cotizacionDto.idCliente;
         CodCiudadOrigen  = cotizacionDto.codCiudadOrigen;
@@ -130,7 +125,7 @@ public class Cotizacion {
     {
         CotizacionDto response = new CotizacionDto();
 
-        response.id               = Id               ;
+      //  response.id               = Id  ;
         response.idTransportador  = IdTransportador  ;
         response.idCliente        = IdCliente        ;
         response.codCiudadOrigen  = CodCiudadOrigen  ;
