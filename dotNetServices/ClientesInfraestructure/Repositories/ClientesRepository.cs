@@ -44,10 +44,12 @@ namespace ClientesInfraestructure.Repositories
                     _customersContext.Clientes.Add(clienteEntity);
                     await _customersContext.SaveChangesAsync();
                 }
+                else
+                    throw new Exception("El cliente ya se encuentra registrado en el sistema!!!");
             }
             catch (Exception exc)
             {
-                throw new Exception("Error al guardar el cluente " + exc.Message);
+                throw new Exception("Error al guardar: " + exc.Message);
             }
             return clienteEntity;
         }

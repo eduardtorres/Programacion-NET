@@ -23,7 +23,15 @@ namespace ClientesApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ClienteDTO>> RegistrarCliente(ClienteDTO cliente)
         {
-            return Ok(await iClientesServices.RegistrarCliente(cliente));
+            try
+            {
+                ClienteDTO clienteResult = await iClientesServices.RegistrarCliente(cliente);
+                return Ok(clienteResult);
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
         }
 
         [HttpGet("listar")]

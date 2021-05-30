@@ -57,8 +57,16 @@ namespace ClientesCore.Services
 
         public async Task<ClienteDTO> RegistrarCliente(ClienteDTO cliente)
         {
-            ClientesAssembler assembler = new ClientesAssembler();            
-            ClienteDTO clienteResult = assembler.assemblyDTO(await iClientesRepository.RegistrarCliente(assembler.assemblyEntity(cliente)));
+            ClienteDTO clienteResult = new ClienteDTO();
+            try
+            {
+                ClientesAssembler assembler = new ClientesAssembler();
+                clienteResult = assembler.assemblyDTO(await iClientesRepository.RegistrarCliente(assembler.assemblyEntity(cliente)));
+            }
+            catch (Exception exc)
+            {
+                throw exc;
+            }
             return clienteResult;
         }
     }
