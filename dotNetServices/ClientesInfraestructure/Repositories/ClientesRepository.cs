@@ -34,8 +34,21 @@ namespace ClientesInfraestructure.Repositories
         
         public async Task<ClienteEntity> RegistrarCliente(ClienteEntity clienteEntity)
         {
-            _customersContext.Clientes.Add(clienteEntity);
-            await _customersContext.SaveChangesAsync();
+            try
+            {
+                var cliente = (from c in _customersContext.Clientes
+                               where c.UserName == clienteEntity.UserName
+                               select c).FirstOrDefault();
+                if (cliente == null)
+                {
+                    _customersContext.Clientes.Add(clienteEntity);
+                    await _customersContext.SaveChangesAsync();
+                }
+            }
+            catch (Exception exc)
+            {
+                throw new Exception("Error al guardar el cluente " + exc.Message);
+            }
             return clienteEntity;
         }
     }
