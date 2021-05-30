@@ -28,7 +28,6 @@ namespace OrdenesInfraestructure.WebServices
                 var responseStream = await result.Content.ReadAsStreamAsync();
                 var responseList = await JsonSerializer.DeserializeAsync<ResponseCreateOrdenBroker>(responseStream);
                 if (responseList.code == 1)
-                    //return true;
                     return responseList.orderId;
                 return 0;
             }

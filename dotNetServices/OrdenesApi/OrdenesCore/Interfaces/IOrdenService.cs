@@ -19,7 +19,7 @@ namespace OrdenesCore.Interfaces
 
         public Task DeleteOrden(long codigoOrden);
 
-        public Task<IEnumerable<ResponseOrdenesByCliente>> GetOrdenesByCustomer(string ordenesByCustomer);
+        public Task<IEnumerable<OrdenesByCliente>> GetOrdenesByCustomer(string ordenesByCustomer);
 
     }
 }

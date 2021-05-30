@@ -9,6 +9,5 @@ namespace OrdenesCore.Interfaces
     {
         public Task<bool> GetProductAvailability(long CarritoId);
 
-        public Task<bool> DeleteCarritoCompras(long CarritoId);
     }
 }

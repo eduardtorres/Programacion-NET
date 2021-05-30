@@ -4,10 +4,8 @@ using System.Text;
 
 namespace OrdenesCore.DTO
 {
-    public class Orden
+    public class OrdenesByCliente
     {
-        public int Codigo { get; set; }
-        public string Mensaje { get; set; }
         public long Id { get; set; }
         public string Estado { get; set; }
         public string FechaCreacion { get; set; }
@@ -35,7 +33,6 @@ namespace OrdenesCore.DTO
         public string TelefonoEnvio { get; set; }
         public long PagoId { get; set; }
         public long CarritoId { get; set; }
-        public IList<DetalleOrden> DetallesOrden{ get; set; }
-        public IList<DatosPago> DatosPago { get; set; }
+        public IList<DetalleOrden> DetallesOrden { get; set; }
     }
 }

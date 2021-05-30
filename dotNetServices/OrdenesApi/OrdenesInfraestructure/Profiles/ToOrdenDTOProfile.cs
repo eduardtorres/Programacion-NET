@@ -13,7 +13,7 @@ namespace OrdenesInfraestructure.Profiles
         public ToOrdenDTOProfile()
         {
             CreateMap<Ordenes, Orden>();
-            CreateMap<Ordenes, ResponseOrdenesByCliente>();
+            CreateMap<Ordenes, OrdenesByCliente>();
         }
     }
 }

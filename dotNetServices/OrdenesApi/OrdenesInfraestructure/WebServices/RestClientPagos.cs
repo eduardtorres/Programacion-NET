@@ -28,7 +28,6 @@ namespace OrdenesInfraestructure.WebServices
                 var responseStream = await result.Content.ReadAsStreamAsync();
                 var response = await JsonSerializer.DeserializeAsync<int>(responseStream);
                 if (response > 0 )
-                    //return true;
                     return response;
                 return 0;
             }

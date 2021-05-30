@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using OrdenesCore.Interfaces;
 using OrdenesCore.DTO;
+using OrdenesCore.Exceptions;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -56,16 +57,15 @@ namespace OrdenesApi.Controllers
         [HttpPost("colocar")]
         public async Task<ActionResult<ResponseColocarOrden>> Post([FromBody] Orden orden)
         {
+            MessagesColocarOrdenes respuesta = new MessagesColocarOrdenes();
             if (!await _restClientCarritoCompras.GetProductAvailability(orden.CarritoId))
-                return ValidationProblem("NoAvailability");
+                return respuesta.NoAvailability();
             var ordenId = await _restClientBroker.CreateOrdenBroker(orden);
             if (ordenId == 0)
-                return BadRequest();
-            ResponseColocarOrden dtoOrden = new ResponseColocarOrden
-            {
-                OrdenId = ordenId
-            };
-            return Ok(dtoOrden);
+                return respuesta.ErrorCreateOrdenBroker();
+            var resultado = respuesta.OKCreateOrdenBroker();
+            resultado.OrdenId = ordenId;
+            return resultado;
         }
 
 
@@ -74,8 +74,6 @@ namespace OrdenesApi.Controllers
         public async Task<ActionResult<ResponseConfirmarOrden>> Post([FromBody] RequestConfirmarOrden orden)
         {
             DatosPago datosPago;
-
-
             datosPago = orden.DatosPago.First();
             datosPago.Valor = orden.PrecioTotal;
             var resultadoPago = await _restClientPagos.AuthPaymentOrden(datosPago);
@@ -86,7 +84,7 @@ namespace OrdenesApi.Controllers
             }
             orden.PagoId = resultadoPago;
             var resultadoInventario = await _restClientInventario.RemoveProductInventory(orden.DetallesOrden);
-           if (resultadoInventario == 0)
+            if (resultadoInventario == 0)
             {
                 orden.Estado = "PENDIENTE INVENTARIO";
                 return await this.CreateNotificationOrden(orden);
@@ -115,62 +113,45 @@ namespace OrdenesApi.Controllers
         }
 
         [HttpGet("ordenes_cliente/{email}")]
-        public async Task<ActionResult<IEnumerable<Orden>>> Get(string email)
+        public async Task<ActionResult<ResponseOrdenesByCliente>> Get(string email)
         {
+            MessagesObtenerOrdenesxCliente resultadoOperacion = new MessagesObtenerOrdenesxCliente();
+            ResponseOrdenesByCliente respuesta = new ResponseOrdenesByCliente();
             var resultado = await _servicio.GetOrdenesByCustomer(email);
             if (resultado != null)
-                return Ok(resultado);
-            return NotFound();
+            {
+                respuesta = resultadoOperacion.OkFoundOrdenes(respuesta);
+                respuesta.OrdenesByCliente = resultado;
+                return respuesta;
+            }
+            respuesta = resultadoOperacion.NoFoundOrdenes(respuesta);
+            return respuesta;
         }
+
 
         public async Task<ResponseConfirmarOrden> CreateNotificationOrden(RequestConfirmarOrden orden)
         {
             RequestConfirmarOrden ordenCreada;
+            MessagesConfirmarOrdenes respuesta = new MessagesConfirmarOrdenes();
             string body;
             try
             {
                 ordenCreada = await _servicio.CreateOrden(orden);
                 if (ordenCreada == null)
-                    return this.BadOrden();
+                    return respuesta.BadOrden();
                 body = this.GetMsgEmail(orden);
                 if (!await _sendEmails.SendEmail(orden.EmailCliente, body))
-                    return this.EmailNoSend();
-                return this.OkOrden();
+                    return respuesta.EmailNoSend();
+                return respuesta.OkOrden();
             }
             catch
             {
-                return this.BadOrden();
+                return respuesta.BadOrden();
             }
         }
-        public ResponseConfirmarOrden OkOrden()
-        {
-            ResponseConfirmarOrden resultado = new ResponseConfirmarOrden
-            {
-                codigo = 1,
-                mensaje = "Orden creada y notificada"
-            };
-            return resultado;
-        }
 
-        public ResponseConfirmarOrden BadOrden()
-        {
-            ResponseConfirmarOrden resultado = new ResponseConfirmarOrden
-            {
-                codigo = 0,
-                mensaje = "Error en la creación de la orden"
-            };
-            return resultado;
-        }
 
-        public ResponseConfirmarOrden EmailNoSend()
-        {
-            ResponseConfirmarOrden resultado = new ResponseConfirmarOrden
-            {
-                codigo = 1,
-                mensaje = "Orden creada y error en el envío de correo"
-            };
-            return resultado;
-        }
+
 
         public string GetMsgEmail(RequestConfirmarOrden orden)
         {

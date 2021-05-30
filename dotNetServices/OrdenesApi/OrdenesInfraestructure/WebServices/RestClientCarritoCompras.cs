@@ -16,20 +16,6 @@ namespace OrdenesInfraestructure.WebServices
         {
             _httpClientFactory = httpClientFactory;
         }
-        public async Task<bool> DeleteCarritoCompras(long CarritoId)
-        {
-            var client = _httpClientFactory.CreateClient("limpiarCarrito");
-            var result = await client.DeleteAsync($"Prod/carrito/limpiar/{CarritoId}");
-            if (result.IsSuccessStatusCode)
-            {
-                var responseStream = await result.Content.ReadAsStreamAsync();
-                var response = await JsonSerializer.DeserializeAsync<int> (responseStream);
-                if (response ==1)
-                    return true;
-                return false;
-            }
-            return false;
-            }
 
         public async Task<bool> GetProductAvailability(long CarritoId)
         {

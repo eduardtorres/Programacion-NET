@@ -76,7 +76,7 @@ namespace OrdenesCore.Services
         public async Task<IEnumerable<Orden>> GetOrdenes()
         {
             var resultado = await _repositoryOrdenes.GetAllAsync();
-            if (resultado.Count >0)
+            if (resultado.Count > 0)
             {
                 var listaOrden = resultado
                  .Select(orden => new Orden
@@ -84,7 +84,7 @@ namespace OrdenesCore.Services
                      Id = orden.Id,
                      Estado = orden.Estado,
                      TelefonoEnvio = orden.TelefonoEnvio
-                  });
+                 });
                 return listaOrden;
             }
             return null;
@@ -103,21 +103,20 @@ namespace OrdenesCore.Services
                 await _repositoryOrdenes.UpdateAsync(entidadOrdenActualizar);
                 orden.Id = entidadOrdenActualizar.Id;
                 return orden;
-             }
+            }
             return null;
         }
 
-
-        public async Task<IEnumerable<ResponseOrdenesByCliente>> GetOrdenesByCustomer(string ordenesByCustomer)
+        public async Task<IEnumerable<OrdenesByCliente>> GetOrdenesByCustomer(string ordenesByCustomer)
         {
 
             var resultado = await _repositoryOrdenes.GetByCustomerAsync(ordenesByCustomer);
-            List<ResponseOrdenesByCliente> ListaOrdenes = new List<ResponseOrdenesByCliente>();
+            List<OrdenesByCliente> ListaOrdenes = new List<OrdenesByCliente>();
             if (resultado.Count > 0)
             {
                 foreach (var elemento in resultado)
                 {
-                    var dtoOrden = _mapper.Map<ResponseOrdenesByCliente>(elemento);
+                    var dtoOrden = _mapper.Map<OrdenesByCliente>(elemento);
                     var entitiesDetallesOrden = await _repositoryDetalleOrdenes.GetOrdenDetailByOrdenIdAsync(dtoOrden.Id);
                     List<DetalleOrden> listaDetOrden = new List<DetalleOrden>();
                     foreach (var entity in entitiesDetallesOrden)
@@ -133,5 +132,6 @@ namespace OrdenesCore.Services
             }
             return null;
         }
+
     }
 }

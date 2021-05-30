@@ -60,10 +60,7 @@ namespace OrdenesApi
                 {
                     client.BaseAddress = new Uri(Configuration["BaseUrl"]);
                 });
-            services.AddHttpClient("limpiarCarrito", client =>
-            {
-                client.BaseAddress = new Uri(Configuration["BaseUrl"]);
-            });
+
             services.AddHttpClient("colocarOrdenBroker", client =>
             {
                 client.BaseAddress = new Uri(Configuration["BaseUrl"]);
