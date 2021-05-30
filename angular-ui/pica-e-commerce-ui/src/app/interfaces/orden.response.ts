@@ -60,3 +60,13 @@ export interface IMedioPago {
 export interface IOrdenResponse {
     ordenId : number;
 }
+
+export interface ITransportador {
+    id : number;
+    nombre : string;
+}
+
+export interface IMunicipio {
+    idCodDane : string;
+    municipioDepartameto : string;
+}

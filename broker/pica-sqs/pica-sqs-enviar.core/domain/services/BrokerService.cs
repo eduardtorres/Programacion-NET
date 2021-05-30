@@ -28,7 +28,7 @@ namespace pica_sqs_enviar.core.domain.services
                 }
                 else
                 {
-                    orden.Id = 0;
+                    orden.Id = -1;
                 }                
                 response.message = await iSQSRepository.SendMessage(orden);
                 response.code = 1;

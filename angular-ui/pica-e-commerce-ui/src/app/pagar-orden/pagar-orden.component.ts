@@ -6,7 +6,7 @@ import { CarritoService } from '../services/carrito.service';
 import { OrdenService } from '../services/orden.service';
 
 import { ICotizar, IProducto } from '../interfaces/carrito.response'
-import { IDatosPago, IDetalleOrden, IMedioPago, IOrden } from '../interfaces/orden.response'
+import { IDatosPago, IDetalleOrden, IMedioPago, IMunicipio, IOrden, ITransportador } from '../interfaces/orden.response'
 import { ICliente } from '../interfaces/cliente.response';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
@@ -22,6 +22,8 @@ export class PagarOrdenComponent implements OnInit {
   cotizar: ICotizar | undefined;
 
   medios: IMedioPago[] = [];
+  transportadores: ITransportador[] = [];
+  municipios: IMunicipio[] = [];
 
   mostrarCC : boolean = false;
 
@@ -32,17 +34,18 @@ export class PagarOrdenComponent implements OnInit {
     ApellidoEnvio: new FormControl(),
     DireccionEnvio: new FormControl(),
     TelefonoEnvio: new FormControl(),
-    CiudadEnvio: new FormControl(),
     CodigoAreaEnvio: new FormControl(),
+    ddmunicipios: new FormControl(),
+    ddtransportadores: new FormControl()
+    });
+
+  facturacionForm = this.formBuilder.group({
     medios: new FormControl(),
     CCtitular: new FormControl(),
     CCtipo: new FormControl(),
     CCnumero: new FormControl(),
     CCvencimiento: new FormControl(),
-    CCV: new FormControl()
-  });
-
-  facturacionForm = this.formBuilder.group({
+    CCV: new FormControl(),
     NumeroDocumentoCliente: new FormControl(),
     TelefonoFacturacion: new FormControl(),
     DireccionFacturacion: new FormControl(),
@@ -57,10 +60,12 @@ export class PagarOrdenComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.pensando = true;
+    this.ordenService.consultarTransportadores().subscribe( data => { 
+      this.transportadores = data;
+    });
 
-    this.carritoService.cotizar().subscribe( data => {  
-      this.cotizar = data;
+    this.ordenService.consultarMunicipios().subscribe( data => { 
+      this.municipios = data;
     });
 
     this.ordenService.consultarMedios().subscribe( data => {
@@ -79,6 +84,8 @@ export class PagarOrdenComponent implements OnInit {
         });
     }
 
+    this.onCotizar();
+
   }
 
   onMediosChange( value : any ) {
@@ -92,21 +99,42 @@ export class PagarOrdenComponent implements OnInit {
     }
   }
 
+  onCotizar() {
+
+    this.pensando = true;
+
+    let ddtransportadores = this.informacionForm.get('ddtransportadores')?.value;
+
+    let ddmunicipios = this.informacionForm.get('ddmunicipios')?.value;
+
+    let transportadorId : number = Number( ddtransportadores );
+    let idCodDane : string = ddmunicipios;
+    
+    this.carritoService.cotizar(transportadorId,idCodDane).subscribe( data => {  
+      this.cotizar = data;
+      this.pensando = false;
+    });
+
+  }
+
   pagarOrden() {
+
+    let municipioId = this.informacionForm.get('ddmunicipios')?.value;
+    let municipio = this.municipios.find(x => x.idCodDane == municipioId);   
 
     let NombreEnvio = this.informacionForm.get('NombreEnvio')?.value;
     let ApellidoEnvio = this.informacionForm.get('ApellidoEnvio')?.value;
     let DireccionEnvio = this.informacionForm.get('DireccionEnvio')?.value;
     let TelefonoEnvio = this.informacionForm.get('TelefonoEnvio')?.value;
-    let CiudadEnvio = this.informacionForm.get('CiudadEnvio')?.value;
+    let CiudadEnvio = municipio?.municipioDepartameto!;
     let CodigoAreaEnvio = this.informacionForm.get('CodigoAreaEnvio')?.value;
-    let medios = this.informacionForm.get('medios')?.value;
-    let CCtitular = this.informacionForm.get('CCtitular')?.value;
-    let CCtipo = this.informacionForm.get('CCtipo')?.value;
-    let CCnumero = this.informacionForm.get('CCnumero')?.value;
-    let CCvencimiento = this.informacionForm.get('CCvencimiento')?.value;
-    let CCV = this.informacionForm.get('CCV')?.value;
 
+    let medios = this.facturacionForm.get('medios')?.value;
+    let CCtitular = this.facturacionForm.get('CCtitular')?.value;
+    let CCtipo = this.facturacionForm.get('CCtipo')?.value;
+    let CCnumero = this.facturacionForm.get('CCnumero')?.value;
+    let CCvencimiento = this.facturacionForm.get('CCvencimiento')?.value;
+    let CCV = this.facturacionForm.get('CCV')?.value;
     let NumeroDocumentoCliente = this.facturacionForm.get('NumeroDocumentoCliente')?.value;
     let TelefonoFacturacion = this.facturacionForm.get('TelefonoFacturacion')?.value;
     let DireccionFacturacion = this.facturacionForm.get('DireccionFacturacion')?.value;

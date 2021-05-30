@@ -14,6 +14,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -170,13 +171,16 @@ public class CarritoService
             moneda = item.Moneda;
         }
 
+        Random rand = new Random();
+        double transporte = 10000 + ( rand.nextDouble() * 5000 );
+
         double impuestosPorc = impuestosApiClient.ObtenerImpuesto(carrito.getPais());
 
         CotizacionDto response = new CotizacionDto();
         response.unidades = productos.size();
         response.moneda = moneda;
         response.neto = suma;
-        response.transporte = 0;
+        response.transporte = Math.floor(transporte);
         response.impuesto =  suma * impuestosPorc / 100 ;
         response.total = ( response.neto + response.transporte + response.impuesto );
 

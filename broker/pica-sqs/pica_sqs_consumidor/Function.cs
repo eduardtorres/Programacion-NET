@@ -70,13 +70,16 @@ namespace pica_sqs_consumidor
                         }
                     }
 
-                    OrdenQueueEvent ordenQueueEvent = new OrdenQueueEvent();
-                    ordenQueueEvent.messageid = singleEvent.MessageId;
-                    ordenQueueEvent.fecha = DateTime.Now.ToUniversalTime().AddHours(-5).ToString("s");
-                    ordenQueueEvent.request = body;
-                    ordenQueueEvent.response = response;
+                    if (orden.Id >= 0)
+                    {
+                        OrdenQueueEvent ordenQueueEvent = new OrdenQueueEvent();
+                        ordenQueueEvent.messageid = singleEvent.MessageId;
+                        ordenQueueEvent.fecha = DateTime.Now.ToUniversalTime().AddHours(-5).ToString("s");
+                        ordenQueueEvent.request = body;
+                        ordenQueueEvent.response = response;
 
-                    ordenesQueueRepository.InsertEvent(ordenQueueEvent).GetAwaiter().GetResult();
+                        ordenesQueueRepository.InsertEvent(ordenQueueEvent).GetAwaiter().GetResult();
+                    }
 
                 }
             }

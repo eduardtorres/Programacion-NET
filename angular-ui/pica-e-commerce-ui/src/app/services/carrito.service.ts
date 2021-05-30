@@ -106,9 +106,11 @@ export class CarritoService {
       return this.http.get<IProducto[]> ( url , this.httpOptions);            
     }
 
-    cotizar() {
+    cotizar(transportadorId :number, idCodDane :string ) {
       let request = {
-        carritoId : this.CarritoExiste()
+        carritoId : this.CarritoExiste(),
+        transportadorId : transportadorId,
+        idCodDane : idCodDane
       };
       let serviceUrl : string = this.configuracion.urlServicio;
       let url = serviceUrl + '/carrito/orden/cotizar' ;      

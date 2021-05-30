@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { IMedioPago, IOrden, IOrdenResponse } from '../interfaces/orden.response'
+import { IMedioPago, IMunicipio, IOrden, IOrdenResponse, ITransportador } from '../interfaces/orden.response'
 
 import { Configuracion } from './configuracion';
 import { ICliente } from '../interfaces/cliente.response';
@@ -27,6 +27,18 @@ export class OrdenService {
         let serviceUrl : string = this.configuracion.urlServicio;
         let url = serviceUrl + '/pago/medios/obtener' ;      
         return this.http.get<IMedioPago[]> ( url , this.httpOptions);            
+    }
+
+    consultarTransportadores() {
+        let serviceUrl : string = this.configuracion.urlServicio;
+        let url = serviceUrl + '/transportador/obtener' ;      
+        return this.http.get<ITransportador[]> ( url , this.httpOptions);            
+    }
+
+    consultarMunicipios() {
+        let serviceUrl : string = this.configuracion.urlServicio;
+        let url = serviceUrl + '/transportador/codigosdane/obtener' ;      
+        return this.http.get<IMunicipio[]> ( url , this.httpOptions);            
     }
 
     colocarOrden(orden : IOrden) {

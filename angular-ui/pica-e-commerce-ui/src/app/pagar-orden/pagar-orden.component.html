@@ -24,18 +24,46 @@
                             Telefono<br />
                         <input type="text" placeholder="Telefono Envio" formControlName="TelefonoEnvio" >
                         </div>
-                        <div>
-                            Ciudad Envio<br />
-                        <input type="text" placeholder="Ciudad Envio" formControlName="CiudadEnvio" >
-                        </div>
+                        
                         <div>
                             Codigo Postal Envio<br />
                         <input type="text" placeholder="Codigo Postal Envio" formControlName="CodigoAreaEnvio" >
                         </div>
 
                         <div>    
+                            Ciudad Envio<br />
+                        <select formControlName="ddmunicipios" id="ddmunicipios" (change)="onCotizar()" style="width:200px;">
+                            <option *ngFor="let municipio of municipios" [value]="municipio.idCodDane">
+                                {{municipio.municipioDepartameto}}
+                            </option>
+                        </select>                      
+                        </div>
+
+                        <div>    
+                            Transportadora<br />
+                        <select formControlName="ddtransportadores" id="ddtransportadores" (change)="onCotizar()" style="width:200px;">
+                            <option *ngFor="let transportador of transportadores" [value]="transportador.id">
+                                {{transportador.nombre}}
+                            </option>
+                        </select>                      
+                        </div>
+
+                    </form>
+
+
+                </div>
+            </div>            
+            <div class="col-md-3">
+                <div class="info_form ">
+
+                    <h5>
+                        Facturacion
+                    </h5>
+                    <form [formGroup]="facturacionForm">
+
+                        <div>    
                             Tipo de Pago<br />
-                        <select formControlName="medios" id="medios" #mySelect (change)="onMediosChange(mySelect.value)">
+                        <select formControlName="medios" id="medios" #mySelect (change)="onMediosChange(mySelect.value)" style="width:200px;">
                             <option *ngFor="let medio of medios" [value]="medio.id">
                                 {{medio.desMedioPago}}
                             </option>
@@ -51,10 +79,11 @@
 
                             Tipo Tarjeta<br />
 
-                            <select formControlName="CCtipo">
+                            <select formControlName="CCtipo" style="width:200px;">
                                 <option value="VI">Visa</option>
                                 <option value="MC">Master Card</option>
                                 <option value="AE">AMEX</option>
+                                <option value="DC">Discover</option>
                               </select>
 
                         </div>
@@ -72,18 +101,7 @@
                         <input type="text" placeholder="CCV" formControlName="CCV" >
                         </div>
                     </div>
-                    </form>
 
-
-                </div>
-            </div>            
-            <div class="col-md-3">
-                <div class="info_form ">
-
-                    <h5>
-                        Facturacion
-                    </h5>
-                    <form [formGroup]="facturacionForm">
                         <div>
                             Documento Facturacion<br />
                         <input type="text" placeholder="Direccion Facturacion" formControlName="NumeroDocumentoCliente" >
