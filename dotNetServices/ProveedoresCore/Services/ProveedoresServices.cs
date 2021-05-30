@@ -92,6 +92,7 @@ namespace ProveedoresCore.Services
                     item.TipoProveedor = "Externo";
                     item.CodigoProveedor = proveedorDTO.Nombre;
                     item.Prioridad = proveedorDTO.Prioridad;
+                    item.Disponibilidad = item.Inventario > 0 ? "DISPONIBLE" : "NO DISPONIBLE";
                 }
 
                 respuesta.AddRange(listaProductos);
