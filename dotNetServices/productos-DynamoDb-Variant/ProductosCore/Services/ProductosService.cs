@@ -12,25 +12,41 @@ namespace ProductosCore.Services
     {
         private IProductosRepository _productosRepository;
         private IIntercambioApiRepository _iIntercambioApiRepository;
+        private IProveedoresApiRepository _iProveedoresApiRepository;
 
         public ProductosService(IProductosRepository productosRepository,
-            IIntercambioApiRepository iIntercambioApiRepository)
+            IIntercambioApiRepository iIntercambioApiRepository,
+            IProveedoresApiRepository iProveedoresApiRepository)
         {
             _productosRepository = productosRepository;
             _iIntercambioApiRepository = iIntercambioApiRepository;
+            _iProveedoresApiRepository = iProveedoresApiRepository;
         }
 
         public async Task<IList<ProductoDto>> ListarProductos(string moneda, string filtro )
         {
 
-            IntercambioResponse intercambioResponse = await _iIntercambioApiRepository.Obtener(moneda);
+            var task_intercambioResponse = _iIntercambioApiRepository.Obtener(moneda);
+            var task_productos_proveedores = _iProveedoresApiRepository.ListarProductos(filtro);
+            var task_lista_productos = _productosRepository.ListarProductos(filtro);
+            var task_prioridad = _productosRepository.ObtenerPrioridadLocal();
 
-            var lista = await _productosRepository.ListarProductos(filtro);
+            List<Task> listaprocesos = new List<Task>();
+            listaprocesos.Add(task_intercambioResponse);
+            listaprocesos.Add(task_productos_proveedores);
+            listaprocesos.Add(task_lista_productos);
+            listaprocesos.Add(task_prioridad);
 
+            await Task.WhenAll(listaprocesos);
+
+            var intercambioResponse = task_intercambioResponse.Result;
+            var lista_productos = task_lista_productos.Result;
+            var lista_proveedores = task_productos_proveedores.Result;
+            int prioridad_local = task_prioridad.Result;
+            
             filtro = filtro.ToLower();
 
-            var productos =  lista
-                .Where(x => (x.Nombre.ToLower().Contains(filtro) || x.Categoria.ToLower().Contains(filtro) || filtro == "all" ))
+            var productosDto = lista_productos
                 .Select(
                 x => new ProductoDto()
                 {
@@ -43,16 +59,33 @@ namespace ProductosCore.Services
                     descripcion = x.Descripcion,
                     categoria = x.Categoria,
                     urlImagen = x.UrlImagen,
-                    precio = x.Precio * intercambioResponse.valUSD,
-                    moneda = moneda,
+                    precio = x.Precio,
                     inventario = x.Inventario,
                     precioOriginal = x.Precio,
                     monedaOriginal = x.Moneda,
-                    disponibilidad = ( x.Inventario > 0 ? "DISPONIBLE" : "NODISPONIBLE" )
+                    prioridad = prioridad_local                   
                 }
                 );
 
-            return productos.ToList();
+            List<ProductoDto> merge = productosDto.ToList();
+            merge.AddRange(lista_proveedores);
+
+            var ordenada = merge
+                .Where(x => (x.nombre.ToLower().Contains(filtro) || x.categoria.ToLower().Contains(filtro) || filtro == "all"))
+                .OrderBy(x => x.prioridad);
+
+            var final = ordenada.ToList();
+
+            final.ForEach(x =>
+           {
+               x.moneda = moneda;
+               x.precio = x.precio * intercambioResponse.valUSD;
+               x.disponibilidad = (x.inventario > 0 ? "DISPONIBLE" : "NODISPONIBLE");
+               if (string.IsNullOrEmpty(x.urlImagen))
+                   x.urlImagen = "ud.png";
+           });
+
+            return final;
         }
 
         public async Task<int> AgregarProducto(List<ProductoDto> newProducto)

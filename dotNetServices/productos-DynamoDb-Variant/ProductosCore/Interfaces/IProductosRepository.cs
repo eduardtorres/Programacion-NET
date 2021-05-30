@@ -11,5 +11,6 @@ namespace ProductosCore.Interfaces
         Task<IList<Productos>> ListarProductos(string filtro);
         Task<int> AgregarProducto(ProductoDto newProducto);
         Task<int> UpdateProducto(ProductoDto newProducto);
+        Task<int> ObtenerPrioridadLocal();
     }
 }

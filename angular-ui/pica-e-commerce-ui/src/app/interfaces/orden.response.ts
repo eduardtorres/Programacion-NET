@@ -70,3 +70,9 @@ export interface IMunicipio {
     idCodDane : string;
     municipioDepartameto : string;
 }
+
+export interface IBuscarOrdenResponse {
+    codigo : number;
+    mensaje : string;
+    ordenesByCliente : IOrden[];
+}

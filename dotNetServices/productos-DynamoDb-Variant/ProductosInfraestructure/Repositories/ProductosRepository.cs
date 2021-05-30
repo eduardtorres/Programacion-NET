@@ -89,6 +89,32 @@ namespace ProductosInfraestructure.Repositories
             return 1;
         }
 
+        public async Task<int> ObtenerPrioridadLocal()
+        {
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            string tableName = "Configuracion";
+
+            var request = new QueryRequest
+            {
+                TableName = tableName,
+                KeyConditionExpression = "nombre = :v_nombre",
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
+                {":v_nombre", new AttributeValue { S =  "prioridad" }}}
+            };
+
+            var response = await client.QueryAsync(request);
+
+            int prioridad = 0;
+
+            foreach (Dictionary<string, AttributeValue> item in response.Items)
+            {
+                AttributeValue cellValue = item["valor"];
+                prioridad = Convert.ToInt32(cellValue.N);
+            }
+
+            return prioridad;
+        }
+
     }
 
     public class ProductoData

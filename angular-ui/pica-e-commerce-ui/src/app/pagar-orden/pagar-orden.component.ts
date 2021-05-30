@@ -202,12 +202,17 @@ export class PagarOrdenComponent implements OnInit {
     }
 
     this.pensando = true;
-    this.ordenService.colocarOrden( fullOrden ).subscribe( data=> {        
-      if( data.ordenId > 0 ) {
-        this.carritoService.limpiar().subscribe(datalimpiar => {});
-        fullOrden.id = data.ordenId;
-        this.ordenService.persistir( fullOrden );
-        this.router.navigateByUrl('/orden-creada');
+    this.ordenService.colocarOrden( fullOrden ).subscribe( data=> { 
+      if( data ) {       
+        if( data.ordenId > 0 ) {
+          this.carritoService.limpiar().subscribe(datalimpiar => {});
+          fullOrden.id = data.ordenId;
+          this.ordenService.persistir( fullOrden );
+          this.router.navigateByUrl('/orden-creada');
+        }
+      }
+      else{
+        window.alert( 'Ocurrio un error al guardar la orden' );
       }
       this.pensando = false;
     },

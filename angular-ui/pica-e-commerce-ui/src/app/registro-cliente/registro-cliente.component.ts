@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ICliente } from '../interfaces/cliente.response';
 import { ClienteService } from '../services/cliente.service';
 
@@ -20,6 +21,7 @@ export class RegistroClienteComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder,
+    private router: Router,
     private clienteService: ClienteService) { 
   }
 
@@ -47,14 +49,24 @@ export class RegistroClienteComponent implements OnInit {
     }
 
     this.clienteService.registrar( cliente ).subscribe(data=>{
+      if(data)
+      {
       if( data.idCliente > 0 )
       {
-        window.alert('Regstro exitoso');
+        window.alert('Regstro exitoso , proceda al login');
+        this.router.navigateByUrl('/login');
       }
       else
       {
         window.alert('Ocurrio un error durante el registro');
       }
+    }
+    else{
+      window.alert('Ocurrio un error durante el registro');
+    }
+    },    
+    error => {
+      window.alert('Ocurrio un error durante el registro');
     });
 
   }

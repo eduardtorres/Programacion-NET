@@ -25,7 +25,7 @@ export class OrdenesClienteComponent implements OnInit {
   ngOnInit(): void {
     this.pensando = true;
     this.ordenService.consultarOrdenesPorUsuario( this.carritoService.cliente! ).subscribe( data => {
-      this.ordenes = data;
+      this.ordenes = data.ordenesByCliente;
       this.pensando = false;
     });
   }

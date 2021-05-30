@@ -21,5 +21,6 @@ namespace ProductosCore.DTO
         public string monedaOriginal { get; set; }
         public int inventario { get; set; }
         public string disponibilidad { get; set; }
+        public int prioridad { get; set; }
     }
 }

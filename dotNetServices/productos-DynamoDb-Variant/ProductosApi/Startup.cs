@@ -43,7 +43,8 @@ namespace ProductosApi
             services.AddScoped<IProductosRepository, ProductosRepository>();
             services.AddScoped<IProductosService, ProductosService>();
 
-            services.AddSingleton<IIntercambioApiRepository>( x => ( new IntercambioApiRepository( Configuration["ApiGatewayUrl"] ) ) );
+            services.AddSingleton<IIntercambioApiRepository>(x => (new IntercambioApiRepository( Configuration["ApiGatewayUrl"])));
+            services.AddSingleton<IProveedoresApiRepository>(x => (new ProveedoresApiRepository(Configuration["ApiGatewayUrl"])));
 
         }
 
