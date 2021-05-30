@@ -91,6 +91,7 @@ namespace ProveedoresCore.Services
                 {
                     item.TipoProveedor = "Externo";
                     item.CodigoProveedor = proveedorDTO.Nombre;
+                    item.Prioridad = proveedorDTO.Prioridad;
                 }
 
                 respuesta.AddRange(listaProductos);
