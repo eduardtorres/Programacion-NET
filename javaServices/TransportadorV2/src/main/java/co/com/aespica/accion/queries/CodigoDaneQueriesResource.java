@@ -19,14 +19,14 @@ public class CodigoDaneQueriesResource {
     @Inject
     CodigoDaneService codigodaneService;
 
-    @Path("/obtener")
+    @Path("/codigosdane/obtener")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<CodigoDane> CodigoDaneObtener() {
         return codigodaneService.CodidoDaneObtener();
     }
 
-    @Path("/obtener/{CodigoDane}")
+    @Path("/codigosdane/obtener/{CodigoDane}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<CodigoDane> Obtener(@PathParam("CodigoDane") String idcoddane ) {
