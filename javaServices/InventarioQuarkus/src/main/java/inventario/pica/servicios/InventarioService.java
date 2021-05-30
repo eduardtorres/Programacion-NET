@@ -178,9 +178,9 @@ public class InventarioService {
         System.out.println(" Descargar codigoProveedor : " + descargarInventario.codigoProveedor);
         System.out.println(" Descargar tipoProveedor : " + descargarInventario.tipoProveedor);
 
-        Inventario inventarioaActualizar = ObtenerInventarioID(id);
 
         if (descargarInventario.tipoProveedor.equals("Local")) {
+        Inventario inventarioaActualizar = ObtenerInventarioID(id);
             if (descargarInventario.tipoProveedor.equals(inventarioaActualizar.TipoProveedor)) {
                 if (descargarInventario.CantidadOrdenada > 0) {
                     if ((inventarioaActualizar.Inventario - descargarInventario.CantidadOrdenada) >= 0) {
@@ -218,9 +218,13 @@ public class InventarioService {
             Object inventarioProductoDto = new InventarioProductoDto();
             ((InventarioProductoDto) inventarioProductoDto).id = intId;
             ((InventarioProductoDto) inventarioProductoDto).inventario = 0;
+try  {
 
-            int inventarioActual = ActualizaInventarioProducto((InventarioProductoDto) inventarioProductoDto);
-
+    int inventarioActual = ActualizaInventarioProducto((InventarioProductoDto) inventarioProductoDto);
+}
+catch (Exception e){
+    System.out.println(" el error es " + e.getMessage());
+}
             if (retorno >= 1) {
 
                 respuesta.codigo = 1;
