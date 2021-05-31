@@ -9,7 +9,7 @@
 <div *ngFor="let orden of ordenes" style="width: 100%;">
     <div>
 
-        <h3> {{orden.id}} </h3> 
+        <h3> Numero de Orden: {{orden.id}} </h3> 
 
         <div> Estado: {{orden.estado}}  </div>
         <div> Creada: {{orden.fechaCreacion}}  </div>
@@ -20,6 +20,11 @@
 
         <div *ngFor="let producto of orden.detallesOrden" style="width: 100%;">
         {{ producto.cantidadOrdenada }} x {{ producto.nombreProducto }}
+
+        <span *ngIf="producto.tipoProveedor=='Externo'"> 
+            Proveedor: {{ producto.codigoProveedor }} <b> Orden: {{ producto.ordenProveedorId }} </b>
+        </span>
+
         </div>
     </div>
     <hr>

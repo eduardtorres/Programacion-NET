@@ -50,6 +50,7 @@ export interface IDetalleOrden {
     codigoProveedor: string;
     tipoProveedor : string;
     nombreProducto : string;
+    ordenProveedorId : number;
 }
 
 export interface IMedioPago {

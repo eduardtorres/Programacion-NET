@@ -166,7 +166,8 @@ export class PagarOrdenComponent implements OnInit {
         nombreProducto : item.nombre,
         precioUnitario : item.precio,
         productoId : item.id,
-        tipoProveedor : item.tipoProveedor
+        tipoProveedor : item.tipoProveedor,
+        ordenProveedorId : 0
       };
       detalles.push(detalle);
     }
