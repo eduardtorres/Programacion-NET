@@ -1,0 +1,1067 @@
+{
+	"info": {
+		"_postman_id": "9e67087b-914c-4e40-aba9-bc996602e75c",
+		"name": "PICA_1T",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "carrito",
+			"item": [
+				{
+					"name": "productos schema",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": 1,\n        \"codigo\": \"NS\",\n        \"fabricante\": \"NINTENDO\",\n        \"tipoProveedor\": \"Local\",\n        \"codigoProveedor\": \"Local\",\n        \"nombre\": \"Nintendo Switch\",\n        \"descripcion\": \"Portable\",\n        \"categoria\": \"Consolas\",\n        \"urlImagen\": \"1.png\",\n        \"precio\": 900000,\n        \"moneda\": \"COP\",\n        \"precioLocal\": 500000,\n        \"monedaLocal\": \"COP\",\n        \"inventario\": 0,\n        \"disponibilidad\": \"NODISPONIBLE\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": null
+					},
+					"response": []
+				},
+				{
+					"name": "get/all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/carrito/get/all",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"get",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtener",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/carrito/obtener/carlosarangob@hotmail.com/COL",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"obtener",
+								"carlosarangob@hotmail.com",
+								"COL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productos/consultar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/carrito/productos/consultar/5",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"productos",
+								"consultar",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productos/disponibilidad",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/carrito/productos/disponibilidad/67",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"productos",
+								"disponibilidad",
+								"67"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orden/cotizar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"carritoId\":6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/carrito/orden/cotizar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"orden",
+								"cotizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producto/agregar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"cantidad\": 1,\n            \"carritoId\": 7,\n            \"categoria\": \"Consolas\",\n            \"codigo\": \"PS001\",\n            \"codigoProveedor\": \"Exito\",\n            \"descripcion\": \"Toda la informacion\",\n            \"fabricante\": \"sony\",\n            \"id\": 1,\n            \"moneda\": \"COP\",\n            \"nombre\": \"Play station 5\",\n            \"precio\": 2700000.0,\n            \"tipoProveedor\": \"Externo\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/carrito/producto/agregar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"producto",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producto/quitar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"cantidad\": 1,\n            \"carritoId\": 5,\n            \"codigo\": \"PS002\",\n            \"codigoProveedor\": \"Local\",\n            \"descripcion\": \"Toda la informacion\",\n            \"fabricante\": \"sony\",\n            \"id\": 10,\n            \"moneda\": \"COP\",\n            \"nombre\": \"Play station 5 Resident Evil Edition\",\n            \"precio\": 2700000.0,\n            \"tipoProveedor\": \"Local\"\n        }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/carrito/producto/quitar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"producto",
+								"quitar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "limpiar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/carrito/limpiar/3",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"carrito",
+								"limpiar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "productos",
+			"item": [
+				{
+					"name": "listado/obtener",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/producto/listado/obtener/COP/all",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"producto",
+								"listado",
+								"obtener",
+								"COP",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inventario/actualizar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"inventario\": 20\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/producto/inventario/actualizar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"producto",
+								"inventario",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insertar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n{\n    \"categoria\": \"Consolas\",\n    \"codigo\": \"LNS\",\n    \"codigoProveedor\": \"Local\",\n    \"descripcion\": \"Nintendo Switch se transforma para adaptarse a ti y ahora podrás jugar todo lo que quieras, cuando quieras y donde quieras, porque hay un modo para cada lugar y situación, Nintendo Switch piensa en lo que necesitas y te ofrece un mundo de posibilidades. \",\n    \"fabricante\": \"Nintendo\",\n    \"id\": 1,\n    \"inventario\": 10,\n    \"moneda\": \"COP\",\n    \"nombre\": \"Nintendo Switch\",\n    \"precio\": 1100000.0,\n    \"tipoProveedor\": \"Local\",\n    \"urlImagen\": \"p1.jpg\"\n},\n{\n    \"categoria\": \"Consolas\",\n    \"codigo\": \"LNSL\",\n    \"codigoProveedor\": \"Local\",\n    \"descripcion\": \"Les presentamos la consola Nintendo Switch™ Lite, una nueva versión de la consola Nintendo Switch que está optimizada para el juego personal y portátil. La consola Nintendo Switch Lite es una consola Nintendo Switch pequeña y ligera a un gran precio. Con una cruz de control incorporada y un elegante diseño, esta consola es perfecta para jugar en el camino. La consola Nintendo Switch Lite es compatible con populares juegos, Si estás buscando una consola de juegos que sea solo para ti, la consola Nintendo Switch Lite está lista para salir contigo a todas partes.\",\n    \"fabricante\": \"Nintendo\",\n    \"id\": 2,\n    \"inventario\": 10,\n    \"moneda\": \"COP\",\n    \"nombre\": \"Nintendo Switch Lite\",\n    \"precio\": 900000.0,\n    \"tipoProveedor\": \"Local\"\n},\n{\n    \"categoria\": \"Consolas\",\n    \"codigo\": \"LXBSS\",\n    \"codigoProveedor\": \"Local\",\n    \"descripcion\": \"Solo digital , Todo de nueva generación. Pásate a lo digital con la Xbox Series S y crea una biblioteca de juegos digitales. Tus juegos, partidas guardadas y copias de seguridad están a salvo en la nube. Además, disfruta de la capacidad de reservar y preinstalar los juegos disponibles próximamente para que puedas jugar a ellos en el momento de su lanzamiento.\",\n    \"fabricante\": \"Microsoft\",\n    \"id\": 3,\n    \"inventario\": 10,\n    \"moneda\": \"COP\",\n    \"nombre\": \"XBOX ONE Series S\",\n    \"precio\": 1450000.0,\n    \"tipoProveedor\": \"Local\"\n},\n{\n    \"categoria\": \"Celulares\",\n    \"codigo\": \"LIP13\",\n    \"codigoProveedor\": \"Local\",\n    \"descripcion\": \"Brillante por donde lo veas. El iPhone XR de Apple tiene una pantalla Liquid Retina de 6.1 pulgadas|, el LCD más desarrollado de la industria y una cámara de 12 megapíxeles. Cuenta con Face ID avanzado, tu rostro no solo te permite el acceso, descubre mucho más. Además, tiene el chip A12 Bionic, diseñado para el aprendizaje automático en tiempo real, eso significa que reconoce patrones y puede hacer predicciones para mejorar tu experiencia.\",\n    \"fabricante\": \"Apple\",\n    \"id\": 4,\n    \"inventario\": 10,\n    \"moneda\": \"COP\",\n    \"nombre\": \"IPhone 13 plus pro max\",\n    \"precio\": 9000000,\n    \"tipoProveedor\": \"Local\"\n}\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/producto/insertar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"producto",
+								"insertar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mocks",
+			"item": [
+				{
+					"name": "proveedor1",
+					"item": [
+						{
+							"name": "ordenes",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "9",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/orders",
+									"protocol": "https",
+									"host": [
+										"nox60j22ea",
+										"execute-api",
+										"us-east-2",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"dev",
+										"orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "productos",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "xAuthToken",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://nox60j22ea.execute-api.us-east-2.amazonaws.com/dev/catalog/products",
+									"protocol": "https",
+									"host": [
+										"nox60j22ea",
+										"execute-api",
+										"us-east-2",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"dev",
+										"catalog",
+										"products"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "proveedor2",
+					"item": [
+						{
+							"name": "productos",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "http://tempuri.org/IService1/GetDataUsingDataContract",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org/\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <tem:GetDataUsingDataContract>\n         <!--Optional:-->\n         <tem:filtro>test</tem:filtro>\n      </tem:GetDataUsingDataContract>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://cmdev.sigue.com/aes/WcfServiceProveedor2/Service1.svc",
+									"protocol": "https",
+									"host": [
+										"cmdev",
+										"sigue",
+										"com"
+									],
+									"path": [
+										"aes",
+										"WcfServiceProveedor2",
+										"Service1.svc"
+									],
+									"query": [
+										{
+											"key": "SOAPAction",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ordenes",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "http://tempuri.org/IService1/PonerOrdenExterna",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org/\" xmlns:wcf=\"http://schemas.datacontract.org/2004/07/WcfServiceProveedor2\">\n   <soapenv:Header/>\n   <soapenv:Body>\n      <tem:PonerOrdenExterna>\n         <tem:request>\n            <wcf:cantidadPedida>19</wcf:cantidadPedida>\n            <wcf:codigoProducto>xf0001</wcf:codigoProducto>\n            <wcf:codigoTercero>kallsony</wcf:codigoTercero>\n         </tem:request>\n      </tem:PonerOrdenExterna>\n   </soapenv:Body>\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://cmdev.sigue.com/aes/WcfServiceProveedor2/Service1.svc",
+									"protocol": "https",
+									"host": [
+										"cmdev",
+										"sigue",
+										"com"
+									],
+									"path": [
+										"aes",
+										"WcfServiceProveedor2",
+										"Service1.svc"
+									],
+									"query": [
+										{
+											"key": "SOAPAction",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "pagos",
+					"item": [
+						{
+							"name": "proveedor",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"MedioPago\":1,\n    \"Valor\":45845.1,\n    \"CodMoneda\":\"COP\",\n    \"NumeroTarjeta\":\"4000000000000002\",\n    \"MesExpiracion\":\"02\",\n    \"AnoExpiracion\":\"2025\",\n    \"CodCV\":\"777\",\n    \"TipoTarjeta\":\"MC\",\n    \"NombreTitular\":\"DONALD JOHN TRUMP\",\n    \"EMail\":\"WWG1WGA@GMAIL.COM\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://lyij8v9c2a.execute-api.us-east-2.amazonaws.com/Prod/ProveedorPagos/ProcesarPago",
+									"protocol": "https",
+									"host": [
+										"lyij8v9c2a",
+										"execute-api",
+										"us-east-2",
+										"amazonaws",
+										"com"
+									],
+									"path": [
+										"Prod",
+										"ProveedorPagos",
+										"ProcesarPago"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "broker",
+			"item": [
+				{
+					"name": "orden/colocar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"id\":0, \"DetallesOrden\" : []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/broker/orden/colocar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"broker",
+								"orden",
+								"colocar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pago",
+			"item": [
+				{
+					"name": "medios/obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/pago/medios/obtener",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"pago",
+								"medios",
+								"obtener"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orden/authorizar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"MedioPago\":1,\n    \"Valor\":45845.1,\n    \"CodMoneda\":\"COP\",\n    \"NumeroTarjeta\":\"4000000000000002\",\n    \"MesExpiracion\":\"02\",\n    \"AnoExpiracion\":\"2025\",\n    \"CodCV\":\"777\",\n    \"TipoTarjeta\":\"VI\",\n    \"NombreTitular\":\"DONALD JOHN TRUMP\",\n    \"EMail\":\"WWG1WGA@GMAIL.COM\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/pago/orden/authorizar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"pago",
+								"orden",
+								"authorizar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "precio",
+			"item": [
+				{
+					"name": "tasa/obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/precio/tasa/obtener/MXN",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"precio",
+								"tasa",
+								"obtener",
+								"MXN"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "impuesto/obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/precio/impuesto/total/obtener/MEX",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"precio",
+								"impuesto",
+								"total",
+								"obtener",
+								"MEX"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pais/obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/precio/pais/obtener/1",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"precio",
+								"pais",
+								"obtener",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cliente",
+			"item": [
+				{
+					"name": "autenticar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"userName\": \"theoneteam\",\n        \"password\": \"theoneteam\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/cliente/autenticar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"cliente",
+								"autenticar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"userName\": \"theoneteam\",\n        \"password\": \"theoneteam\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/cliente/listar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"cliente",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"nombre\": \"Carlos Arango\",\n        \"direccion\": \"main st 123\",\n        \"nit\": \"16077914\",\n        \"telefono\": \"3004940326\",\n        \"userName\": \"cagrango@gmail.com\",\n        \"password\": \"123\"    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/cliente/registrar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"cliente",
+								"registrar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orden",
+			"item": [
+				{
+					"name": "colocar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"PrecioTotal\": 10.001,\n    \"ValorImpuestos\": 1.009,\n    \"NumeroDocumentoCliente\": \"1111111\",\n    \"TipoDocumentoCliente\": \"CC\",\n    \"EmailCliente\": \"carlosarangob@gmail.com\",\n    \"DireccionFacturacion\": \"CALLE 50 #10-10\",\n    \"CiudadFacturacion\": \"MEDELLIN\",\n    \"EstadoFacturacion\": \"ANTIOQUIA\",\n    \"PaisFacturacion\": \"COLOMBIA\",\n    \"CodigoAreaFacturacion\": \"05122\",\n    \"CorreoElectronicoFacturacion\": \"pepito@gmail.com\",\n    \"TelefonoFacturacion\": \"1122334455\",\n    \"DireccionEnvio\": \"CALLE 50 #10-10\",\n    \"CiudadEnvio\": \"MEDELLIN\",\n    \"EstadoEnvio\": \"ANTIOQUIA\",\n    \"PaisEnvio\": \"COLOMBIA\",\n    \"CodigoAreaEnvio\": \"0512\",\n    \"NombreEnvio\": \"JUAN\",\n    \"ApellidoEnvio\": \"PEREZ\",\n    \"TelefonoEnvio\": \"22334455\",\n    \"CarritoId\": 67,\n    \"DetallesOrden\": [\n        {\n            \"ProductoId\": 555,\n            \"CodigoProducto\": \"RFFPP\",\n            \"CantidadOrdenada\": 3,\n            \"PrecioUnitario\": 10000,\n            \"CodigoProveedor\": \"Microsoft\",\n            \"TipoProveedor\": \"Externo\",\n            \"NombreProducto\": \"Televisor sony\"\n        },\n        {\n            \"ProductoId\": 556,\n            \"CodigoProducto\": \"RFFPPx\",\n            \"CantidadOrdenada\": 3,\n            \"PrecioUnitario\": 10000,\n            \"CodigoProveedor\": \"Microsoft\",\n            \"TipoProveedor\": \"Externo\",\n            \"NombreProducto\": \"Televisor sony\"\n        }\n    ],\n    \"DatosPago\": [\n        {\n            \"MedioPago\": 1,\n            \"CodMoneda\": \"COP\",\n            \"NumeroTarjeta\": \"400000\",\n            \"MesExpiracion\": 12,\n            \"AnoExpiracion\": 2025,\n            \"CodCV\": \"999\",\n            \"TipoTarjeta\": \"VI\",\n            \"NombreTitular\": \"Alberto Rafael Algarin Marino\",\n            \"Email\": \"alberto.algarin@javeriana.edu.co\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/orden/colocar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"orden",
+								"colocar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirmar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Id\": 34,\n    \"Estado\": null,\n    \"FechaCreacion\": null,\n    \"FechaEnvio\": null,\n    \"FechaUltimaActualizacion\": null,\n    \"PrecioTotal\": 10.001,\n    \"ValorImpuestos\": 1.009,\n    \"NumeroDocumentoCliente\": \"1111111\",\n    \"TipoDocumentoCliente\": \"CC\",\n    \"EmailCliente\": \"carlosarangob@gmail.com\",\n    \"DireccionFacturacion\": \"CALLE 50 #10-10\",\n    \"CiudadFacturacion\": \"MEDELLIN\",\n    \"EstadoFacturacion\": \"ANTIOQUIA\",\n    \"PaisFacturacion\": \"COLOMBIA\",\n    \"CodigoAreaFacturacion\": \"05122\",\n    \"CorreoElectronicoFacturacion\": \"pepito@gmail.com\",\n    \"TelefonoFacturacion\": \"1122334455\",\n    \"DireccionEnvio\": \"CALLE 50 #10-10\",\n    \"CiudadEnvio\": \"MEDELLIN\",\n    \"EstadoEnvio\": \"ANTIOQUIA\",\n    \"PaisEnvio\": \"COLOMBIA\",\n    \"CodigoAreaEnvio\": \"0512\",\n    \"NombreEnvio\": \"JUAN\",\n    \"ApellidoEnvio\": \"PEREZ\",\n    \"TelefonoEnvio\": \"22334455\",\n    \"PagoId\": 0,\n    \"CarritoId\": 67,\n    \"DetallesOrden\": [\n        {\n            \"Id\": 0,\n            \"ProductoId\": 555,\n            \"CodigoProducto\": \"RFFPP\",\n            \"OrdenId\": 0,\n            \"CantidadOrdenada\": 3,\n            \"PrecioUnitario\": 10000.0,\n            \"CodigoProveedor\": \"Microsoft\",\n            \"TipoProveedor\": \"Externo\",\n            \"NombreProducto\": \"Televisor sony\"\n        },\n        {\n            \"Id\": 0,\n            \"ProductoId\": 556,\n            \"CodigoProducto\": \"RFFPPx\",\n            \"OrdenId\": 0,\n            \"CantidadOrdenada\": 3,\n            \"PrecioUnitario\": 10000.0,\n            \"CodigoProveedor\": \"Microsoft\",\n            \"TipoProveedor\": \"Externo\",\n            \"NombreProducto\": \"Televisor sony\"\n        }\n    ],\n    \"DatosPago\": [\n        {\n            \"MedioPago\": 1,\n            \"CodMoneda\": \"COP\",\n            \"NumeroTarjeta\": \"400000\",\n            \"MesExpiracion\": 12,\n            \"AnoExpiracion\": 2025,\n            \"CodCV\": \"999\",\n            \"TipoTarjeta\": \"VI\",\n            \"NombreTitular\": \"Alberto Rafael Algarin Marino\",\n            \"Email\": \"alberto.algarin@javeriana.edu.co\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/orden/confirmar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"orden",
+								"confirmar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/orden",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"orden"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orden/ordenes_cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/orden/ordenes_cliente/carlosarangob@gmail.com",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"orden",
+								"ordenes_cliente",
+								"carlosarangob@gmail.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inventario",
+			"item": [
+				{
+					"name": "descargar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"categoria\": \"Videojuegos\",\n        \"codigo\": \"654654\",\n        \"codigoProveedor\": \"lo21654\",\n        \"descripcion\": \"Consola portatil\",\n        \"disponibilidad\": \"DISPONIBLE\",\n        \"fabricante\": \"sony\",\n        \"id\": 2,\n        \"inventario\": 452,\n        \"moneda\": \"COP\",\n        \"nombre\": \"WII\",\n        \"nombreImagen\": \"Ninntendo.jpg\",\n        \"precio\": 654.44,\n        \"tipoProveedor\": \"Local\",\n        \"urlImagen\": \"https://www.XXX.com/\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/inventario/descargar/3",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"inventario",
+								"descargar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "producto/consultar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/inventario/producto/consultar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"inventario",
+								"producto",
+								"consultar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "proveedor",
+			"item": [
+				{
+					"name": "productos/obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/proveedor/productos/obtener/x",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"proveedor",
+								"productos",
+								"obtener",
+								"x"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "orden/colocar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n \"id\": 2,\n\"codigo\": \"654654\",\n\"codigoProveedor\": \"Sony\",\n\"tipoProveedor\": \"Externo\",\n\"CantidadOrdenada\" : 3\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiurl}}/proveedor/orden/colocar",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"proveedor",
+								"orden",
+								"colocar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transportador",
+			"item": [
+				{
+					"name": "obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/transportador/obtener",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"transportador",
+								"obtener"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "codigosdane/obtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiurl}}/transportador/codigosdane/obtener",
+							"host": [
+								"{{apiurl}}"
+							],
+							"path": [
+								"transportador",
+								"codigosdane",
+								"obtener"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
