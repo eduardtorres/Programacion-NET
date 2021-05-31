@@ -14,9 +14,9 @@ public interface PoductoApiClient {
     
     @POST
     @Path("/inventario/actualizar")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
   //  InventarioActualizado ActulizarInventarioProducto(InventarioProductoDto inventarioProductoDto);
-    String ActualizarInventarioProducto(InventarioProductoDto inventarioProductoDto);
+    int ActualizarInventarioProducto(InventarioProductoDto inventarioProductoDto);
 
 }

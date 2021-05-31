@@ -165,10 +165,12 @@ public class CarritoService
         List<Producto> productos = ObtenerProductos( request.carritoId );
         double suma = 0;
         String moneda = "";
+        int conteo = 0;
         for( Producto item : productos )
         {
             suma = suma + ( item.Cantidad * item.Precio );
             moneda = item.Moneda;
+            conteo = conteo + ( item.Cantidad );
         }
 
         Random rand = new Random();
@@ -177,7 +179,7 @@ public class CarritoService
         double impuestosPorc = impuestosApiClient.ObtenerImpuesto(carrito.getPais());
 
         CotizacionDto response = new CotizacionDto();
-        response.unidades = productos.size();
+        response.unidades = conteo;
         response.moneda = moneda;
         response.neto = suma;
         response.transporte = Math.floor(transporte);

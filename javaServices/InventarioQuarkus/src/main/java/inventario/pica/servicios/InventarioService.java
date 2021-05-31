@@ -45,27 +45,21 @@ public class InventarioService {
     @RestClient
     PoductoApiClient poductoApiClient;
 
-    @Transactional
     public int ActualizaInventarioProducto(InventarioProductoDto inventarioProductoDto) {
         int resp = 0;
         //consulta inventario actual
         System.out.println("ID del producto que se consutal para informar " + inventarioProductoDto.id);
-        Inventario inventarioActual = InventarioActualizado(inventarioProductoDto);
-
-        if (inventarioActual != null) {
-            //Llamado a servicio de producto
-
+        
             System.out.println("Llama al productos " + inventarioProductoDto.id);
-            inventarioProductoDto.inventario = Integer.valueOf(inventarioActual.Inventario);
+
             System.out.println("nuevo inventario " + inventarioProductoDto.inventario);
             //  InventarioActualizado inventarioActualizado = poductoApiClient.ActulizarInventarioProducto(inventarioProductoDto );
-            String Respuesta = poductoApiClient.ActualizarInventarioProducto(inventarioProductoDto);
-            System.out.println("RESPUESTA  " + Respuesta);
-        } else {
-            System.out.println("Inventario no disponible");
-        }
+            int Respuesta = poductoApiClient.ActualizarInventarioProducto(inventarioProductoDto);
+            System.out.println("RESPUESTA  " + String.valueOf(Respuesta));
+
         return resp;
     }
+
     @Inject
     @RestClient
     ProveedorApiOrden proveedorApiOrden;
@@ -170,6 +164,7 @@ public class InventarioService {
     public RespuestaBaseDto DescargarInventario(DescargarInventario descargarInventario, long id) {
         int retorno = 0;
         int valida = 0;
+        int nuevoInventario = 0;
         RespuestaBaseDto respuesta;
         respuesta = new RespuestaBaseDto();
 
@@ -185,6 +180,7 @@ public class InventarioService {
                 if (descargarInventario.CantidadOrdenada > 0) {
                     if ((inventarioaActualizar.Inventario - descargarInventario.CantidadOrdenada) >= 0) {
                         valida = 0;
+                        nuevoInventario = inventarioaActualizar.Inventario - descargarInventario.CantidadOrdenada;
                     } else {
                         valida = 1;
                         respuesta.mensaje = "La Cantidad solicitada supera el Stock del inventario " + inventarioaActualizar.Inventario + " cantidad solicitada " + descargarInventario.CantidadOrdenada;
@@ -217,7 +213,7 @@ public class InventarioService {
             int intId = Integer.valueOf((int) id);
             Object inventarioProductoDto = new InventarioProductoDto();
             ((InventarioProductoDto) inventarioProductoDto).id = intId;
-            ((InventarioProductoDto) inventarioProductoDto).inventario = 0;
+            ((InventarioProductoDto) inventarioProductoDto).inventario = nuevoInventario;
 try  {
 
     int inventarioActual = ActualizaInventarioProducto((InventarioProductoDto) inventarioProductoDto);
