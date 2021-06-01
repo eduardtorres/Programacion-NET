@@ -173,8 +173,17 @@ public class CarritoService
             conteo = conteo + ( item.Cantidad );
         }
 
-        Random rand = new Random();
-        double transporte = 10000 + ( rand.nextDouble() * 5000 );
+        double transporte;
+
+        if( request.idCodDane != null && !request.idCodDane.isEmpty() && request.transportadorId >0 )
+        {
+            Random rand = new Random();
+            transporte = 10000 + ( rand.nextDouble() * 5000 );    
+        }
+        else
+        {
+            transporte = 0;
+        }
 
         double impuestosPorc = impuestosApiClient.ObtenerImpuesto(carrito.getPais());
 
