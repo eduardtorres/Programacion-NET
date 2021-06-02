@@ -27,7 +27,7 @@ BOGOTÁ
 
 
 # Contenido
-TOC \o "1-3" \h \z \u[1.	Visión de arquitectura (Carlos)	 PAGEREF _Toc73543186 \h 3](#_Toc73543186)
+TOC \o "1-3" \h \z \u[1.	Visión de arquitectura  PAGEREF _Toc73543186 \h 3](#_Toc73543186)
 
 [2.	Requerimientos	 PAGEREF _Toc73543187 \h 3](#_Toc73543187)
 
@@ -49,7 +49,7 @@ TOC \o "1-3" \h \z \u[1.	Visión de arquitectura (Carlos)	 PAGEREF _Toc73543186 
 
 [Decisiones de arquitectura	 PAGEREF _Toc73543196 \h 12](#_Toc73543196)
 
-[Tradeoff (Carlos)	 PAGEREF _Toc73543197 \h 14](#_Toc73543197)
+[Tradeoff  PAGEREF _Toc73543197 \h 14](#_Toc73543197)
 
 [Patrones / Estrategias de diseño	 PAGEREF _Toc73543198 \h 15](#_Toc73543198)
 
@@ -68,7 +68,7 @@ TOC \o "1-3" \h \z \u[1.	Visión de arquitectura (Carlos)	 PAGEREF _Toc73543186 
 Tabla de figuras
 
 
-1. ## Visión de arquitectura (Carlos)
+1. ## Visión de arquitectura 
 
 Con el fin de soportar la operación de K’all sonys, se propone una arquitectura con estilo de microservicios, la cual se diseñó a partir de un proceso de event storming, y con DDD se definieron los diferentes bounded contexts, esta arquitectura favorecerá particularmente los atributos disponibilidad y particionamiento, pero sacrificará la consistencia según el teorema CAP. Nuestro MVP permitirá todo el proceso de creación de la orden sin contemplar el servicio post-venta.
 
@@ -222,7 +222,7 @@ El componente Ruta 53 de AWS sirve para enrutar las peticiones de los usuarios a
 La interfaz de usuario fue desarrollada en angular, para la cual se genera un paquete de contenido estático que puede desplegado en un servidor de contenido y se descarga una sola vez en el navegador del cliente. Este paquete una vez está en el navegador del cliente no requiere procesamiento en el servidor para renderizar la interfaz gráfica, todo el procesamiento es realizado en el navegador web del cliente, y únicamente necesitaría consumir la capa de APIs del back end. Esta aproximación para el desarrollo de la interfaz gráfica favorece el rendimiento en general de la interfaz de usuario y ahorra costos en adquisición de servidores para interfaz gráfica. Se propone realizar el despliegue del contenido estático en contenedores S3 de AWS.
 
 
-### Tradeoff (Carlos)
+### Tradeoff
 
 #### *Sacrificar Seguridad Favorecer Usabilidad*
 En el e-commerce será posible crear ordenes sin necesidad de registrarse y autenticarse, de esta manera se brindará una mejor experiencia al usuario, Únicamente para algunas funciones donde se expone información del usuario será requerida la autenticación.
